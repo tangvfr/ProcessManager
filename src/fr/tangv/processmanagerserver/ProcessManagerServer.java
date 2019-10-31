@@ -9,7 +9,7 @@ public class ProcessManagerServer {
 
 	public static void main(String args[]) throws IOException {
 		//Process process = Runtime.getRuntime().exec("java -jar spigot-1.14.jar", new String[] {}, new File("C:\\Users\\tangv\\Bureau\\Jeux\\Serveur 1.14\\"));
-		Process process = Runtime.getRuntime().exec("java -jar spigot-1.14.jar", new String[] {}, new File("C:\\Users\\tangv\\Bureau\\Jeux\\Serveur 1.14\\"));
+		Process process = Runtime.getRuntime().exec("cmd", new String[] {}, new File("C:\\Users\\tangv\\Bureau\\Jeux\\Serveur 1.14\\"));
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -26,7 +26,7 @@ public class ProcessManagerServer {
 				}
 			}
 		});
-		/*Thread thread2 = new Thread(new Runnable() {
+		Thread thread2 = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -41,11 +41,9 @@ public class ProcessManagerServer {
 					e.printStackTrace();
 				}
 			}
-		});*/
+		});
 		thread.start();
-		//thread2.start();
-		
-		
+		thread2.start();
 	}
 	
 }
