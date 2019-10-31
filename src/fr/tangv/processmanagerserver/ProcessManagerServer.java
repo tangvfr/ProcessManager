@@ -21,29 +21,13 @@ public class ProcessManagerServer {
 					while((taille = in.read(buffer)) != -1) {
 						out.write(buffer, 0, taille);
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		Thread thread2 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					InputStream in = System.in;
-					OutputStream out = process.getOutputStream();
-					byte[] buffer = new byte[16];
-					int taille;
-					while((taille = in.read(buffer)) != -1) {
-						out.write(buffer, 0, taille);
-					}
+					System.out.println(process.isAlive());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		});
 		thread.start();
-		thread2.start();
 	}
 	
 }
