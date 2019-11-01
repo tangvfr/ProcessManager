@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -19,8 +18,9 @@ import javax.swing.JTextField;
 public class ProcessManagerServer {
 
 	public static void main(String args[]) throws IOException {
-		Process process = Runtime.getRuntime().exec("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
+		//Process process = Runtime.getRuntime().exec("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
 		//Process process = Runtime.getRuntime().exec("cmd", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
+		Process process = Runtime.getRuntime().exec("cmd");
 		//ProcessBuilder pb = new ProcessBuilder("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar");
 		JFrame frame = new JFrame("Testage");
 		JTextArea pane = new JTextArea();
