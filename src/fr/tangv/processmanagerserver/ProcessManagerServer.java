@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import javax.swing.JFrame;
@@ -24,13 +23,8 @@ public class ProcessManagerServer {
 		//Process process = Runtime.getRuntime().exec("cmd");
 		//ProcessBuilder pb = new ProcessBuilder("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar");
 		
-		for (String key : Charset.availableCharsets().keySet()) {
-			System.out.println(key);
-		}//chcp 65001 convert cmd en ytf-8
-		
-		Process pro = new Process("cmd", StandardCharsets.UTF_8);
+		Process pro = new Process(new String [] {"cmd", "chcp", "65001"}, StandardCharsets.UTF_8);
 		pro.start();
-		
 		
 		JFrame frame = new JFrame("Testage");
 		JTextArea pane = new JTextArea();
