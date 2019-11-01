@@ -15,7 +15,6 @@ public class Process {
 	private java.lang.Process process;
 	private Charset encoding;
 	
-	//construct
 	public Process(@NotNull String cmd, String rep, @NotNull Charset encoding) {
 		this.processBuilder = new ProcessBuilder(cmd);
 		this.encoding = encoding;
@@ -31,23 +30,6 @@ public class Process {
 	public Process(@NotNull String cmd) {
 		this(cmd, null, StandardCharsets.UTF_8);
 	}
-	
-	public Process(@NotNull String[] cmd, String rep, @NotNull Charset encoding) {
-		this.processBuilder = new ProcessBuilder(cmd);
-		this.encoding = encoding;
-		if (rep != null && !rep.isEmpty())
-			this.processBuilder.directory(new File(rep));
-		this.process = null;
-	}
-	
-	public Process(@NotNull String[] cmd, @NotNull Charset encoding) {
-		this(cmd, null, encoding);
-	}
-	
-	public Process(@NotNull String[] cmd) {
-		this(cmd, null, StandardCharsets.UTF_8);
-	}
-	//construct
 	
 	public void start() throws IOException {
 		if (!isStart()) {

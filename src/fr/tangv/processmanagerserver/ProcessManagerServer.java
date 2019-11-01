@@ -28,7 +28,7 @@ public class ProcessManagerServer {
 			System.out.println(key);
 		}//chcp 65001 convert cmd en ytf-8
 		
-		Process pro = new Process("cmd /C ", StandardCharsets.UTF_8);
+		Process pro = new Process("cmd", StandardCharsets.UTF_8);
 		pro.start();
 		
 		
