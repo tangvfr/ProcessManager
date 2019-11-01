@@ -74,7 +74,7 @@ public class Process {
 	}
 	
 	public String getInput() throws IOException {
-		if (isStart()) {
+		if (process != null) {
 			ByteArrayOutputStream outl = new ByteArrayOutputStream();
 			InputStream in = process.getInputStream();
 			if (in.available() > 0) {
@@ -95,7 +95,7 @@ public class Process {
 	}
 	
 	public String getError() throws IOException {
-		if (isStart()) {
+		if (process != null) {
 			ByteArrayOutputStream outl = new ByteArrayOutputStream();
 			InputStream in = process.getErrorStream();
 			if (in.available() > 0) {
