@@ -16,7 +16,7 @@ public class Process {
 	private Charset encoding;
 	
 	public Process(@NotNull String cmd, String rep, @NotNull Charset encoding) {
-		this.processBuilder = new ProcessBuilder(cmd);
+		this.processBuilder = new ProcessBuilder(cmd.split(" "));
 		this.encoding = encoding;
 		if (rep != null && !rep.isEmpty())
 			this.processBuilder.directory(new File(rep));
