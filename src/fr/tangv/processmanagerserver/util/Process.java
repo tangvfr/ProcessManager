@@ -90,7 +90,7 @@ public class Process {
 				return "";
 			}
 		} else {
-			return null;
+			return "";
 		}
 	}
 	
@@ -111,7 +111,7 @@ public class Process {
 				return "";
 			}
 		} else {
-			return null;
+			return "";
 		}
 	}
 	
