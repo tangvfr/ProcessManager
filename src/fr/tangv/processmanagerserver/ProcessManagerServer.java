@@ -1,6 +1,7 @@
 package fr.tangv.processmanagerserver;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -122,6 +123,7 @@ public class ProcessManagerServer {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
+				env.setBackground(Color.GREEN);
 				while (pro.isStart()) {
 					try {
 						String error = pro.getError();
@@ -136,6 +138,7 @@ public class ProcessManagerServer {
 						e.printStackTrace();
 					}
 				}
+				env.setBackground(Color.RED);
 			}
 		});
 		thread.start();
