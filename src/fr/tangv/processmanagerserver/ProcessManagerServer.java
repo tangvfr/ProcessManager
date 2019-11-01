@@ -5,25 +5,29 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.util.Scanner;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import fr.tangv.processmanagerserver.util.Process;
+
 public class ProcessManagerServer {
 
 	public static void main(String args[]) throws IOException {
-		Process process = Runtime.getRuntime().exec("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
+		//Process process = Runtime.getRuntime().exec("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
 		//Process process = Runtime.getRuntime().exec("cmd", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
 		//Process process = Runtime.getRuntime().exec("cmd");
 		//ProcessBuilder pb = new ProcessBuilder("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar");
+		
+		Process pro = new Process("cmd", StandardCharsets.US_ASCII);
+		pro.start();
+		
+		
 		JFrame frame = new JFrame("Testage");
 		JTextArea pane = new JTextArea();
 		pane.setEditable(false);
@@ -49,6 +53,12 @@ public class ProcessManagerServer {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyChar() == KeyEvent.VK_ENTER) {
 					try {
+						pro.send(env.getText());
+						env.setText("");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					/*try {
 						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(process.getOutputStream(), "UTF-8"));
 						bw.write(env.getText());
 						bw.newLine();
@@ -56,7 +66,7 @@ public class ProcessManagerServer {
 						env.setText("");
 					} catch (IOException e1) {
 						e1.printStackTrace();
-					}
+					}*/
 				}
 			}
 		});
@@ -94,7 +104,8 @@ public class ProcessManagerServer {
 			
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				process.destroy();
+				//process.destroy();
+				pro.stop();
 				System.out.println("closing");
 			}
 			
@@ -112,6 +123,26 @@ public class ProcessManagerServer {
 		});
 		
 		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (pro.isStart()) {
+					try {
+						String text = pro.getConsole();
+						pane.setText(pane.getText()+text);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		thread.start();
+		
+		/*Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				InputStream in = process.getInputStream();
@@ -137,11 +168,11 @@ public class ProcessManagerServer {
 				sc.close();
 			}
 		});
-		threadr.start();
+		threadr.start();*/
 	}
 	
-	private static void setLine(String text, JTextArea pane) {
+	/*private static void setLine(String text, JTextArea pane) {
 		pane.setText(text);
-	}
+	}*/
 	
 }
