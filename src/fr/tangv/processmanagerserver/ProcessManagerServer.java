@@ -18,12 +18,11 @@ import fr.tangv.processmanagerserver.util.Process;
 public class ProcessManagerServer {
 
 	public static void main(String args[]) throws IOException {
-		//Process process = Runtime.getRuntime().exec("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
-		//Process process = Runtime.getRuntime().exec("cmd", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
-		//Process process = Runtime.getRuntime().exec("cmd");
-		//ProcessBuilder pb = new ProcessBuilder("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar");
+		/*Process pro = new Process("cmd", StandardCharsets.UTF_8);
+		pro.start();
+		pro.send("chcp 65001");*/
 		
-		Process pro = new Process(new String [] {"cmd", "chcp", "65001"}, StandardCharsets.UTF_8);
+		Process pro = new Process("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar", "C:\\Users\\tangv\\Bureau\\Jeux\\Serveur 1.14", StandardCharsets.UTF_8);
 		pro.start();
 		
 		JFrame frame = new JFrame("Testage");
