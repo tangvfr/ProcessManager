@@ -3,8 +3,6 @@ package fr.tangv.processmanagerserver;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedWriter;
@@ -14,7 +12,6 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -48,7 +45,7 @@ public class ProcessManagerServer {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getID() == 10) {
+				if (e.getKeyChar() == KeyEvent.VK_ENTER) {
 					try {
 						BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(process.getOutputStream(), "UTF-8"));
 						bw.write(env.getText());
@@ -62,46 +59,6 @@ public class ProcessManagerServer {
 			}
 		});
 		frame.getContentPane().add(env, BorderLayout.SOUTH);
-		JButton btn = new JButton("Send");
-		btn.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				try {
-					BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(process.getOutputStream(), "UTF-8"));
-					bw.write(env.getText());
-					bw.newLine();
-					bw.flush();
-					env.setText("");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		frame.getContentPane().add(btn, BorderLayout.EAST);
 		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
