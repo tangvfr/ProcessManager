@@ -13,45 +13,32 @@ public class ProcessManagerServer {
 	public static void main(String args[]) throws IOException {
 		Process process = Runtime.getRuntime().exec("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
 		//Process process = Runtime.getRuntime().exec("cmd", new String[] {}, new File("C:/Users/tangv/Bureau/Jeux/Serveur_test"));
-		//Process process = Runtime.getRuntime().exec("cmd");//, new String[] {}, new File("C:\\Users\\tangv\\Bureau\\Jeux\\Serveur 1.14\\"));
+		
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					InputStream in = process.getInputStream();
 					OutputStream out = System.out;
+					InputStream err = process.getErrorStream();
 					byte[] buffer = new byte[1024];
 					int taille;
-					while((taille = in.read(buffer)) != -1) {
-						out.write(buffer, 0, taille);
-						out.flush();
+					while (process.isAlive()) {
+						while(in.available() > 0 && (taille = in.read(buffer)) != -1) {
+							out.write(buffer, 0, taille);
+							out.flush();
+						}
+						while(err.available() > 0 && (taille = err.read(buffer)) != -1) {
+							out.write(buffer, 0, taille);
+							out.flush();
+						}
 					}
-					System.out.println(process.isAlive());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		});
 		thread.start();
-		
-		Thread threaderr = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					InputStream in = process.getErrorStream();
-					OutputStream out = System.out;
-					byte[] buffer = new byte[1024];
-					int taille;
-					while((taille = in.read(buffer)) != -1) {
-						out.write(buffer, 0, taille);
-						out.flush();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		threaderr.start();
 		
 		Thread threads = new Thread(new Runnable() {
 			@Override
@@ -73,6 +60,7 @@ public class ProcessManagerServer {
 				}
 			}
 		});
+		
 		threads.start();
 	}
 	
