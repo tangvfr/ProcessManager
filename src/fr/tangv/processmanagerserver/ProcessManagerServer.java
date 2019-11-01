@@ -23,7 +23,7 @@ public class ProcessManagerServer {
 		pro.start();
 		pro.send("chcp 65001");*/
 		
-		Process pro = new Process("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar", "C:\\Users\\tangv\\Bureau\\Jeux\\Serveur 1.14", StandardCharsets.UTF_8);
+		Process pro = new Process("java -Dlog4j.skipJansi=true -jar spigot-1.14.jar", "C:\\Users\\tangv\\Bureau\\Jeux\\Serveur_test", StandardCharsets.UTF_8);
 		pro.start();
 		
 		JFrame frame = new JFrame("Testage");
