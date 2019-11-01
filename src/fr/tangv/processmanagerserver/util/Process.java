@@ -57,7 +57,7 @@ public class Process {
 		return false;
 	}
 	
-	public String getConsole() throws IOException {
+	public String getInput() throws IOException {
 		if (isStart()) {
 			ByteArrayOutputStream outl = new ByteArrayOutputStream();
 			InputStream in = process.getInputStream();
@@ -78,9 +78,36 @@ public class Process {
 		}
 	}
 	
-	public void resetInputStream() throws IOException {
+	public String getError() throws IOException {
+		if (isStart()) {
+			ByteArrayOutputStream outl = new ByteArrayOutputStream();
+			InputStream in = process.getErrorStream();
+			if (in.available() > 0) {
+				byte[] buffer = new byte[1024];
+				while (in.available() > 0) {
+					outl.write(buffer, 0, in.read(buffer));
+				}
+				outl.flush();
+				outl.close();
+				String text = new String(outl.toByteArray(), encoding);
+				return text;
+			} else {
+				return "";
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	public void resetInput() throws IOException {
 		if (isStart()) {
 			process.getInputStream().reset();
+		}
+	}
+	
+	public void resetError() throws IOException {
+		if (isStart()) {
+			process.getErrorStream().reset();
 		}
 	}
 	
