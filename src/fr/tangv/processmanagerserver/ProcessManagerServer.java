@@ -126,7 +126,7 @@ public class ProcessManagerServer {
 			public void run() {
 				while (pro.isStart()) {
 					try {
-						String text = pro.getConsole();
+						String text = pro.getInput()+pro.getError();
 						pane.setText(pane.getText()+text);
 					} catch (IOException e1) {
 						e1.printStackTrace();
