@@ -128,7 +128,7 @@ public class ProcessManagerServer {
 					try {
 						String error = pro.getError();
 						String input = pro.getInput();
-						String text = (!input.isEmpty() ? "\n"+input : "")+(!error.isEmpty() ? "\n"+error : "");
+						String text = input+(!error.isEmpty() ? "\n"+error : "");
 						pane.setText(pane.getText()+text);
 					} catch (IOException e1) {
 						e1.printStackTrace();
@@ -142,7 +142,7 @@ public class ProcessManagerServer {
 				try {
 					String error = pro.getError();
 					String input = pro.getInput();
-					String text = (!input.isEmpty() ? "\n"+input : "")+(!error.isEmpty() ? "\n"+error : "");
+					String text = input+(!error.isEmpty() ? "\n"+error : "");
 					pane.setText(pane.getText()+text);
 				} catch (IOException e1) {
 					e1.printStackTrace();
