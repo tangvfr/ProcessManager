@@ -20,24 +20,13 @@ public class ProcessManagerServer {
 				try {
 					InputStream in = process.getInputStream();
 					OutputStream out = System.out;
-					InputStream err = process.getErrorStream();
 					byte[] buffer = new byte[1024];
 					int taille;
-					while (process.isAlive()) {
-						while(in.available() > 0 && (taille = in.read(buffer)) != -1) {
-							out.write(buffer, 0, taille);
-							out.flush();
-						}
-						while(err.available() > 0 && (taille = err.read(buffer)) != -1) {
-							out.write(buffer, 0, taille);
-							out.flush();
-						}
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+					while((taille = in.read(buffer)) != -1) {
+						out.write(buffer, 0, taille);
+						out.flush();
 					}
+					System.out.println(process.isAlive());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -66,6 +55,25 @@ public class ProcessManagerServer {
 			}
 		});
 		
+		Thread threaderr = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					InputStream in = process.getErrorStream();
+					OutputStream out = System.out;
+					byte[] buffer = new byte[1024];
+					int taille;
+					while((taille = in.read(buffer)) != -1) {
+						out.write(buffer, 0, taille);
+						out.flush();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		threaderr.start();
 		threads.start();
 	}
 	
