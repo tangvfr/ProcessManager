@@ -79,6 +79,7 @@ public class ProcessManagerServer {
 		fileParameter = new File("./parameter");
 		try {
 			loadParameter();
+			this.server = new ServerSocket(port);
 			System.out.println(getLogsTime()+"*---------------*");
 			System.out.println(getLogsTime()+"port > "+port);
 			System.out.println(getLogsTime()+"user-size > "+userAndMdp.size());
