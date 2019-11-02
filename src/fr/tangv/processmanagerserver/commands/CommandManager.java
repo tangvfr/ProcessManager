@@ -38,7 +38,7 @@ public class CommandManager implements Runnable {
 			if(!commands.get(name).command(sender, name, arg))
 				sender.send(commands.get(name).getUsage());
 		} else
-			sender.send("Unknown command \""+name+"\" !");
+			sender.send("Unknown command \""+name+"\" ! Execute command \"help\" to see all command.");
 	}
 	
 	public CommandManager(InputStream in) {
