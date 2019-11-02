@@ -125,20 +125,18 @@ public class ProcessManagerServer {
 			public void run() {
 				env.setBackground(Color.GREEN);
 				while (pro.isStart()) {
-					try {
-						String error = pro.getError();
-						String input = pro.getInput();
-						String text = input+(!error.isEmpty() ? "\n"+error : "");
-						pane.setText(pane.getText()+text);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					reloadText();
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
+				reloadText();
+				env.setBackground(Color.RED);
+			}
+			
+			private void reloadText() {
 				try {
 					String error = pro.getError();
 					String input = pro.getInput();
@@ -147,7 +145,6 @@ public class ProcessManagerServer {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				env.setBackground(Color.RED);
 			}
 		});
 		thread.start();
