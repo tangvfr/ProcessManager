@@ -13,8 +13,13 @@ import java.util.Scanner;
 public class ProcessManagerServer {
 
 	public static String getTime() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss");
 		return format.format(new Date());
+	}
+	
+	public static String getLogsTime() {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss");
+		return '['+format.format(new Date())+"] ";
 	}
 	
 	public static void main(String[] args) {
@@ -32,6 +37,7 @@ public class ProcessManagerServer {
 		FileOutputStream out = new FileOutputStream(fileParameter);
 		String text = ""+port;
 		for (String user : userAndMdp.keySet()) {
+			text += "\n";
 			text += "\n"+user;
 			text += "\n"+userAndMdp.get(user);
 		}
@@ -45,17 +51,20 @@ public class ProcessManagerServer {
 		Map<String, String> userAndMdp = new HashMap<String, String>();
 		int port = 0;
 		Scanner sc = new Scanner(fileParameter,"UTF8");
-		port = Integer.parseInt(sc.next());
-		while (sc.hasNext()) {
-			String user = sc.nextLine();
-			if (sc.hasNext()) {
-				String mdp = sc.nextLine();
-				if (!userAndMdp.containsKey(user))
-					userAndMdp.put(user, mdp);
-				else
-					System.err.println('['+getTime()+"] Error the user \""+user+"\" already exist !");
-			} else {
-				break;
+		port = Integer.parseInt(sc.nextLine());
+		while (sc.hasNextLine()) {
+			sc.nextLine();
+			if (sc.hasNextLine()) {
+				String user = sc.nextLine();
+				if (sc.hasNextLine()) {
+					String mdp = sc.nextLine();
+					if (!userAndMdp.containsKey(user))
+						userAndMdp.put(user, mdp);
+					else
+						System.err.println(getLogsTime()+"Error the user \""+user+"\" already exist !");
+				} else {
+					break;
+				}
 			}
 		}
 		sc.close();
@@ -70,7 +79,13 @@ public class ProcessManagerServer {
 		fileParameter = new File("./parameter");
 		try {
 			loadParameter();
-			
+			System.out.println(getLogsTime()+"*---------------*");
+			System.out.println(getLogsTime()+"port > "+port);
+			System.out.println(getLogsTime()+"user-size > "+userAndMdp.size());
+			System.out.println(getLogsTime()+"*---------------*");
+			/*for (String user : userAndMdp.keySet()) {
+				System.out.println(getLogsTime()+user+" > "+userAndMdp.get(user));
+			}*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
