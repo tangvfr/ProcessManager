@@ -33,6 +33,7 @@ public class CommandManager implements Runnable {
 	}
 	
 	public void executeCommand(String name, String arg, Sender sender) {
+		consoleSender.send("\""+sender.getName()+"\" excute > "+name+" "+arg);
 		if (commands.containsKey(name)) {
 			if(!commands.get(name).command(sender, name, arg))
 				sender.send(commands.get(name).getUsage());
@@ -68,8 +69,8 @@ public class CommandManager implements Runnable {
 		while(started) {
 			String text = sc.nextLine();
 			String[] textSplit = text.split(" ", 2);
-			if (textSplit[0].isEmpty()) return; 
-			executeCommand(textSplit[0], textSplit.length==2 ? textSplit[1] : "", consoleSender);
+			if (!textSplit[0].isEmpty())
+				executeCommand(textSplit[0], textSplit.length==2 ? textSplit[1] : "", consoleSender);
 		}
 	}
 	

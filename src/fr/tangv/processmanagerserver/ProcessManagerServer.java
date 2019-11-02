@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import fr.tangv.processmanagerserver.commands.CommandHelp;
+import fr.tangv.processmanagerserver.commands.CommandListUser;
 import fr.tangv.processmanagerserver.commands.CommandManager;
 
 public class ProcessManagerServer {
@@ -33,6 +34,27 @@ public class ProcessManagerServer {
 	private File fileParameter;
 	private int port;
 	private Map<String, String> userAndMdp;
+	private CommandManager cmdManager;
+	
+	public ServerSocket getServer() {
+		return server;
+	}
+	
+	public File getFileParameter() {
+		return fileParameter;
+	}
+	
+	public int getPort() {
+		return port;
+	}
+	
+	public Map<String, String> getUserAndMdp() {
+		return userAndMdp;
+	}
+	
+	public CommandManager getCmdManager() {
+		return cmdManager;
+	}
 	
 	private void saveParameter() throws IOException {
 		if (!fileParameter.exists())
@@ -76,25 +98,36 @@ public class ProcessManagerServer {
 	}
 	
 	public ProcessManagerServer() {
+		System.out.println("\r\n" + 
+				"    ____                                 __  ___                                 \r\n" + 
+				"   / __ \\_________  ________  __________/  |/  /___ _____  ____ _____ ____  _____\r\n" + 
+				"  / /_/ / ___/ __ \\/ ___/ _ \\/ ___/ ___/ /|_/ / __ `/ __ \\/ __ `/ __ `/ _ \\/ ___/\r\n" + 
+				" / ____/ /  / /_/ / /__/  __(__  |__  ) /  / / /_/ / / / / /_/ / /_/ /  __/ /    \r\n" + 
+				"/_/   /_/   \\____/\\___/\\___/____/____/_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n" + 
+				"                                                              /____/             \r\n" + 
+				"");
 		this.port = 206;
 		this.userAndMdp = new HashMap<String, String>();
 		this.userAndMdp.put("admin", "password");
 		fileParameter = new File("./parameter");
 		try {
 			loadParameter();
-			this.server = new ServerSocket(port);
-			System.out.println(getLogsTime()+"*---------------*");
-			System.out.println(getLogsTime()+"port > "+port);
-			System.out.println(getLogsTime()+"number user > "+userAndMdp.size());
-			System.out.println(getLogsTime()+"*---------------*");
+			try {
+				this.server = new ServerSocket(port);
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.err.println(getLogsTime()+"Can be port \""+port+"\" already use !");
+				return;
+			}
+			System.out.println(getLogsTime()+"#--------------------------#");
+			System.out.println(getLogsTime()+"   port > "+port);
+			System.out.println(getLogsTime()+"   number user > "+userAndMdp.size());
+			System.out.println(getLogsTime()+"#--------------------------#");
 			//------------------------------
-			CommandManager cmdManager = new CommandManager(System.in);
-			cmdManager.registreCommand("help", new CommandHelp());
+			this.cmdManager = new CommandManager(System.in);
+			cmdManager.registreCommand("help", new CommandHelp(this));
+			cmdManager.registreCommand("listuser", new CommandListUser(this));
 			cmdManager.start();
-			/*for (String user : userAndMdp.keySet()) {
-				System.out.println(getLogsTime()+user+" > "+userAndMdp.get(user));
-			}*/
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
