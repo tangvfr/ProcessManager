@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import fr.tangv.processmanagerserver.command.CommandManager;
+
 public class ProcessManagerServer {
 
 	public static String getTime() {
@@ -82,11 +84,16 @@ public class ProcessManagerServer {
 			this.server = new ServerSocket(port);
 			System.out.println(getLogsTime()+"*---------------*");
 			System.out.println(getLogsTime()+"port > "+port);
-			System.out.println(getLogsTime()+"user-size > "+userAndMdp.size());
+			System.out.println(getLogsTime()+"number user > "+userAndMdp.size());
 			System.out.println(getLogsTime()+"*---------------*");
+			//------------------------------
+			CommandManager cmdManager = new CommandManager(System.in);
+			cmdManager.registreCommand("help", new CommandHelp());
+			cmdManager.start();
 			/*for (String user : userAndMdp.keySet()) {
 				System.out.println(getLogsTime()+user+" > "+userAndMdp.get(user));
 			}*/
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
