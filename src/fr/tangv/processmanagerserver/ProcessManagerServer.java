@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import fr.tangv.processmanagerserver.command.CommandManager;
+import fr.tangv.processmanagerserver.commands.CommandHelp;
+import fr.tangv.processmanagerserver.commands.CommandManager;
 
 public class ProcessManagerServer {
 

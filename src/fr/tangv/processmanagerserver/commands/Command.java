@@ -1,6 +1,6 @@
-package fr.tangv.processmanagerserver.command;
+package fr.tangv.processmanagerserver.commands;
 
-import fr.tangv.processmanagerserver.Sender.Sender;
+import fr.tangv.processmanagerserver.sender.Sender;
 
 public interface Command {
 	
