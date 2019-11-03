@@ -36,7 +36,7 @@ public class CommandManager implements Runnable {
 		consoleSender.send("\""+sender.getName()+"\" excute > "+name+" "+arg);
 		if (commands.containsKey(name)) {
 			if(!commands.get(name).command(sender, name, arg))
-				sender.send(commands.get(name).getUsage());
+				sender.send("Command: "+commands.get(name).getUsage());
 		} else
 			sender.send("Unknown command \""+name+"\" ! Execute command \"help\" to see all command.");
 	}

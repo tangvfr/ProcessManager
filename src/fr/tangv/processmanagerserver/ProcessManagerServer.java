@@ -1,8 +1,12 @@
 package fr.tangv.processmanagerserver;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,18 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.sun.xml.internal.ws.util.ByteArrayBuffer;
+
 import fr.tangv.processmanagerserver.commands.CommandHelp;
 import fr.tangv.processmanagerserver.commands.CommandListUser;
 import fr.tangv.processmanagerserver.commands.CommandManager;
+import fr.tangv.processmanagerserver.commands.CommandStop;
 
 public class ProcessManagerServer {
-
-	public static String getTime() {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss");
-		return format.format(new Date());
-	}
 	
-	public static String getLogsTime() {
+	public static String getTime() {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss");
 		return '['+format.format(new Date())+"] ";
 	}
@@ -86,7 +88,7 @@ public class ProcessManagerServer {
 					if (!userAndMdp.containsKey(user))
 						userAndMdp.put(user, mdp);
 					else
-						System.err.println(getLogsTime()+"Error the user \""+user+"\" already exist !");
+						System.err.println(getTime()+"Error the user \""+user+"\" already exist !");
 				} else {
 					break;
 				}
@@ -106,6 +108,9 @@ public class ProcessManagerServer {
 				"/_/   /_/   \\____/\\___/\\___/____/____/_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n" + 
 				"                                                              /____/             \r\n" + 
 				"");
+		//----------------------------------------
+		
+		//----------------------------------------
 		this.port = 206;
 		this.userAndMdp = new HashMap<String, String>();
 		this.userAndMdp.put("admin", "password");
@@ -116,21 +121,26 @@ public class ProcessManagerServer {
 				this.server = new ServerSocket(port);
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.err.println(getLogsTime()+"Can be port \""+port+"\" already use !");
+				System.err.println(getTime()+"Can be port \""+port+"\" already use !");
 				return;
 			}
-			System.out.println(getLogsTime()+"#--------------------------#");
-			System.out.println(getLogsTime()+"   port > "+port);
-			System.out.println(getLogsTime()+"   number user > "+userAndMdp.size());
-			System.out.println(getLogsTime()+"#--------------------------#");
+			System.out.println(getTime()+"#--------------------------#");
+			System.out.println(getTime()+"   port > "+port);
+			System.out.println(getTime()+"   number user > "+userAndMdp.size());
+			System.out.println(getTime()+"#--------------------------#");
 			//------------------------------
 			this.cmdManager = new CommandManager(System.in);
 			cmdManager.registreCommand("help", new CommandHelp(this));
 			cmdManager.registreCommand("listuser", new CommandListUser(this));
+			cmdManager.registreCommand("stop", new CommandStop(this));
 			cmdManager.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void stop() throws IOException {
+		server.close();
 	}
 	
 }
