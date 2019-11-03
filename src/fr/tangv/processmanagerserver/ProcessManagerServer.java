@@ -1,10 +1,12 @@
 package fr.tangv.processmanagerserver;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.ServerSocket;
@@ -14,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.sun.istack.internal.logging.Logger;
 import com.sun.xml.internal.ws.util.ByteArrayBuffer;
 
 import fr.tangv.processmanagerserver.commands.CommandHelp;
@@ -109,6 +112,8 @@ public class ProcessManagerServer {
 				"                                                              /____/             \r\n" + 
 				"");
 		//----------------------------------------
+		OutputStream out = System.out;
+		ByteArrayOutputStream o = new ByteArrayOutputStream();
 		
 		//----------------------------------------
 		this.port = 206;
