@@ -1,23 +1,18 @@
 package fr.tangv.processmanagerserver;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import com.sun.istack.internal.logging.Logger;
-import com.sun.xml.internal.ws.util.ByteArrayBuffer;
 
 import fr.tangv.processmanagerserver.commands.CommandHelp;
 import fr.tangv.processmanagerserver.commands.CommandListUser;
@@ -112,9 +107,13 @@ public class ProcessManagerServer {
 				"                                                              /____/             \r\n" + 
 				"");
 		//----------------------------------------
-		OutputStream out = System.out;
-		ByteArrayOutputStream o = new ByteArrayOutputStream();
-		
+		try {
+			OutputStream out = System.out;
+			PrintStream o = new PrintStream(new File("./logstest.log"));
+			System.setOut(o);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		//----------------------------------------
 		this.port = 206;
 		this.userAndMdp = new HashMap<String, String>();

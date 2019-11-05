@@ -6,7 +6,7 @@ public class ConsoleSender implements Sender {
 
 	@Override
 	public void send(String string) {
-		System.out.println(ProcessManagerServer.getLogsTime()+string);
+		System.out.println(ProcessManagerServer.getTime()+string);
 	}
 
 	@Override
