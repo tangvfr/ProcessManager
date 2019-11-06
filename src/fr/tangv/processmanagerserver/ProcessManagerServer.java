@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.text.SimpleDateFormat;
@@ -98,6 +100,37 @@ public class ProcessManagerServer {
 	}
 	
 	public ProcessManagerServer() {
+		try {
+			PrintStream outConsole = System.out;
+			FileOutputStream outFile = new FileOutputStream(new File("./logstest.log"));
+			PipedOutputStream outMain = new PipedOutputStream();
+			PrintStream outMainPrint = new PrintStream(outMain);
+			System.setOut(outMainPrint);
+			System.setErr(outMainPrint);
+			PipedInputStream in = new PipedInputStream(outMain);
+			Thread logsThread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						byte[] buffer = new byte[256];
+						int taille;
+						while((taille = in.read(buffer)) != -1) {
+							outConsole.write(buffer, 0, taille);
+							outFile.write(buffer, 0, taille);
+						}
+						outConsole.close();
+						outFile.close();
+						in.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			logsThread.start();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		//---------------------------------------
 		System.out.println("\r\n" + 
 				"    ____                                 __  ___                                 \r\n" + 
 				"   / __ \\_________  ________  __________/  |/  /___ _____  ____ _____ ____  _____\r\n" + 
@@ -106,14 +139,6 @@ public class ProcessManagerServer {
 				"/_/   /_/   \\____/\\___/\\___/____/____/_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n" + 
 				"                                                              /____/             \r\n" + 
 				"");
-		//----------------------------------------
-		try {
-			OutputStream out = System.out;
-			PrintStream o = new PrintStream(new File("./logstest.log"));
-			System.setOut(o);
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
 		//----------------------------------------
 		this.port = 206;
 		this.userAndMdp = new HashMap<String, String>();
