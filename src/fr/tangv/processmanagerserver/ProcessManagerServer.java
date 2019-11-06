@@ -118,6 +118,7 @@ public class ProcessManagerServer {
 							outConsole.write(buffer, 0, taille);
 							outFile.write(buffer, 0, taille);
 						}
+						outMain.close();
 						outConsole.close();
 						outFile.close();
 						in.close();
