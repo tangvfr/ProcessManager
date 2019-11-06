@@ -1,11 +1,8 @@
 package fr.tangv.processmanagerserver;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
@@ -37,6 +34,7 @@ public class ProcessManagerServer {
 	private int port;
 	private Map<String, String> userAndMdp;
 	private CommandManager cmdManager;
+	private Thread logsThread;
 	
 	public ServerSocket getServer() {
 		return server;
@@ -108,7 +106,7 @@ public class ProcessManagerServer {
 			System.setOut(outMainPrint);
 			System.setErr(outMainPrint);
 			PipedInputStream in = new PipedInputStream(outMain);
-			Thread logsThread = new Thread(new Runnable() {
+			logsThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					try {
@@ -169,7 +167,9 @@ public class ProcessManagerServer {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void stop() throws IOException {
+		logsThread.stop();
 		server.close();
 	}
 	
