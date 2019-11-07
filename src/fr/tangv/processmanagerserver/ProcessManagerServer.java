@@ -3,14 +3,14 @@ package fr.tangv.processmanagerserver;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.net.ServerSocket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
 
 import fr.tangv.processmanagerserver.commands.CommandHelp;
 import fr.tangv.processmanagerserver.commands.CommandListUser;
@@ -19,17 +19,9 @@ import fr.tangv.processmanagerserver.commands.CommandStop;
 
 public class ProcessManagerServer {
 	
-	public static PipedOutputStream out;
+	public static Logger logger;
 	
-	public static void println(String string) {
-		try {
-			ProcessManagerServer.out.write((ProcessManagerServer.getTime()+string+"\n").getBytes("UTF8"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static String getTime() {
+	public static String getStringTime() {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss");
 		return '['+format.format(new Date())+"] ";
 	}
@@ -95,7 +87,7 @@ public class ProcessManagerServer {
 					if (!userAndMdp.containsKey(user))
 						userAndMdp.put(user, mdp);
 					else
-						System.err.println(getTime()+"Error the user \""+user+"\" already exist !");
+						ProcessManagerServer.logger.warning("Error the user \""+user+"\" already exist !");
 				} else {
 					break;
 				}
@@ -108,33 +100,17 @@ public class ProcessManagerServer {
 	
 	public ProcessManagerServer() {
 		try {
-			FileOutputStream outFile = new FileOutputStream(new File("./logstest.log"));
-			PipedOutputStream outMain = new PipedOutputStream();
-			PipedInputStream in = new PipedInputStream(outMain);
-			logsThread = new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						byte[] buffer = new byte[256];
-						int taille;
-						while((taille = in.read(buffer)) != -1) {
-							System.out.write(buffer, 0, taille);
-							outFile.write(buffer, 0, taille);
-						}
-						outMain.close();
-						outFile.close();
-						in.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-			logsThread.start();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			System.setProperty("java.util.logging.ConsoleHandler.level", "INFO");
+			System.setProperty("java.util.logging.ConsoleHandler.formatter", "java.util.logging.SimpleFormatter");
+			System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+			logger = Logger.getGlobal();
+			FileHandler fileHandler = new FileHandler("./logstest.log", true);
+			logger.addHandler(fileHandler);
+		} catch (SecurityException | IOException e1) {
+			ProcessManagerServer.logger.warning(e1.getMessage());
 		}
 		//---------------------------------------
-		ProcessManagerServer.println("\r\n" + 
+		ProcessManagerServer.logger.info("\r\n" + 
 				"    ____                                 __  ___                                 \r\n" + 
 				"   / __ \\_________  ________  __________/  |/  /___ _____  ____ _____ ____  _____\r\n" + 
 				"  / /_/ / ___/ __ \\/ ___/ _ \\/ ___/ ___/ /|_/ / __ `/ __ \\/ __ `/ __ `/ _ \\/ ___/\r\n" + 
@@ -152,14 +128,13 @@ public class ProcessManagerServer {
 			try {
 				this.server = new ServerSocket(port);
 			} catch (IOException e) {
-				e.printStackTrace();
-				System.err.println(getTime()+"Can be port \""+port+"\" already use !");
+				ProcessManagerServer.logger.warning(e.getMessage()+"\nCan be port \""+port+"\" already use !");
 				return;
 			}
-			ProcessManagerServer.println(getTime()+"#--------------------------#");
-			ProcessManagerServer.println(getTime()+"   port > "+port);
-			ProcessManagerServer.println(getTime()+"   number user > "+userAndMdp.size());
-			ProcessManagerServer.println(getTime()+"#--------------------------#");
+			ProcessManagerServer.logger.info("#--------------------------#");
+			ProcessManagerServer.logger.info("   port > "+port);
+			ProcessManagerServer.logger.info("   number user > "+userAndMdp.size());
+			ProcessManagerServer.logger.info("#--------------------------#");
 			//------------------------------
 			this.cmdManager = new CommandManager(System.in);
 			cmdManager.registreCommand("help", new CommandHelp(this));
@@ -167,7 +142,7 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("stop", new CommandStop(this));
 			cmdManager.start();
 		} catch (IOException e) {
-			e.printStackTrace();
+			ProcessManagerServer.logger.warning(e.getMessage());
 		}
 	}
 	

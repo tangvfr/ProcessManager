@@ -19,7 +19,7 @@ public class CommandStop implements Command {
 			sender.send("Server Stoping !");
 			processManagerServer.stop();
 		} catch (IOException e) {
-			e.printStackTrace();
+			ProcessManagerServer.logger.warning(e.getMessage());
 		}
 		return true;
 	}
