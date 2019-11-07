@@ -20,6 +20,8 @@ import fr.tangv.processmanagerserver.commands.CommandStop;
 
 public class ProcessManagerServer {
 	
+	public static PrintStream out;
+	
 	public static String getTime() {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss");
 		return '['+format.format(new Date())+"] ";
@@ -99,12 +101,10 @@ public class ProcessManagerServer {
 	
 	public ProcessManagerServer() {
 		try {
-			PrintStream outConsole = System.out;
 			FileOutputStream outFile = new FileOutputStream(new File("./logstest.log"));
 			PipedOutputStream outMain = new PipedOutputStream();
-			PrintStream outMainPrint = new PrintStream(outMain);
-			System.setOut(outMainPrint);
-			System.setErr(outMainPrint);
+			out = new PrintStream(outMain);
+			System.setErr(out);
 			PipedInputStream in = new PipedInputStream(outMain);
 			logsThread = new Thread(new Runnable() {
 				@Override
@@ -113,11 +113,10 @@ public class ProcessManagerServer {
 						byte[] buffer = new byte[256];
 						int taille;
 						while((taille = in.read(buffer)) != -1) {
-							outConsole.write(buffer, 0, taille);
+							System.out.write(buffer, 0, taille);
 							outFile.write(buffer, 0, taille);
 						}
 						outMain.close();
-						outConsole.close();
 						outFile.close();
 						in.close();
 					} catch (Exception e) {
@@ -130,7 +129,7 @@ public class ProcessManagerServer {
 			e1.printStackTrace();
 		}
 		//---------------------------------------
-		System.out.println("\r\n" + 
+		ProcessManagerServer.out.println("\r\n" + 
 				"    ____                                 __  ___                                 \r\n" + 
 				"   / __ \\_________  ________  __________/  |/  /___ _____  ____ _____ ____  _____\r\n" + 
 				"  / /_/ / ___/ __ \\/ ___/ _ \\/ ___/ ___/ /|_/ / __ `/ __ \\/ __ `/ __ `/ _ \\/ ___/\r\n" + 
@@ -152,10 +151,10 @@ public class ProcessManagerServer {
 				System.err.println(getTime()+"Can be port \""+port+"\" already use !");
 				return;
 			}
-			System.out.println(getTime()+"#--------------------------#");
-			System.out.println(getTime()+"   port > "+port);
-			System.out.println(getTime()+"   number user > "+userAndMdp.size());
-			System.out.println(getTime()+"#--------------------------#");
+			ProcessManagerServer.out.println(getTime()+"#--------------------------#");
+			ProcessManagerServer.out.println(getTime()+"   port > "+port);
+			ProcessManagerServer.out.println(getTime()+"   number user > "+userAndMdp.size());
+			ProcessManagerServer.out.println(getTime()+"#--------------------------#");
 			//------------------------------
 			this.cmdManager = new CommandManager(System.in);
 			cmdManager.registreCommand("help", new CommandHelp(this));
