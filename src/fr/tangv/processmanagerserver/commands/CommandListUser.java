@@ -28,7 +28,7 @@ public class CommandListUser implements Command {
 
 	@Override
 	public String getDescription() {
-		return "All list user and their password.";
+		return "List all user and their password.";
 	}
 
 }
