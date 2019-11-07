@@ -99,9 +99,8 @@ public class ProcessManagerServer {
 	
 	public ProcessManagerServer() {
 		try {
-			System.setProperty("java.util.logging.ConsoleHandler.level", "INFO");
 			System.setProperty("java.util.logging.ConsoleHandler.formatter", "java.util.logging.SimpleFormatter");
-			System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s%5$s %n");
+			System.setProperty("java.util.logging.SimpleFormatter.format",  "[%1$tF %1$tT] [%4$-7s] %5$s %n");
 			logger = Logger.getGlobal();
 			FileHandler fileHandler = new FileHandler("./logstest.log", true);
 			logger.addHandler(fileHandler);
@@ -147,6 +146,7 @@ public class ProcessManagerServer {
 	
 	public void stop() throws IOException {
 		server.close();
+		System.exit(0);
 	}
 	
 }
