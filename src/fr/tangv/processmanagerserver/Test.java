@@ -1,4 +1,16 @@
-package fr.tangv.processmanagerserver.sender;
+package fr.tangv.processmanagerserver;
+
+public class Test {
+
+	public static void main(String[] args) {
+		
+		
+		
+	}
+	
+}
+
+/*package fr.tangv.processmanagerserver.sender;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -50,9 +62,7 @@ public class Client implements Sender {
 				socket.close();
 				return;
 			}
-		} catch (Exception e) {}
-		if (processManagerServer.getServer().getClients().contains(this))
-			processManagerServer.getServer().getClients().remove(this);
+		} catch (IOException e) {}
 		ProcessManagerServer.logger.info("Deconnect \""+ip+"\" user \""+name+"\"");
 	}
 
@@ -75,3 +85,4 @@ public class Client implements Sender {
 	}
 	
 }
+*/

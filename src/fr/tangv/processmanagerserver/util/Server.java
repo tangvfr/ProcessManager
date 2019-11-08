@@ -44,15 +44,7 @@ public class Server extends Thread {
 				Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-						try {
-							new Client(socket, processManagerServer);
-							//add deco
-						} catch (IOException e) {
-							if (!close) {
-								//add deco
-								ProcessManagerServer.logger.warning(e.getMessage());
-							}
-						}
+						new Client(socket, processManagerServer);
 					}
 				});
 				thread.start();
