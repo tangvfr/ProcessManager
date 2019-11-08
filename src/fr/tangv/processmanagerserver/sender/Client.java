@@ -9,12 +9,13 @@ import fr.tangv.processmanagerserver.ProcessManagerServer;
 
 public class Client implements Sender {
 
-	private ProcessManagerServer processManagerServer;
 	private String name;
 	private DataOutputStream out;
+	private String ip;
 	
 	public Client (Socket socket ,ProcessManagerServer processManagerServer) throws IOException {
-		ProcessManagerServer.logger.info("Try connect \""+socket.getInetAddress().getHostAddress()+'\"');
+		this.ip = socket.getInetAddress().getHostAddress();
+		ProcessManagerServer.logger.info("Try connect \""+ip+'\"');
 		out = new DataOutputStream(socket.getOutputStream());
 		DataInputStream in = new DataInputStream(socket.getInputStream());
 		this.name = in.readUTF();
@@ -23,23 +24,24 @@ public class Client implements Sender {
 			if (processManagerServer.getUserAndMdp().get(name).equals(pwd)) {
 				for (Client client : processManagerServer.getServer().getClients()) {
 					if (client.name.equals(name)) {
-						ProcessManagerServer.logger.info("Connect deny \""+socket.getInetAddress().getHostAddress()+"\" user is already connect");
+						ProcessManagerServer.logger.info("Connect deny \""+ip+"\" user is already connect");
 						out.writeUTF("Deny access because already connect !");
 						socket.close();
 						return;
 					}
 				}
 				out.writeUTF("Allow access !");
+				processManagerServer.getServer().getClients().add(this);
 				//suite
 				
 			} else {
-				ProcessManagerServer.logger.info("Connect deny \""+socket.getInetAddress().getHostAddress()+"\" password of \""+name+"\" is invalid");
+				ProcessManagerServer.logger.info("Connect deny \""+ip+"\" password of \""+name+"\" is invalid");
 				out.writeUTF("Deny access !");
 				socket.close();
 				return;
 			}
 		} else {
-			ProcessManagerServer.logger.info("Connect deny \""+socket.getInetAddress().getHostAddress()+"\" user is invalid");
+			ProcessManagerServer.logger.info("Connect deny \""+ip+"\" user is invalid");
 			out.writeUTF("Deny access !");
 			socket.close();
 			return;
@@ -59,6 +61,10 @@ public class Client implements Sender {
 	@Override
 	public String getName() {
 		return name;
+	}
+	
+	public String getIp() {
+		return ip;
 	}
 	
 }

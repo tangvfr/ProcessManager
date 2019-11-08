@@ -46,9 +46,12 @@ public class Server extends Thread {
 					public void run() {
 						try {
 							new Client(socket, processManagerServer);
+							//add deco
 						} catch (IOException e) {
-							if (!close) 
+							if (!close) {
+								//add deco
 								ProcessManagerServer.logger.warning(e.getMessage());
+							}
 						}
 					}
 				});
