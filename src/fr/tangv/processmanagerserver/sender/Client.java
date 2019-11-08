@@ -53,7 +53,7 @@ public class Client implements Sender {
 		} catch (Exception e) {}
 		if (processManagerServer.getServer().getClients().contains(this))
 			processManagerServer.getServer().getClients().remove(this);
-		try {socket.close();} catch (Exception e) {}
+		try {if (!socket.isClosed()) socket.close();} catch (Exception e) {}
 		ProcessManagerServer.logger.info("Deconnect \""+ip+"\" user \""+name+"\"");
 	}
 
