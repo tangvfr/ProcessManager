@@ -45,7 +45,7 @@ public class Client implements Sender {
 					return;
 				}
 			} else {
-				ProcessManagerServer.logger.info("Connect deny \""+ip+"\" user is invalid");
+				ProcessManagerServer.logger.info("Connect deny \""+ip+"\" user \""+name+"\" is invalid");
 				out.write("Access deny !".getBytes());
 				socket.close();
 				return;
