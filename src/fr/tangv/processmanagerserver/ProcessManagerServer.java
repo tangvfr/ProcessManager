@@ -3,7 +3,6 @@ package fr.tangv.processmanagerserver;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +18,7 @@ import fr.tangv.processmanagerserver.commands.CommandLoadPara;
 import fr.tangv.processmanagerserver.commands.CommandManager;
 import fr.tangv.processmanagerserver.commands.CommandSavePara;
 import fr.tangv.processmanagerserver.commands.CommandStop;
+import fr.tangv.processmanagerserver.util.Server;
 
 public class ProcessManagerServer {
 	
@@ -33,13 +33,13 @@ public class ProcessManagerServer {
 		new ProcessManagerServer();
 	}
 	
-	private ServerSocket server;
+	private Server server;
 	private File fileParameter;
 	private int port;
 	private Map<String, String> userAndMdp;
 	private CommandManager cmdManager;
 	
-	public ServerSocket getServer() {
+	public Server getServer() {
 		return server;
 	}
 	
@@ -59,6 +59,13 @@ public class ProcessManagerServer {
 		return cmdManager;
 	}
 	
+	public void printInfo() {
+		ProcessManagerServer.logger.info("#--------------------------#");
+		ProcessManagerServer.logger.info("   port > "+port);
+		ProcessManagerServer.logger.info("   number user > "+userAndMdp.size());
+		ProcessManagerServer.logger.info("#--------------------------#");
+	}
+	
 	public void saveParameter() throws IOException {
 		if (!fileParameter.exists())
 			fileParameter.createNewFile();
@@ -72,7 +79,7 @@ public class ProcessManagerServer {
 		out.write(text.getBytes("UTF8"));
 		out.close();
 	}
-	
+				
 	public void loadParameter() throws IOException {
 		if (!fileParameter.exists())
 			saveParameter();
@@ -99,14 +106,14 @@ public class ProcessManagerServer {
 		this.port = port;
 		this.userAndMdp = userAndMdp;
 	}
-	
+				
 	public ProcessManagerServer() {
 		try {
 			System.setProperty("java.util.logging.ConsoleHandler.formatter", "java.util.logging.SimpleFormatter");
 			System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s %n");
 			logger = Logger.getGlobal();
 			File logs = new File("./logs");
-			if (!logs.exists()) { logs.mkdirs(); System.out.println("save logs");}
+			if (!logs.exists()) logs.mkdirs();
 			String nameFile = "";
 			int i = 0;
 			do {
@@ -137,16 +144,13 @@ public class ProcessManagerServer {
 		try {
 			loadParameter();
 			try {
-				this.server = new ServerSocket(port);
-			} catch (IOException e) {
+				this.server = new Server(this);
+			} catch (Exception e) {
 				ProcessManagerServer.logger.warning(e.getMessage()+"\nCan be port \""+port+"\" already use !");
 				return;
 			}
-			ProcessManagerServer.logger.info("#--------------------------#");
-			ProcessManagerServer.logger.info("   port > "+port);
-			ProcessManagerServer.logger.info("   number user > "+userAndMdp.size());
-			ProcessManagerServer.logger.info("#--------------------------#");
-			//------------------------------
+			printInfo();
+			//----------------------------------------------
 			this.cmdManager = new CommandManager(System.in);
 			cmdManager.registreCommand("help", new CommandHelp(this));
 			cmdManager.registreCommand("listuser", new CommandListUser(this));
@@ -154,15 +158,15 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("savepara", new CommandSavePara(this));
 			cmdManager.registreCommand("loadpara", new CommandLoadPara(this));
 			cmdManager.start();
-			//------------------------------
+			//----------------------------------------------
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
 		}
 	}
 	
 	public void stop() throws IOException {
-		server.close();
+		if (server != null) server.close();
 		System.exit(0);
 	}
-	
+				
 }
