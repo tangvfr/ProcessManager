@@ -103,7 +103,7 @@ public class ProcessManagerServer {
 			System.setProperty("java.util.logging.FileHandler.formatter", "java.util.logging.SimpleFormatter");
 			System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s %n");
 			logger = Logger.getGlobal();
-			FileHandler fileHandler = new FileHandler("./logstest.log", true);
+			FileHandler fileHandler = new FileHandler("./log%g.log", true);
 			logger.addHandler(fileHandler);
 		} catch (SecurityException | IOException e1) {
 			ProcessManagerServer.logger.warning(e1.getMessage());
