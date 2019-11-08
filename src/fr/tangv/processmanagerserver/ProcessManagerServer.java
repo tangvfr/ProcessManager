@@ -11,10 +11,13 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import fr.tangv.processmanagerserver.commands.CommandHelp;
 import fr.tangv.processmanagerserver.commands.CommandListUser;
+import fr.tangv.processmanagerserver.commands.CommandLoadPara;
 import fr.tangv.processmanagerserver.commands.CommandManager;
+import fr.tangv.processmanagerserver.commands.CommandSavePara;
 import fr.tangv.processmanagerserver.commands.CommandStop;
 
 public class ProcessManagerServer {
@@ -56,7 +59,7 @@ public class ProcessManagerServer {
 		return cmdManager;
 	}
 	
-	private void saveParameter() throws IOException {
+	public void saveParameter() throws IOException {
 		if (!fileParameter.exists())
 			fileParameter.createNewFile();
 		FileOutputStream out = new FileOutputStream(fileParameter);
@@ -70,7 +73,7 @@ public class ProcessManagerServer {
 		out.close();
 	}
 	
-	private void loadParameter() throws IOException {
+	public void loadParameter() throws IOException {
 		if (!fileParameter.exists())
 			saveParameter();
 		Map<String, String> userAndMdp = new HashMap<String, String>();
@@ -100,11 +103,20 @@ public class ProcessManagerServer {
 	public ProcessManagerServer() {
 		try {
 			System.setProperty("java.util.logging.ConsoleHandler.formatter", "java.util.logging.SimpleFormatter");
-			System.setProperty("java.util.logging.FileHandler.formatter", "java.util.logging.SimpleFormatter");
 			System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s %n");
 			logger = Logger.getGlobal();
-			FileHandler fileHandler = new FileHandler("./log%g.log", true);
+			File logs = new File("./logs");
+			if (!logs.exists()) { logs.mkdirs(); System.out.println("save logs");}
+			String nameFile = "";
+			int i = 0;
+			do {
+				nameFile = "./logs/log"+i+".log";
+				i++;
+			} while(new File(nameFile).exists());
+			FileHandler fileHandler = new FileHandler(nameFile);
+			fileHandler.setFormatter(new SimpleFormatter());
 			logger.addHandler(fileHandler);
+			System.setErr(System.out);
 		} catch (SecurityException | IOException e1) {
 			ProcessManagerServer.logger.warning(e1.getMessage());
 		}
@@ -139,7 +151,10 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("help", new CommandHelp(this));
 			cmdManager.registreCommand("listuser", new CommandListUser(this));
 			cmdManager.registreCommand("stop", new CommandStop(this));
+			cmdManager.registreCommand("savepara", new CommandSavePara(this));
+			cmdManager.registreCommand("loadpara", new CommandLoadPara(this));
 			cmdManager.start();
+			//------------------------------
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
 		}
