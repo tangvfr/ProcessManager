@@ -36,8 +36,12 @@ public class Client implements Sender {
 					ProcessManagerServer.logger.info("Connect allow \""+ip+"\" user \""+name+"\"");
 					out.write("Access allow !".getBytes());
 					processManagerServer.getServer().getClients().add(this);
-					//suite
-					
+					while(socket.isConnected()) {
+						String text = sc.nextLine();
+						String[] textSplit = text.split(" ", 2);
+						if (!textSplit[0].isEmpty())
+							processManagerServer.getCmdManager().executeCommand(textSplit[0], textSplit.length==2 ? textSplit[1] : "", this);
+					}
 				} else {
 					ProcessManagerServer.logger.info("Connect deny \""+ip+"\" password of \""+name+"\" is invalid");
 					out.write("Access deny !".getBytes());
@@ -60,7 +64,7 @@ public class Client implements Sender {
 	@Override
 	public void send(String string) {
 		try {
-			out.write(string.getBytes());
+			out.write((string+"\n").getBytes());
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
 		}
