@@ -96,9 +96,8 @@ public class Client implements Sender {
 	}
 	
 	private void sendData(String string) throws Exception {
-		out.write((byte) 2);
-		out.write((string).getBytes());
-		out.write((byte) 3);
+		out.write((string+"\n").getBytes("UTF8"));
+		out.flush();
 	}
 
 	@Override
