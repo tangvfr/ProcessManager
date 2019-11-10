@@ -28,13 +28,13 @@ public class Client implements Sender {
 					for (Client client : processManagerServer.getServer().getClients()) {
 						if (client.name.equals(name)) {
 							ProcessManagerServer.logger.info("Connect deny \""+ip+"\" user is already connect");
-							out.write("Access deny because already connect !".getBytes());
+							sendData("Access deny because already connect !");
 							socket.close();
 							return;
 						}
 					}
 					ProcessManagerServer.logger.info("Connect allow \""+ip+"\" user \""+name+"\"");
-					out.write("Access allow !".getBytes());
+					sendData("Access allow !");
 					processManagerServer.getServer().getClients().add(this);
 					while(socket.isConnected()) {
 						String text = sc.nextLine();
@@ -44,13 +44,13 @@ public class Client implements Sender {
 					}
 				} else {
 					ProcessManagerServer.logger.info("Connect deny \""+ip+"\" password of \""+name+"\" is invalid");
-					out.write("Access deny !".getBytes());
+					sendData("Access deny !");
 					socket.close();
 					return;
 				}
 			} else {
 				ProcessManagerServer.logger.info("Connect deny \""+ip+"\" user \""+name+"\" is invalid");
-				out.write("Access deny !".getBytes());
+				sendData("Access deny !");
 				socket.close();
 				return;
 			}
@@ -64,10 +64,16 @@ public class Client implements Sender {
 	@Override
 	public void send(String string) {
 		try {
-			out.write((string+"\n").getBytes());
-		} catch (IOException e) {
+			sendData(string);
+		} catch (Exception e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
 		}
+	}
+	
+	private void sendData(String string) throws Exception {
+		out.write((byte) 2);
+		out.write((string).getBytes());
+		out.write((byte) 3);
 	}
 
 	@Override
