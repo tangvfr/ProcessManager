@@ -1,11 +1,36 @@
 package fr.tangv.processmanagerserver.sender;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
 import fr.tangv.processmanagerserver.ProcessManagerServer;
+
+/*const net = require("net");
+
+console.log("Demarage test socket");
+const socket = net.connect(206, "localhost");
+socket.setEncoding("UTF8");
+
+var donne = "";
+socket.on("data", (buffer) => {
+    if (buffer == 2) {
+        console.log("buffer reset:");
+        donne = "";
+    } else if (buffer == 3) {
+        console.log("end: "+donne);
+    } else {
+        donne += buffer;
+        console.log("donne: "+buffer);
+        console.log("all: "+donne);
+    }
+});
+
+socket.on("error", (err) => {
+    console.error(err);
+});
+
+socket.write("admin\npassword\n");*/
 
 public class Client implements Sender {
 
