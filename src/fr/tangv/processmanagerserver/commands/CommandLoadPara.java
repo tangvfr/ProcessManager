@@ -16,8 +16,9 @@ public class CommandLoadPara implements Command {
 	@Override
 	public boolean command(Sender sender, String cmd, String arg) {
 		try {
-			processManagerServer.saveParameter();
-			sender.send("Server save parameter !");
+			processManagerServer.loadParameter();
+			sender.send("Server load parameter !");
+			ProcessManagerServer.logger.info("Server load parameter !");
 			return true;
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());

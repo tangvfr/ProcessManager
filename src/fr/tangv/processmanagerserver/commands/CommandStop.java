@@ -17,6 +17,7 @@ public class CommandStop implements Command {
 	public boolean command(Sender sender, String cmd, String arg) {
 		try {
 			sender.send("Server Stoping !");
+			ProcessManagerServer.logger.info("Server Stoping !");
 			processManagerServer.stop();
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());

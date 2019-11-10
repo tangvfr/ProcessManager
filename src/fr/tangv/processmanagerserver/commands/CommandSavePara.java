@@ -18,6 +18,7 @@ public class CommandSavePara implements Command {
 		try {
 			processManagerServer.saveParameter();
 			sender.send("Server save parameter !");
+			ProcessManagerServer.logger.info("Server save parameter !");
 			return true;
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
