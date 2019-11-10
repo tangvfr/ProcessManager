@@ -17,7 +17,7 @@ public class CommandLoadPara implements Command {
 	public boolean command(Sender sender, String cmd, String arg) {
 		try {
 			processManagerServer.saveParameter();
-			ProcessManagerServer.logger.info("Server save parameter !");
+			sender.send("Server save parameter !");
 			return true;
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
