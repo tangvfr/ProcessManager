@@ -37,10 +37,12 @@ public class Client implements Sender {
 	private String name;
 	private OutputStream out;
 	private String ip;
+	private Socket socket;
 	
 	public Client (Socket socket ,ProcessManagerServer processManagerServer) {
 		this.ip = socket.getInetAddress().getHostAddress();
 		this.name = null;
+		this.socket = socket;
 		try {
 			ProcessManagerServer.logger.info("Try connect \""+ip+'\"');
 			out = socket.getOutputStream();
@@ -107,6 +109,10 @@ public class Client implements Sender {
 	
 	public String getIp() {
 		return ip;
+	}
+	
+	public Socket getSocket() {
+		return socket;
 	}
 	
 }
