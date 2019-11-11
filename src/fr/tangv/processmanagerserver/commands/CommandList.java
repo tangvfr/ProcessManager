@@ -14,7 +14,7 @@ public class CommandList implements Command {
 	
 	@Override
 	public boolean command(Sender sender, String cmd, String arg) {
-		String text = "List user connected:\n";
+		String text = "List user connected: "+processManagerServer.getServer().getClients().size()+"\n";
 		for (Client client : processManagerServer.getServer().getClients())
 			text += '\"'+client.getName()+"\" | \""+client.getIp()+'\n';
 		sender.send(text);
