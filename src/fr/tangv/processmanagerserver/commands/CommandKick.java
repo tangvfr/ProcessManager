@@ -17,7 +17,7 @@ public class CommandKick implements Command {
 
 	@Override
 	public String getDescription() {
-		return "Make kick one client !";
+		return "Make kick one client connect !";
 	}
 
 }
