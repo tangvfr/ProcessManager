@@ -22,6 +22,7 @@ import fr.tangv.processmanagerserver.commands.CommandLoadPara;
 import fr.tangv.processmanagerserver.commands.CommandManager;
 import fr.tangv.processmanagerserver.commands.CommandSavePara;
 import fr.tangv.processmanagerserver.commands.CommandStop;
+import fr.tangv.processmanagerserver.util.ProcessManager;
 import fr.tangv.processmanagerserver.util.Server;
 
 public class ProcessManagerServer {
@@ -42,6 +43,11 @@ public class ProcessManagerServer {
 	private int port;
 	private Map<String, String> userAndMdp;
 	private CommandManager cmdManager;
+	private ProcessManager processManager;
+	
+	public ProcessManager getProcessManager() {
+		return processManager;
+	}
 	
 	public Server getServer() {
 		return server;
@@ -147,6 +153,7 @@ public class ProcessManagerServer {
 		fileParameter = new File("./parameter");
 		try {
 			loadParameter();
+			processManager = new ProcessManager();
 			try {
 				this.server = new Server(this);
 			} catch (Exception e) {

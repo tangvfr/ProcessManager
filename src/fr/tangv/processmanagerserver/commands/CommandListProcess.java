@@ -14,9 +14,10 @@ public class CommandListProcess implements Command {
 	
 	@Override
 	public boolean command(Sender sender, String cmd, String arg) {
-		String text = "List process:\n";
-		/*for (ProcessPlus process : processManagerServer.get)
-			text += '\"'+""+"\" | \""+""+'\n';*/
+		String text = "List process:\n"
+				+ "| \"Name\" | \"Cmd\" | \"Rep\" | ActiveOnStart | isStart |\n";
+		for (ProcessPlus process : processManagerServer.getProcessManager().getListProcess())
+			text += "| \""+process.getName()+"\" | \""+process.getCmd()+"\" | \""+process.getRep()+"\" | "+process.isActiveOnStart()+"\" | "+process.getProcess().isStart()+" |\n";
 		sender.send(text);
 		return true;
 	}

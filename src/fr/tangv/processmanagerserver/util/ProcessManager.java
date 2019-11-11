@@ -16,14 +16,6 @@ public class ProcessManager {
 		return listProcess;
 	}
 	
-	public Vector<String> getListProcessName() {
-		Vector<String> list = new Vector<String>();
-		for (ProcessPlus process : listProcess) {
-			list.add(process.getName());
-		}
-		return list;
-	}
-	
 	public boolean removeProcess(String name) throws IOException {
 		for (ProcessPlus process : listProcess) {
 			if (process.getName().equals(name)) {
