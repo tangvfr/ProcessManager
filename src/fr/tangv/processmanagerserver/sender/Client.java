@@ -93,7 +93,7 @@ public class Client implements Sender {
 		try {
 			sendData(string);
 		} catch (Exception e) {
-			ProcessManagerServer.logger.warning(e.getMessage());
+			ProcessManagerServer.logger.warning("Send client error: "+e.getMessage());
 		}
 	}
 	

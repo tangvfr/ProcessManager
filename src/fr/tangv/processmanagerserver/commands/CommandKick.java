@@ -23,7 +23,8 @@ public class CommandKick implements Command {
 					client.send("[Kick] You were kicked by \""+sender.getName()+"\" !");
 					client.getSocket().close();
 					processManagerServer.getServer().getClients().remove(client);
-					sender.send("User \""+client.getName()+"\" \""+client.getIp()+"\" is kicked !");
+					if (!sender.getName().equals(arg))
+						sender.send("User \""+client.getName()+"\" \""+client.getIp()+"\" is kicked !");
 				} catch (IOException e) {
 					sender.send("Kick has fail !");
 				}
