@@ -18,8 +18,6 @@ public class ProcessPlus {
 		this.rep = rep;
 		this.encoding = encoding;
 		this.process = new Process(cmd, rep, encoding);
-		if (activeOnStart)
-			this.process.start();
 	}
 	
 	public Process getProcess() {
