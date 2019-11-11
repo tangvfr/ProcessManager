@@ -23,7 +23,7 @@ public class CommandListProcess implements Command {
 
 	@Override
 	public String getUsage() {
-		return "listprocess <name>";
+		return "listprocess";
 	}
 
 	@Override
