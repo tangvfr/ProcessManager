@@ -4,8 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 import com.sun.istack.internal.NotNull;
 
@@ -13,9 +11,9 @@ public class Process {
 
 	private ProcessBuilder processBuilder;
 	private java.lang.Process process;
-	private Charset encoding;
+	private String encoding;
 	
-	public Process(@NotNull String cmd, String rep, @NotNull Charset encoding) {
+	public Process(@NotNull String cmd, String rep, @NotNull String encoding) {
 		this.processBuilder = new ProcessBuilder(cmd.split(" "));
 		this.encoding = encoding;
 		if (rep != null && !rep.isEmpty())
@@ -23,15 +21,15 @@ public class Process {
 		this.process = null;
 	}
 	
-	public Process(@NotNull String cmd, @NotNull Charset encoding) {
+	public Process(@NotNull String cmd, @NotNull String encoding) {
 		this(cmd, null, encoding);
 	}
 	
 	public Process(@NotNull String cmd) {
-		this(cmd, null, StandardCharsets.UTF_8);
+		this(cmd, null, "UTF8");
 	}
 	
-	public Process(@NotNull String[] cmd, String rep, @NotNull Charset encoding) {
+	public Process(@NotNull String[] cmd, String rep, @NotNull String encoding) {
 		this.processBuilder = new ProcessBuilder(cmd);
 		this.encoding = encoding;
 		if (rep != null && !rep.isEmpty())
@@ -39,12 +37,12 @@ public class Process {
 		this.process = null;
 	}
 	
-	public Process(@NotNull String[] cmd, @NotNull Charset encoding) {
+	public Process(@NotNull String[] cmd, @NotNull String encoding) {
 		this(cmd, null, encoding);
 	}
 	
 	public Process(@NotNull String[] cmd) {
-		this(cmd, null, StandardCharsets.UTF_8);
+		this(cmd, null, "UTF8");
 	}
 	
 	public void start() throws IOException {

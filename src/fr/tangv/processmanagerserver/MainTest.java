@@ -7,7 +7,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -23,7 +22,7 @@ public class MainTest {
 		pro.start();
 		pro.send("chcp 65001");*/
 		
-		Process pro = new Process("java -jar spigot-1.14.jar", "C:\\Users\\tangv\\Bureau\\Jeux\\Serveur_test", StandardCharsets.UTF_8);
+		Process pro = new Process("java -jar spigot-1.14.jar", "C:\\Users\\tangv\\Bureau\\Jeux\\Serveur_test", "UTF8");
 		pro.start();
 		
 		JFrame frame = new JFrame("Testage");
