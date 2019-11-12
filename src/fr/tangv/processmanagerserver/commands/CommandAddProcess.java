@@ -14,7 +14,7 @@ public class CommandAddProcess implements Command {
 	
 	@Override
 	public boolean command(Sender sender, String cmd, String arg) {
-		String args[] = arg.split("|");
+		String args[] = arg.split("~");
 		if (args.length == 4) {
 			if (!processManagerServer.getProcessManager().hasProcess(args[0])) {
 				try {
@@ -30,6 +30,7 @@ public class CommandAddProcess implements Command {
 						return true;
 					}
 				} catch (Exception e) {
+					e.printStackTrace();
 					return false;
 				}
 			} else {
@@ -42,7 +43,7 @@ public class CommandAddProcess implements Command {
 
 	@Override
 	public String getUsage() {
-		return "addprocess <name>|<cmd>|<rep>|<activeonstart>";
+		return "addprocess <name>~<cmd>~<rep>~<activeonstart>";
 	}
 
 	@Override
