@@ -47,7 +47,7 @@ public class CommandManager implements Runnable {
 	}
 	
 	public CommandManager(InputStream in) {
-		sc = new Scanner(in,"UTF8");
+		sc = new Scanner(in, "UTF8");
 		thread = new Thread(this);
 		started = false;
 		this.consoleSender = new ConsoleSender();
