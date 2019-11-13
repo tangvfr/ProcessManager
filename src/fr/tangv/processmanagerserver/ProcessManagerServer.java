@@ -24,7 +24,9 @@ import fr.tangv.processmanagerserver.commands.CommandListUser;
 import fr.tangv.processmanagerserver.commands.CommandLoadPara;
 import fr.tangv.processmanagerserver.commands.CommandManager;
 import fr.tangv.processmanagerserver.commands.CommandSavePara;
+import fr.tangv.processmanagerserver.commands.CommandStartProcess;
 import fr.tangv.processmanagerserver.commands.CommandStop;
+import fr.tangv.processmanagerserver.commands.CommandStopProcess;
 import fr.tangv.processmanagerserver.util.ProcessManager;
 import fr.tangv.processmanagerserver.util.Server;
 
@@ -178,6 +180,10 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("addprocess", new CommandAddProcess(this));
 			cmdManager.registreCommand("editprocess", new CommandEditProcess(this));
 			cmdManager.registreCommand("chat", new CommandChat(this));
+			cmdManager.registreCommand("stopprocess", new CommandStopProcess(this));
+			cmdManager.registreCommand("startprocess", new CommandStartProcess(this));
+			//cmdManager.registreCommand("removeprocess", new CommandStopProcess(this));
+			//cmdManager.registreCommand("rename", new CommandStartProcess(this));
 			cmdManager.start();
 			//----------------------------------------------
 		} catch (IOException e) {
