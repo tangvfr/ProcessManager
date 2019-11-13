@@ -32,8 +32,8 @@ public class ProcessManagerServer {
 	
 	public static Logger logger;
 	
-	public static String getStringTime() {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss");
+	private static String getLogTime() {
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 		return format.format(new Date());
 	}
 	
@@ -130,7 +130,7 @@ public class ProcessManagerServer {
 			String nameFile = "";
 			int i = 0;
 			do {
-				nameFile = "./logs/"+getStringTime()+'_'+i+".log";
+				nameFile = "./logs/"+getLogTime()+'_'+i+".log";
 				i++;
 			} while(new File(nameFile).exists());
 			FileHandler fileHandler = new FileHandler(nameFile);
