@@ -48,8 +48,11 @@ public class Client implements Sender {
 			out = socket.getOutputStream();
 			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(socket.getInputStream(), "UTF8");
+			send("Username: ");
 			this.name = sc.nextLine();
+			send("Password: ");
 			String pwd = sc.nextLine();
+			send("Stat: ");
 			if (processManagerServer.getUserAndMdp().containsKey(name)) {
 				if (processManagerServer.getUserAndMdp().get(name).equals(pwd)) {
 					for (Client client : processManagerServer.getServer().getClients()) {
