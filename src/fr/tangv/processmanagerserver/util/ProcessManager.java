@@ -129,7 +129,7 @@ public class ProcessManager {
 		return false;
 	}
 	
-	public boolean loadProccesAll() throws IOException {
+	public void loadProccesAll() throws IOException {
 		for(File file : folder.listFiles()) {
 			if (file.isFile()) {
 				String name = file.getName();
@@ -150,10 +150,8 @@ public class ProcessManager {
 					process.setEncoding(encoding);
 					process.setActiveOnStart(active);
 				}
-				return true;
 			}
 		}
-		return false;
 	}
 	
 	public ProcessManager() throws IOException {

@@ -154,7 +154,6 @@ public class ProcessManagerServer {
 		fileParameter = new File("./parameter");
 		try {
 			loadParameter();
-			processManager = new ProcessManager();
 			try {
 				this.server = new Server(this);
 			} catch (Exception e) {
@@ -162,6 +161,7 @@ public class ProcessManagerServer {
 				return;
 			}
 			printInfo();
+			processManager = new ProcessManager();
 			//----------------------------------------------
 			this.cmdManager = new CommandManager(System.in);
 			cmdManager.registreCommand("help", new CommandHelp(this));
