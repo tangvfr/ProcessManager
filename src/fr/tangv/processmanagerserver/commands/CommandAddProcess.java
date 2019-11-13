@@ -30,7 +30,6 @@ public class CommandAddProcess implements Command {
 						return true;
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
 					return false;
 				}
 			} else {

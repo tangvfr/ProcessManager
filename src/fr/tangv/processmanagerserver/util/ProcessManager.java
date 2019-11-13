@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
+import fr.tangv.processmanagerserver.ProcessManagerServer;
+
 public class ProcessManager {
 
 	private Vector<ProcessPlus> listProcess;
@@ -161,7 +163,11 @@ public class ProcessManager {
 		loadProccesAll();
 		for (ProcessPlus process : listProcess) {
 			if (process.isActiveOnStart()) {
-				process.getProcess().start();
+				try {
+					process.getProcess().start();
+				} catch (Exception e) {
+					ProcessManagerServer.logger.warning(e.getLocalizedMessage());
+				}
 			}
 		}
 	}
