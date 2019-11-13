@@ -26,6 +26,7 @@ import fr.tangv.processmanagerserver.commands.CommandManager;
 import fr.tangv.processmanagerserver.commands.CommandReloadProcess;
 import fr.tangv.processmanagerserver.commands.CommandRemoveProcess;
 import fr.tangv.processmanagerserver.commands.CommandRenameProcess;
+import fr.tangv.processmanagerserver.commands.CommandRestartProcess;
 import fr.tangv.processmanagerserver.commands.CommandSavePara;
 import fr.tangv.processmanagerserver.commands.CommandStartProcess;
 import fr.tangv.processmanagerserver.commands.CommandStop;
