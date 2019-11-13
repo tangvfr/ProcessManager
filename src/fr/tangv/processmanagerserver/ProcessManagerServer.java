@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import fr.tangv.processmanagerserver.commands.CommandAddProcess;
+import fr.tangv.processmanagerserver.commands.CommandEditProcess;
 import fr.tangv.processmanagerserver.commands.CommandHelp;
 import fr.tangv.processmanagerserver.commands.CommandKick;
 import fr.tangv.processmanagerserver.commands.CommandKickAll;
@@ -174,6 +175,7 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("list", new CommandList(this));
 			cmdManager.registreCommand("listprocess", new CommandListProcess(this));
 			cmdManager.registreCommand("addprocess", new CommandAddProcess(this));
+			cmdManager.registreCommand("editprocess", new CommandEditProcess(this));
 			cmdManager.start();
 			//----------------------------------------------
 		} catch (IOException e) {
