@@ -64,7 +64,7 @@ public class Client implements Sender {
 						}
 					}
 					ProcessManagerServer.logger.info("Connect allow \""+ip+"\" user \""+name+"\"");
-					sendData("Access allow !");
+					sendData("Access allow !\n Enter command:");
 					processManagerServer.getServer().getClients().add(this);
 					while(socket.isConnected()) {
 						String text = sc.nextLine();

@@ -17,7 +17,7 @@ public class CommandHelp implements Command {
 		for (String nameCmd : processManagerServer.getCmdManager().getCommands().keySet()) {
 			Command cmd = processManagerServer.getCmdManager().getCommands().get(nameCmd);
 			text += " - "+nameCmd+" > "+cmd.getUsage()+"\n"
-			+"Description: "+cmd.getDescription()+"\n";
+			+"Description: "+cmd.getDescription()+"\n\n";
 		}
 		sender.send(text);
 		return true;

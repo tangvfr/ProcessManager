@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import fr.tangv.processmanagerserver.commands.CommandAddProcess;
+import fr.tangv.processmanagerserver.commands.CommandChat;
 import fr.tangv.processmanagerserver.commands.CommandEditProcess;
 import fr.tangv.processmanagerserver.commands.CommandHelp;
 import fr.tangv.processmanagerserver.commands.CommandKick;
@@ -33,7 +34,7 @@ public class ProcessManagerServer {
 	
 	public static String getStringTime() {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH-mm-ss");
-		return '['+format.format(new Date())+"] ";
+		return format.format(new Date());
 	}
 	
 	public static void main(String[] args) {
@@ -129,7 +130,7 @@ public class ProcessManagerServer {
 			String nameFile = "";
 			int i = 0;
 			do {
-				nameFile = "./logs/log"+i+".log";
+				nameFile = "./logs/"+getStringTime()+'_'+i+".log";
 				i++;
 			} while(new File(nameFile).exists());
 			FileHandler fileHandler = new FileHandler(nameFile);
@@ -176,6 +177,7 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("listprocess", new CommandListProcess(this));
 			cmdManager.registreCommand("addprocess", new CommandAddProcess(this));
 			cmdManager.registreCommand("editprocess", new CommandEditProcess(this));
+			cmdManager.registreCommand("chat", new CommandChat(this));
 			cmdManager.start();
 			//----------------------------------------------
 		} catch (IOException e) {
