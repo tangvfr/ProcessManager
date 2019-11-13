@@ -79,7 +79,7 @@ public class ProcessManager {
 				out.writeUTF(process.getCmd());
 				out.writeUTF(process.getRep());
 				out.writeUTF(process.getEncoding());
-				out.writeBoolean(process.isActiveOnStart());
+				out.writeUTF(""+process.isActiveOnStart());
 				out.close();
 				return true;
 			}
@@ -95,7 +95,7 @@ public class ProcessManager {
 				String cmd = in.readUTF();
 				String rep = in.readUTF();
 				String encoding = in.readUTF();
-				boolean active = in.readBoolean();
+				boolean active = Boolean.parseBoolean(in.readUTF());
 				in.close();
 				if (!hasProcess(name)) {
 					ProcessPlus process = new ProcessPlus(nameP, cmd, rep, encoding, active);
@@ -122,7 +122,7 @@ public class ProcessManager {
 			out.writeUTF(process.getCmd());
 			out.writeUTF(process.getRep());
 			out.writeUTF(process.getEncoding());
-			out.writeBoolean(process.isActiveOnStart());
+			out.writeUTF(""+process.isActiveOnStart());
 			out.close();
 			return true;
 		}
@@ -138,7 +138,7 @@ public class ProcessManager {
 				String cmd = in.readUTF();
 				String rep = in.readUTF();
 				String encoding = in.readUTF();
-				boolean active = in.readBoolean();
+				boolean active = Boolean.parseBoolean(in.readUTF());
 				in.close();
 				if (!hasProcess(name)) {
 					ProcessPlus process = new ProcessPlus(nameP, cmd, rep, encoding, active);

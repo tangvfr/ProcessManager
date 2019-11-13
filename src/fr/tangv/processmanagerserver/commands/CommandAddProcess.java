@@ -18,11 +18,11 @@ public class CommandAddProcess implements Command {
 		if (args.length == 4) {
 			if (!processManagerServer.getProcessManager().hasProcess(args[0])) {
 				try {
-					boolean activeOnStart = Boolean.getBoolean(args[3]);
+					boolean activeOnStart = Boolean.parseBoolean(args[3]);
 					try {
 						ProcessPlus process = new ProcessPlus(args[0], args[1], args[2], "UTF8", activeOnStart);
 						processManagerServer.getProcessManager().addProcess(process);
-						sender.send("Process \""+process.getName()+"\" is added !");
+						sender.send("Process \""+process.getName()+"\" is added !"+activeOnStart);
 						return true;
 					} catch (Exception e) {
 						ProcessManagerServer.logger.warning("Error command addprocess: "+e.getMessage());
