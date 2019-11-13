@@ -28,7 +28,7 @@ public class CommandSavePara implements Command {
 
 	@Override
 	public String getUsage() {
-		return "/savepara";
+		return "savepara";
 	}
 
 	@Override

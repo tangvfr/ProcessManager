@@ -28,7 +28,7 @@ public class CommandLoadPara implements Command {
 
 	@Override
 	public String getUsage() {
-		return "/loadpara";
+		return "loadpara";
 	}
 
 	@Override
