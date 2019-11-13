@@ -4,11 +4,11 @@ import fr.tangv.processmanagerserver.ProcessManagerServer;
 import fr.tangv.processmanagerserver.sender.Sender;
 import fr.tangv.processmanagerserver.util.ProcessPlus;
 
-public class CommandAddProcess implements Command {
+public class CommandEditProcess implements Command {
 
 	private ProcessManagerServer processManagerServer;
 	
-	public CommandAddProcess(ProcessManagerServer processManagerServer) {
+	public CommandEditProcess(ProcessManagerServer processManagerServer) {
 		this.processManagerServer = processManagerServer;
 	}
 	
