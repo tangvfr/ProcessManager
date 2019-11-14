@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import fr.tangv.processmanagerserver.ProcessManagerServer;
 import fr.tangv.processmanagerserver.sender.Sender;
-import fr.tangv.processmanagerserver.util.ProcessPlus;
 
 public class CommandRemoveProcess implements Command {
 
