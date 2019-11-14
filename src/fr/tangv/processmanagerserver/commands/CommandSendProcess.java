@@ -39,7 +39,6 @@ public class CommandSendProcess implements Command {
 			sender.send("No found process !");
 			return true;
 		}
-		return false;
 	}
 
 	@Override

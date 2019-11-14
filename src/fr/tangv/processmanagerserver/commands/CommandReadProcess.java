@@ -31,7 +31,6 @@ public class CommandReadProcess implements Command {
 			sender.send("No found process !");
 			return true;
 		}
-		return false;
 	}
 
 	@Override
