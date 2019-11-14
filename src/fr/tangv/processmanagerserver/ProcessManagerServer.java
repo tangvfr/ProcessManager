@@ -156,7 +156,7 @@ public class ProcessManagerServer {
 				" / ____/ /  / /_/ / /__/  __(__  |__  ) /  / / /_/ / / / / /_/ / /_/ /  __/ /    \r\n" + 
 				"/_/   /_/   \\____/\\___/\\___/____/____/_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n" + 
 				"                                                              /____/             \r\n" + 
-				"Version: Alpha_1.0\r\n");
+				"Version: Alpha_1.1\r\n");
 		//----------------------------------------
 		this.port = 206;
 		this.userAndMdp = new HashMap<String, String>();
