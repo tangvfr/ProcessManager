@@ -23,11 +23,13 @@ import fr.tangv.processmanagerserver.commands.CommandListProcess;
 import fr.tangv.processmanagerserver.commands.CommandListUser;
 import fr.tangv.processmanagerserver.commands.CommandLoadPara;
 import fr.tangv.processmanagerserver.commands.CommandManager;
+import fr.tangv.processmanagerserver.commands.CommandReadProcess;
 import fr.tangv.processmanagerserver.commands.CommandReloadProcess;
 import fr.tangv.processmanagerserver.commands.CommandRemoveProcess;
 import fr.tangv.processmanagerserver.commands.CommandRenameProcess;
 import fr.tangv.processmanagerserver.commands.CommandRestartProcess;
 import fr.tangv.processmanagerserver.commands.CommandSavePara;
+import fr.tangv.processmanagerserver.commands.CommandSendProcess;
 import fr.tangv.processmanagerserver.commands.CommandStartProcess;
 import fr.tangv.processmanagerserver.commands.CommandStop;
 import fr.tangv.processmanagerserver.commands.CommandStopProcess;
@@ -190,6 +192,8 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("renameprocess", new CommandRenameProcess(this));
 			cmdManager.registreCommand("reloadprocess", new CommandReloadProcess(this));
 			cmdManager.registreCommand("restartprocess", new CommandRestartProcess(this));
+			cmdManager.registreCommand("readprocess", new CommandReadProcess(this));
+			cmdManager.registreCommand("sendprocess", new CommandSendProcess(this));
 			cmdManager.start();
 			//----------------------------------------------
 		} catch (IOException e) {
