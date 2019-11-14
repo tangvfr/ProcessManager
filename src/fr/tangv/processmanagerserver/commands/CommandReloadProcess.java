@@ -20,6 +20,7 @@ public class CommandReloadProcess implements Command {
 			if (!process.getProcess().isStart()) {
 				process.reload();
 				sender.send("Process is reload !");
+				return true;
 			} else {
 				sender.send("Process is not stoped !");
 				return true;
@@ -28,7 +29,6 @@ public class CommandReloadProcess implements Command {
 			sender.send("No found process !");
 			return true;
 		}
-		return false;
 	}
 
 	@Override

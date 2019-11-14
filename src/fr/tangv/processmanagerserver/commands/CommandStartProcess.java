@@ -27,6 +27,7 @@ public class CommandStartProcess implements Command {
 					sender.send("Process start error !");
 					ProcessManagerServer.logger.warning("Process start error: "+e.getLocalizedMessage());
 				}
+				return true;
 			} else {
 				sender.send("Process already started !");
 				return true;
@@ -35,7 +36,6 @@ public class CommandStartProcess implements Command {
 			sender.send("No found process !");
 			return true;
 		}
-		return false;
 	}
 
 	@Override

@@ -27,11 +27,11 @@ public class CommandRemoveProcess implements Command {
 				sender.send("Process remove error !");
 				ProcessManagerServer.logger.warning("Process remove error: "+e.getLocalizedMessage());
 			}
+			return true;
 		} else {
 			sender.send("No found process !");
 			return true;
 		}
-		return false;
 	}
 
 	@Override

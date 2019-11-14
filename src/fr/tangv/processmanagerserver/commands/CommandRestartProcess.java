@@ -28,11 +28,11 @@ public class CommandRestartProcess implements Command {
 				sender.send("Process restart error !");
 				ProcessManagerServer.logger.warning("Process restart error: "+e.getLocalizedMessage());
 			}
+			return true;
 		} else {
 			sender.send("No found process !");
 			return true;
 		}
-		return false;
 	}
 
 	@Override

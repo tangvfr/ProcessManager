@@ -24,11 +24,11 @@ public class CommandStopProcess implements Command {
 				sender.send("Process already stoped !");
 				return true;
 			}
+			return true;
 		} else {
 			sender.send("No found process !");
 			return true;
 		}
-		return false;
 	}
 
 	@Override

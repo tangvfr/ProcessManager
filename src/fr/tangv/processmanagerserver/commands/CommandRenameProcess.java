@@ -29,6 +29,7 @@ public class CommandRenameProcess implements Command {
 						sender.send("Process rename error !");
 						ProcessManagerServer.logger.warning("Process rename error: "+e.getLocalizedMessage());
 					}
+					return true;
 				} else {
 					sender.send("Process name already exist !");
 				}
