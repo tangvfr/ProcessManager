@@ -149,7 +149,7 @@ public class ProcessManagerServer {
 			ProcessManagerServer.logger.warning(e1.getMessage());
 		}
 		//---------------------------------------
-		ProcessManagerServer.logger.info("\r\n" + 
+		ProcessManagerServer.logger.info("\r\n" +
 				"    ____                                 __  ___                                 \r\n" + 
 				"   / __ \\_________  ________  __________/  |/  /___ _____  ____ _____ ____  _____\r\n" + 
 				"  / /_/ / ___/ __ \\/ ___/ _ \\/ ___/ ___/ /|_/ / __ `/ __ \\/ __ `/ __ `/ _ \\/ ___/\r\n" + 
