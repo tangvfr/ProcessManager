@@ -19,17 +19,12 @@ public class CommandReadProcess implements Command {
 		if (arg.isEmpty()) return false;
 		if (processManagerServer.getProcessManager().hasProcess(arg)) {
 			ProcessPlus process = processManagerServer.getProcessManager().getProcess(arg);
-			if (process.getProcess().isStart()) {
-				try {
-					String text = "Readprocess "+process.getProcess().getInput()+process.getProcess().getError();
-					sender.send(text);
-				} catch (IOException e) {
-					sender.send("Process read error !");
-					ProcessManagerServer.logger.warning("Process read error: "+e.getLocalizedMessage());
-				}
-			} else {
-				sender.send("Process is stoped !");
-				return true;
+			try {
+				String text = "Readprocess "+process.getProcess().getInput()+process.getProcess().getError();
+				sender.send(text);
+			} catch (IOException e) {
+				sender.send("Process read error !");
+				ProcessManagerServer.logger.warning("Process read error: "+e.getLocalizedMessage());
 			}
 		} else {
 			sender.send("No found process !");
