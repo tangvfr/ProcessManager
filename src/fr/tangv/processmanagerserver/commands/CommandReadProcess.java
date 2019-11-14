@@ -26,6 +26,7 @@ public class CommandReadProcess implements Command {
 				sender.send("Process read error !");
 				ProcessManagerServer.logger.warning("Process read error: "+e.getLocalizedMessage());
 			}
+			return true;
 		} else {
 			sender.send("No found process !");
 			return true;

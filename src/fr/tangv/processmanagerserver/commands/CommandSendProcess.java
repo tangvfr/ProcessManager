@@ -30,6 +30,7 @@ public class CommandSendProcess implements Command {
 					sender.send("Process send error !");
 					ProcessManagerServer.logger.warning("Process send error: "+e.getLocalizedMessage());
 				}
+				return true;
 			} else {
 				sender.send("Process is stoped !");
 				return true;
