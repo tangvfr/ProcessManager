@@ -12,6 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import fr.tangv.Main;
 import fr.tangv.processmanagerserver.commands.CommandAddProcess;
 import fr.tangv.processmanagerserver.commands.CommandChat;
 import fr.tangv.processmanagerserver.commands.CommandEditProcess;
@@ -152,7 +153,7 @@ public class ProcessManagerServer {
 				" / ____/ /  / /_/ / /__/  __(__  |__  ) /  / / /_/ / / / / /_/ / /_/ /  __/ /    \r\n" + 
 				"/_/   /_/   \\____/\\___/\\___/____/____/_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n" + 
 				"                                                              /____/             \r\n" + 
-				"Version: Alpha_1.1\r\n");
+				"Version: "+Main.version+"\r\n");
 		//----------------------------------------
 		this.port = 206;
 		this.userAndMdp = new HashMap<String, String>();
