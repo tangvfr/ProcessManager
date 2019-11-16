@@ -45,10 +45,6 @@ public class ProcessManagerServer {
 		return format.format(new Date());
 	}
 	
-	public static void main(String[] args) {
-		new ProcessManagerServer();
-	}
-	
 	private Server server;
 	private File fileParameter;
 	private int port;
