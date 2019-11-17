@@ -109,6 +109,7 @@ public class test {
 			return buff;
 		String code = new String(buff, "UTF8");
 		
+
 		code = code.replace("<import=etatProcess>", "onCase");
 		code = code.replace("<import=onStartProcess>", "onStart");
 		code = code.replace("<import=nameProcess>",	"serveurTest");
