@@ -7,9 +7,15 @@
 <body style="background: #222222;">
 
 <import=oneProcess>
-<div class="processWindowTitle"><span class="<import=etatProcess>"></span> <span class="titleProcess"><import=nameProcess></span><span class="<import=onStartProcess>"></span></div>
-<div class="processWindow"><img src="/cmd.png" class="labelProcess"> <span class="textProcess"><import=cmdProcess></span>
-                        <br><img src="/rep.png" class="labelProcess"> <span class="textProcess"><import=repProcess></span>
+<div class="processWindowTitle"><span class="<import=etatProcess>"></span>
+    <span class="titleProcess"><import=nameProcess></span>
+    <input type="image" id="onStart" class="<import=onStartProcess> right"></span>
+    <input type="image" id="stop" src="/stop.png" class="right">
+    <input type="image" id="restart"  src="/restart.png" class="right">
+    <input type="image" id="start"  src="/start.png" class="right">
+</div>
+<div class="processWindow"><input type="image" formaction="/test" formmethod="POST" id="cmd" src="/cmd.png" class="labelProcess"> <span class="textProcess"><import=cmdProcess></span>
+                        <br><input type="image" formaction="/test" formmethod="POST" id="rep" src="/rep.png" class="labelProcess"> <span class="textProcess"><import=repProcess></span>
 </div>
 </import>
 
