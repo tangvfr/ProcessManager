@@ -77,6 +77,11 @@ public class test {
 		}
 	}
 
+	/*if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
+			return "text/html";
+		else
+			return "text/plain";*/
+	
 	public static void sendRequet(OutputStream out, byte[] data) throws IOException {
 		out.write(("HTTP/1.1 200 OK\n\r"+
 				"Date: "+new Date()+"\n\r"+
