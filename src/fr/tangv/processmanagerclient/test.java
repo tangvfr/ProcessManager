@@ -37,13 +37,15 @@ public class test {
 							String hostData = data.substring(data.indexOf("Host: ")+6);
 							String hostRequet = hostData.substring(0, hostData.indexOf("\r\n"));
 							String[] dataData = hostData.split("\n");
-							String dataRequet = dataData[dataData.length-1];
+							String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
+							String ipRequet = socket.getInetAddress().getHostAddress();
 							//--------------------------
 							System.out.println(">:"+data+":<");
 							System.out.println("Type: "+typeRequet);
 							System.out.println("Rep: "+repRequet);
 							System.out.println("Host: "+hostRequet);
 							System.out.println("Data: "+dataRequet);
+							System.out.println("Ip: "+ipRequet);
 							System.out.println(":<");
 							//traitement de la requet
 							if (data.startsWith("GET") || data.startsWith("HEAD")) {
