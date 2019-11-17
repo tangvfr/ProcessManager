@@ -57,7 +57,7 @@ public class test {
 									if (data.startsWith("GET") || data.startsWith("HEAD")) {
 										if (repRequet.equals("/")) 
 											repRequet = "/index.html";
-										File fileGet = new File("./"+repRequet);
+										File fileGet = new File("./web/"+repRequet);
 										if (!fileGet.exists()) {
 											sendRequet(out,
 													("<html><head><title>Not found !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center><h1>Not found page</h1></center></body></html>"
