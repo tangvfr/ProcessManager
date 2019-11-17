@@ -1,7 +1,5 @@
 package fr.tangv.processmanagerclient;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -54,13 +52,14 @@ public class test {
 								System.out.println("Ip: "+ipRequet);
 								System.out.println(":<");
 								//traitement de la requet
+								OutputStream out = socket.getOutputStream();
 								try {
 									if (data.startsWith("GET") || data.startsWith("HEAD")) {
 										if (repRequet.equals("/")) 
 											repRequet = "/index.html";
 										File fileGet = new File("./"+repRequet);
 										if (!fileGet.exists()) {
-											sendRequet(socket.getOutputStream(),
+											sendRequet(out,
 													("<html><head><title>Not found !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center><h1>Not found page</h1></center></body></html>"
 													).getBytes("UTF8"), "text/html; charset=UTF-8");
 										} else {
@@ -68,13 +67,12 @@ public class test {
 											byte[] buff = new byte[(int) fileGet.length()];
 											inF.read(buff);
 											inF.close();
-											String typeCont = "text/html; charset=UTF-8";
-											
-											if (!repRequet.endsWith(".html") && !repRequet.endsWith(".htm")) typeCont = "text/plain";
-											sendRequet(socket.getOutputStream(), buff, typeCont);
+											String cont = getContentType(repRequet);
+											System.out.println("cont: "+cont);
+											sendRequet(out, buff, cont);
 										}
 									} else if (data.startsWith("POST")) {
-										sendRequet(socket.getOutputStream(),
+										sendRequet(out,
 												("<html><head><title>Post fait</title><meta charset=\"UTF-8\"></head><body><center style=\"background: #222222; color: #ff00ff;\"><h1>Test Post: "+repRequet+"</h1><h1>Data send: "+dataRequet+"</h1></center></body></html>"
 												).getBytes("UTF8"), "text/html; charset=UTF-8");
 									}
@@ -95,15 +93,24 @@ public class test {
 		}
 	}
 	
+	public static String getContentType(String nameFile) {
+		if (nameFile.endsWith(".html") || nameFile.endsWith(".htm"))
+			return "text/html; charset=UTF-8";
+		else if (nameFile.endsWith(".css"))
+			return "text/css";
+		else
+			return "text/plain";
+	}
+	
 	public static void sendRequet(OutputStream out, byte[] data, String contentType) throws IOException {
-		out.write(("HTTP/1.1 200 OK\n\r"+
-				"Date: "+new Date()+"\n\r"+
-				"Server: Tangv_Serveur_Web_1.0\n\r"+
-				"Content-Length: "+data.length+"\n\r"+
-				"Content-Type: "+contentType+"\n\r"+
-				"\n\r").getBytes());
+		out.write(("HTTP/1.1 200 OK\n"+
+				"Date: "+new Date()+"\n"+
+				"Server: Tangv_Serveur_Web_1.0\n"+
+				"Content-Length: "+data.length+"\n"+
+				"Content-Type: "+contentType+"\n"+
+				"\n").getBytes());
 		out.flush();
-		out.write(data);
+		out.write(data, 0, data.length);
 		out.flush();
 	}
 	
