@@ -68,7 +68,6 @@ public class test {
 											inF.read(buff);
 											inF.close();
 											String cont = getContentType(repRequet);
-											System.out.println("cont: "+cont);
 											sendRequet(out, buff, cont);
 										}
 									} else if (data.startsWith("POST")) {
