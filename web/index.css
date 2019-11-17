@@ -26,11 +26,24 @@
     color: #eee;
 }
 
+.labelProcess {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.textProcess {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    color: #aa2;
+}
+
 .onStart {
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    background: #3bb;
+    background: #3b3;
     width: 16px;
     height: 16px;
     border: 1px solid #000;
@@ -42,7 +55,7 @@
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    background: #b3b;
+    background: #b33;
     width: 16px;
     height: 16px;
     border: 1px solid #000;

@@ -111,7 +111,9 @@ public class test {
 		
 		code = code.replace("<import=etatProcess>", "onCase");
 		code = code.replace("<import=onStartProcess>", "onStart");
-		code = code.replace("<import=nameProcess>",	"NameProcess");
+		code = code.replace("<import=nameProcess>",	"serveurTest");
+		code = code.replace("<import=cmdProcess>",	"java -jar server.jar");
+		code = code.replace("<import=repProcess>",	"C:/Users/tangv/desktop");
 		
 		return code.getBytes("UTF8");
 	}

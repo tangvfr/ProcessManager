@@ -8,7 +8,9 @@
 
 <import=oneProcess>
 <div class="processWindowTitle"><span class="<import=etatProcess>"></span> <span class="titleProcess"><import=nameProcess></span><span class="<import=onStartProcess>"></span></div>
-<div class="processWindow"><span>Test de text<br>dzac ok dac</span></div>
+<div class="processWindow"><img src="/cmd.png" class="labelProcess"> <span class="textProcess"><import=cmdProcess></span>
+                        <br><img src="/rep.png" class="labelProcess"> <span class="textProcess"><import=repProcess></span>
+</div>
 </import>
 
 </div>
