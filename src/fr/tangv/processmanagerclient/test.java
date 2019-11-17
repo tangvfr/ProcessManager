@@ -1,5 +1,9 @@
 package fr.tangv.processmanagerclient;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -52,13 +56,27 @@ public class test {
 								//traitement de la requet
 								try {
 									if (data.startsWith("GET") || data.startsWith("HEAD")) {
-										sendRequet(socket.getOutputStream(),
-												("<html><head><title>Page Test !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center> <form method=\"POST\" action=\"test.html\"><label for=\"pseudo\">Entrez un pseudo:</label><input type=\"text\" name=\"usercreat\" id=\"usercreat\"><br><br><label for=\"pswd\">Choisissez un mot de passe: </label><input type=\"password\" name=\"mdpcreat\" id=\"mdpcreat\"><br><br><label for=\"pswd\">Retapez votre mot de passe: </label><input type=\"password\" name=\"mdpcreat2\" id=\"mdpcreat\"><br><br><input type=\"submit\" value=\"Creation du compte !\" name=\"validation\"><h1>Bonsoir maitre</h1></center></body></html>"
-												).getBytes("UTF8"));
+										if (repRequet.equals("/")) 
+											repRequet = "/index.html";
+										File fileGet = new File("./"+repRequet);
+										if (!fileGet.exists()) {
+											sendRequet(socket.getOutputStream(),
+													("<html><head><title>Not found !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center><h1>Not found page</h1></center></body></html>"
+													).getBytes("UTF8"), "text/html; charset=UTF-8");
+										} else {
+											FileInputStream inF = new FileInputStream(fileGet);
+											byte[] buff = new byte[(int) fileGet.length()];
+											inF.read(buff);
+											inF.close();
+											String typeCont = "text/html; charset=UTF-8";
+											
+											if (!repRequet.endsWith(".html") && !repRequet.endsWith(".htm")) typeCont = "text/plain";
+											sendRequet(socket.getOutputStream(), buff, typeCont);
+										}
 									} else if (data.startsWith("POST")) {
 										sendRequet(socket.getOutputStream(),
 												("<html><head><title>Post fait</title><meta charset=\"UTF-8\"></head><body><center style=\"background: #222222; color: #ff00ff;\"><h1>Test Post: "+repRequet+"</h1><h1>Data send: "+dataRequet+"</h1></center></body></html>"
-												).getBytes("UTF8"));
+												).getBytes("UTF8"), "text/html; charset=UTF-8");
 									}
 								} catch (IOException e) {
 									e.printStackTrace();
@@ -76,19 +94,14 @@ public class test {
 			e.printStackTrace();
 		}
 	}
-
-	/*if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
-			return "text/html";
-		else
-			return "text/plain";*/
 	
-	public static void sendRequet(OutputStream out, byte[] data) throws IOException {
+	public static void sendRequet(OutputStream out, byte[] data, String contentType) throws IOException {
 		out.write(("HTTP/1.1 200 OK\n\r"+
 				"Date: "+new Date()+"\n\r"+
 				"Server: Tangv_Serveur_Web_1.0\n\r"+
 				"Content-Length: "+data.length+"\n\r"+
-				"Content-Type: text/html; charset=UTF-8\n\r"+
-				"\n\r").getBytes("UTF8"));
+				"Content-Type: "+contentType+"\n\r"+
+				"\n\r").getBytes());
 		out.flush();
 		out.write(data);
 		out.flush();
