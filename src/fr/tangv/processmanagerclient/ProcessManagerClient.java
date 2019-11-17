@@ -1,5 +1,7 @@
 package fr.tangv.processmanagerclient;
 
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 import fr.tangv.processmanagerclient.util.DataConnect;
@@ -31,8 +33,13 @@ public class ProcessManagerClient {
 		DataConnect data = new DataConnect(ip, port, username, password);
 		if (data.isValid()) {
 			bootStrap.setVisible(false);
-			interfacePM = new InterfacePM(data, this);
-			interfacePM.setVisible(true);
+			try {
+				interfacePM = new InterfacePM(data, this);
+				interfacePM.setVisible(true);
+			} catch (IOException e) {
+				bootStrap.setVisible(true);
+				JOptionPane.showMessageDialog(bootStrap, e.getLocalizedMessage(), "Error Connect", JOptionPane.ERROR_MESSAGE);
+			}
 		} else {
 			JOptionPane.showMessageDialog(bootStrap, "Invalid input !", "Connect", JOptionPane.ERROR_MESSAGE);
 		}
