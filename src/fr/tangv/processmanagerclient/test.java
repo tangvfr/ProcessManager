@@ -49,13 +49,13 @@ public class test {
 							System.out.println(":<");
 							//traitement de la requet
 							if (data.startsWith("GET") || data.startsWith("HEAD")) {
-								sendSite(socket.getOutputStream(),
-										"<html><head><title>Page Test !</title><meta charset=\"UTF-8\"></head><body><center> <form method=\"POST\" action=\"test.html\"><label for=\"pseudo\">Entrez un pseudo:</label><input type=\"text\" name=\"usercreat\" id=\"usercreat\"><br><br><label for=\"pswd\">Choisissez un mot de passe: </label><input type=\"password\" name=\"mdpcreat\" id=\"mdpcreat\"><br><br><label for=\"pswd\">Retapez votre mot de passe: </label><input type=\"password\" name=\"mdpcreat2\" id=\"mdpcreat\"><br><br><input type=\"submit\" value=\"Creation du compte !\" name=\"validation\"><h1>Bonsoir maitre</h1></center></body></html>"
-										);
+								sendRequet(socket.getOutputStream(),
+										("<html><head><title>Page Test !</title><meta charset=\"UTF-8\"></head><body><center> <form method=\"POST\" action=\"test.html\"><label for=\"pseudo\">Entrez un pseudo:</label><input type=\"text\" name=\"usercreat\" id=\"usercreat\"><br><br><label for=\"pswd\">Choisissez un mot de passe: </label><input type=\"password\" name=\"mdpcreat\" id=\"mdpcreat\"><br><br><label for=\"pswd\">Retapez votre mot de passe: </label><input type=\"password\" name=\"mdpcreat2\" id=\"mdpcreat\"><br><br><input type=\"submit\" value=\"Creation du compte !\" name=\"validation\"><h1>Bonsoir maitre</h1></center></body></html>"
+										).getBytes("UTF8"));
 							} else if (data.startsWith("POST")) {
-								sendSite(socket.getOutputStream(),
-										"<html><head><title>Post fait</title><meta charset=\"UTF-8\"></head><body><center><h1>Test Post: "+repRequet+"</h1></center></body></html>"
-										);
+								sendRequet(socket.getOutputStream(),
+										("<html><head><title>Post fait</title><meta charset=\"UTF-8\"></head><body><center><h1>Test Post: "+repRequet+"</h1></center></body></html>"
+										).getBytes("UTF8"));
 							}
 							socket.close();
 						} catch (IOException e) {
@@ -70,15 +70,15 @@ public class test {
 		}
 	}
 
-	public static void sendSite(OutputStream out, String code) throws IOException {
+	public static void sendRequet(OutputStream out, byte[] data) throws IOException {
 		out.write(("HTTP/1.1 200 OK\n\r"+
 				"Date: "+new Date()+"\n\r"+
 				"Server: Tangv_Serveur_Web_1.0\n\r"+
-				"Content-Length: "+code.length()+"\n\r"+
+				"Content-Length: "+data.length+"\n\r"+
 				"Content-Type: text/html; charset=UTF-8\n\r"+
 				"\n\r").getBytes("UTF8"));
 		out.flush();
-		out.write(code.getBytes("UTF8"));
+		out.write(data);
 		out.flush();
 	}
 	
