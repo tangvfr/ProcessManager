@@ -9,13 +9,13 @@
 <import=oneProcess>
 <div class="processWindowTitle"><span class="<import=etatProcess>"></span>
     <span class="titleProcess"><import=nameProcess></span>
-    <input type="image" id="onStart" class="<import=onStartProcess> right"></span>
-    <input type="image" id="stop" src="/stop.png" class="right">
-    <input type="image" id="restart"  src="/restart.png" class="right">
-    <input type="image" id="start"  src="/start.png" class="right">
+    <form method="POST" action="/action_process" style="display: inline;"><input type="image" name="onStart <import=nameProcess>" value=" " class="<import=onStartProcess> right"></form>
+    <form method="POST" action="/action_process" style="display: inline;"><input type="image" name="stop <import=nameProcess>" src="/stop.png" class="right"></form>
+    <form method="POST" action="/action_process" style="display: inline;"><input type="image" name="restart <import=nameProcess>"  src="/restart.png" class="right"></form>
+    <form method="POST" action="/action_process" style="display: inline;"><input type="image" name="start <import=nameProcess>"  src="/start.png" class="right"></form>
 </div>
-<div class="processWindow"><input type="image" formaction="/test" formmethod="POST" id="cmd" src="/cmd.png" class="labelProcess"> <span class="textProcess"><import=cmdProcess></span>
-                        <br><input type="image" formaction="/test" formmethod="POST" id="rep" src="/rep.png" class="labelProcess"> <span class="textProcess"><import=repProcess></span>
+<div class="processWindow"><form method="POST" action="/action_process" style="display: inline;"><input type="image" name="cmd <import=nameProcess>" src="/cmd.png" class="labelProcess"></form> <span class="textProcess"><import=cmdProcess></span>
+                        <br><form method="POST" action="/action_process" style="display: inline;"><input type="image" name="rep <import=nameProcess>" src="/rep.png" class="labelProcess"></form> <span class="textProcess"><import=repProcess></span>
 </div>
 </import>
 

@@ -60,7 +60,7 @@ public class test {
 												repRequet = "/index.html";
 										}
 										//------------------------------------
-										File fileGet = new File("./web/"+repRequet);
+										File fileGet = new File("./web"+repRequet);
 										if (!fileGet.exists()) {
 											sendRequet(out,
 													("<html><head><title>Not found !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center><h1>Not found page</h1></center></body></html>"
@@ -70,9 +70,14 @@ public class test {
 											sendRequet(out, getCodeFile(fileGet), cont);
 										}
 									} else if (data.startsWith("POST")) {
-										sendRequet(out,
-												("<html><head><title>Post fait</title><meta charset=\"UTF-8\"></head><body><center style=\"background: #222222; color: #ff00ff;\"><h1>Test Post: "+repRequet+"</h1><h1>Data send: "+dataRequet+"</h1></center></body></html>"
-												).getBytes("UTF8"), "text/html; charset=UTF-8");
+										if (repRequet.equals("/action_process")) {
+											System.out.println(dataRequet);
+										}
+										File fileGet = new File("./web/index.tangweb");
+										if (fileGet.exists()) {
+											String cont = getContentType(fileGet.getName());
+											sendRequet(out, getCodeFile(fileGet), cont);
+										}
 									}
 								} catch (IOException e) {
 									e.printStackTrace();
