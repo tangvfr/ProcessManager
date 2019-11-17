@@ -29,7 +29,7 @@ public class test {
 								in.read(buf);
 								data += new String(buf, "UTF8");
 							}
-							System.out.println(">:"+data+":<");
+							//System.out.println(">:"+data+":<");
 							//traitement text
 							try {
 								String lineData = data.substring(0, data.indexOf(" HTTP"));
