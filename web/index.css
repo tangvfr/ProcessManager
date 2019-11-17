@@ -1,20 +1,73 @@
+.processWindowTitle {
+    position: relative;
+    display: block;
+    background: #444;
+    color: #eee;
+    border: 2px solid #888;
+    border-bottom: medium;
+    padding: 2px;
+    width: 99%;
+}
+
 .processWindow {
     position: relative;
     display: block;
     background: #555;
-    color: blue;
+    color: #000;
     border: 2px solid #888;
     padding: 2px 2px 2px 2px;
     width: 99%;
 }
 
-.processWindowTitle {
+.titleProcess {
     position: relative;
-    display: block;
-    background: #555;
-    color: blue;
-    border: 2px solid #888;
-    border-bottom: medium;
-    padding: 2px;
-    width: 99%;
+    display: inline-block;
+    vertical-align: middle;
+    color: #eee;
+}
+
+.onStart {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    background: #3bb;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    border-radius: 16px;
+    float: right;
+}
+
+.offStart {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    background: #b3b;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    border-radius: 16px;
+    float: right;
+}
+
+.onCase {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    background: #3b3;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    border-radius: 16px;
+}
+
+.offCase {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    background: #b33;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    border-radius: 16px;
 }

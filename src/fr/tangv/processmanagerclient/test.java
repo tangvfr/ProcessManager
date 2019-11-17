@@ -31,7 +31,6 @@ public class test {
 								in.read(buf);
 								data += new String(buf, "UTF8");
 							}
-							//System.out.println(">:"+data+":<");
 							//traitement text
 							try {
 								String lineData = data.substring(0, data.indexOf(" HTTP"));
@@ -56,19 +55,18 @@ public class test {
 								try {
 									if (data.startsWith("GET") || data.startsWith("HEAD")) {
 										if (repRequet.equals("/")) 
+											repRequet = "/index.tangweb";
+										if (!new File("./web/"+repRequet).exists())
 											repRequet = "/index.html";
+										//------------------------------------
 										File fileGet = new File("./web/"+repRequet);
 										if (!fileGet.exists()) {
 											sendRequet(out,
 													("<html><head><title>Not found !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center><h1>Not found page</h1></center></body></html>"
 													).getBytes("UTF8"), "text/html; charset=UTF-8");
 										} else {
-											FileInputStream inF = new FileInputStream(fileGet);
-											byte[] buff = new byte[(int) fileGet.length()];
-											inF.read(buff);
-											inF.close();
 											String cont = getContentType(repRequet);
-											sendRequet(out, buff, cont);
+											sendRequet(out, getCodeFile(fileGet), cont);
 										}
 									} else if (data.startsWith("POST")) {
 										sendRequet(out,
@@ -93,12 +91,28 @@ public class test {
 	}
 	
 	public static String getContentType(String nameFile) {
-		if (nameFile.endsWith(".html") || nameFile.endsWith(".htm"))
+		if (nameFile.endsWith(".html") || nameFile.endsWith(".htm") || nameFile.endsWith(".tangweb"))
 			return "text/html; charset=UTF-8";
 		else if (nameFile.endsWith(".css"))
 			return "text/css";
 		else
 			return "text/plain";
+	}
+	
+	public static byte[] getCodeFile(File file) throws IOException {
+		FileInputStream inF = new FileInputStream(file);
+		byte[] buff = new byte[(int) file.length()];
+		inF.read(buff);
+		inF.close();
+		if (!file.getName().endsWith(".tangweb"))
+			return buff;
+		String code = new String(buff, "UTF8");
+		
+		code = code.replace("<import=etatProcess>", "onCase");
+		code = code.replace("<import=onStartProcess>", "onStart");
+		code = code.replace("<import=nameProcess>",	"NameProcess");
+		
+		return code.getBytes("UTF8");
 	}
 	
 	public static void sendRequet(OutputStream out, byte[] data, String contentType) throws IOException {
