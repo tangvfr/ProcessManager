@@ -29,6 +29,7 @@ public class test {
 								in.read(buf);
 								data += new String(buf, "UTF8");
 							}
+							System.out.println(">:"+data+":<");
 							//traitement text
 							String lineData = data.substring(0, data.indexOf(" HTTP"));
 							int separatorRequet = lineData.indexOf(" ");
@@ -40,7 +41,7 @@ public class test {
 							String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
 							String ipRequet = socket.getInetAddress().getHostAddress();
 							//--------------------------
-							System.out.println(">:"+data+":<");
+							System.out.println(">:");
 							System.out.println("Type: "+typeRequet);
 							System.out.println("Rep: "+repRequet);
 							System.out.println("Host: "+hostRequet);
@@ -50,11 +51,11 @@ public class test {
 							//traitement de la requet
 							if (data.startsWith("GET") || data.startsWith("HEAD")) {
 								sendRequet(socket.getOutputStream(),
-										("<html><head><title>Page Test !</title><meta charset=\"UTF-8\"></head><body><center> <form method=\"POST\" action=\"test.html\"><label for=\"pseudo\">Entrez un pseudo:</label><input type=\"text\" name=\"usercreat\" id=\"usercreat\"><br><br><label for=\"pswd\">Choisissez un mot de passe: </label><input type=\"password\" name=\"mdpcreat\" id=\"mdpcreat\"><br><br><label for=\"pswd\">Retapez votre mot de passe: </label><input type=\"password\" name=\"mdpcreat2\" id=\"mdpcreat\"><br><br><input type=\"submit\" value=\"Creation du compte !\" name=\"validation\"><h1>Bonsoir maitre</h1></center></body></html>"
+										("<html><head><title>Page Test !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center> <form method=\"POST\" action=\"test.html\"><label for=\"pseudo\">Entrez un pseudo:</label><input type=\"text\" name=\"usercreat\" id=\"usercreat\"><br><br><label for=\"pswd\">Choisissez un mot de passe: </label><input type=\"password\" name=\"mdpcreat\" id=\"mdpcreat\"><br><br><label for=\"pswd\">Retapez votre mot de passe: </label><input type=\"password\" name=\"mdpcreat2\" id=\"mdpcreat\"><br><br><input type=\"submit\" value=\"Creation du compte !\" name=\"validation\"><h1>Bonsoir maitre</h1></center></body></html>"
 										).getBytes("UTF8"));
 							} else if (data.startsWith("POST")) {
 								sendRequet(socket.getOutputStream(),
-										("<html><head><title>Post fait</title><meta charset=\"UTF-8\"></head><body><center><h1>Test Post: "+repRequet+"</h1></center></body></html>"
+										("<html><head><title>Post fait</title><meta charset=\"UTF-8\"></head><body><center style=\"background: #222222; color: #ff00ff;\"><h1>Test Post: "+repRequet+"</h1><h1>Data send: "+dataRequet+"</h1></center></body></html>"
 										).getBytes("UTF8"));
 							}
 							socket.close();
