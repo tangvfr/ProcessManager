@@ -21,6 +21,7 @@ public class CommandStartProcess implements Command {
 			ProcessPlus process = processManagerServer.getProcessManager().getProcess(arg);
 			if (!process.getProcess().isStart()) {
 				try {
+					process.reload();
 					process.getProcess().start();
 					sender.send("Process is start !");
 				} catch (IOException e) {

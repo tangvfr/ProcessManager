@@ -39,6 +39,20 @@
     color: #aa2;
 }
 
+.right {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+}
+
+.left {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+}
+
 .onStart {
     position: relative;
     display: inline-block;
