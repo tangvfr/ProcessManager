@@ -54,10 +54,11 @@ public class test {
 								OutputStream out = socket.getOutputStream();
 								try {
 									if (data.startsWith("GET") || data.startsWith("HEAD")) {
-										if (repRequet.equals("/")) 
+										if (repRequet.equals("/")) {
 											repRequet = "/index.tangweb";
-										if (!new File("./web/"+repRequet).exists())
-											repRequet = "/index.html";
+											if (!new File("./web/"+repRequet).exists())
+												repRequet = "/index.html";
+										}
 										//------------------------------------
 										File fileGet = new File("./web/"+repRequet);
 										if (!fileGet.exists()) {
