@@ -11,12 +11,32 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class test {
+import fr.tangv.processmanagerserver.ProcessManagerServer;
 
-	public static void main(String[] args) {
+public class WebServer {
+
+	private ProcessManagerServer processManagerServer;
+	private ServerSocket serv;
+	private int port;
+	
+	public void stop() throws IOException {
+		serv.close();
+	}
+	
+	public int getPort() {
+		return port;
+	}
+	
+	public ProcessManagerServer getProcessManagerServer() {
+		return processManagerServer;
+	}
+	
+	public WebServer(int port, ProcessManagerServer processManagerServer) {
+		this.port = port;
+		this.processManagerServer = processManagerServer;
 		try {
-			ServerSocket serv = new ServerSocket(8080);
-			while (true) {
+			this.serv = new ServerSocket(port);
+			while (!serv.isClosed()) {
 				Socket socket = serv.accept();
 				Thread thread = new Thread(new Runnable() {
 					@Override
@@ -44,14 +64,6 @@ public class test {
 								String[] dataData = hostData.split("\n");
 								String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
 								String ipRequet = socket.getInetAddress().getHostAddress();
-								//--------------------------
-								System.out.println(">:");
-								System.out.println("Type: "+typeRequet);
-								System.out.println("Rep: "+repRequet);
-								System.out.println("Host: "+hostRequet);
-								System.out.println("Data: "+dataRequet);
-								System.out.println("Ip: "+ipRequet);
-								System.out.println(":<");
 								//traitement de la requet
 								OutputStream out = socket.getOutputStream();
 								try {
@@ -64,14 +76,13 @@ public class test {
 										//------------------------------------
 										File fileGet = new File("./web"+repRequet);
 										if (!fileGet.exists()) {
-											sendRequet(out,
-													("<html><head><title>Not found !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center><h1>Not found page</h1></center></body></html>"
-													).getBytes("UTF8"), "text/html; charset=UTF-8");
+											sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
 										} else {
 											String cont = getContentType(repRequet);
 											sendRequet(out, getCodeFile(fileGet), cont);
 										}
 									} else if (data.startsWith("POST")) {
+										//modif
 										if (repRequet.equals("/action_process")) {
 											System.out.println(dataRequet);
 										}
@@ -79,7 +90,9 @@ public class test {
 										if (fileGet.exists()) {
 											String cont = getContentType(fileGet.getName());
 											sendRequet(out, getCodeFile(fileGet), cont);
-										}
+										} else
+											sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
+										
 									}
 								} catch (IOException e) {
 									e.printStackTrace();
@@ -97,8 +110,8 @@ public class test {
 			e.printStackTrace();
 		}
 	}
-	
-	public static String getContentType(String nameFile) {
+
+	public String getContentType(String nameFile) {
 		if (nameFile.endsWith(".html") || nameFile.endsWith(".htm") || nameFile.endsWith(".tangweb"))
 			return "text/html; charset=UTF-8";
 		else if (nameFile.endsWith(".css"))
@@ -107,7 +120,21 @@ public class test {
 			return "text/plain";
 	}
 	
-	public static byte[] getCodeFile(File file) throws IOException {
+	public byte[] getNotFound() throws IOException {
+		File file = new File("404.html");
+		if (file.exists()) {
+			FileInputStream inF = new FileInputStream(file);
+			byte[] buff = new byte[(int) file.length()];
+			inF.read(buff);
+			inF.close();
+			return buff;
+		} else {
+			return	"<html><head><title>Not found !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center><h1>Not found page</h1></center></body></html>"
+			.getBytes("UTF8");
+		}
+	}
+	
+	public byte[] getCodeFile(File file) throws IOException {
 		FileInputStream inF = new FileInputStream(file);
 		byte[] buff = new byte[(int) file.length()];
 		inF.read(buff);
@@ -130,6 +157,7 @@ public class test {
 				maps.put(nameBalise, contBalise);
 		}
 		//-----------------------------------------
+		//66 modif
 		if (maps.containsKey("oneProcess")) { 
 			maps.replace("oneProcess", maps.get("oneProcess")
 				.replace("<import=etatProcess>", "on")
@@ -142,7 +170,7 @@ public class test {
 		return code.getBytes("UTF8");
 	}
 	
-	public static void sendRequet(OutputStream out, byte[] data, String contentType) throws IOException {
+	public void sendRequet(OutputStream out, byte[] data, String contentType) throws IOException {
 		out.write(("HTTP/1.1 200 OK\n"+
 				"Date: "+new Date()+"\n"+
 				"Server: Tangv_Serveur_Web_1.0\n"+
