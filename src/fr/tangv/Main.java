@@ -16,7 +16,7 @@ public class Main {
 					WebServer webServer = new WebServer(port, pms);
 					ProcessManagerServer.logger.info("Open WebServer with port \""+port+"\" !");
 				} catch (Exception e) {
-					e.printStackTrace();
+					ProcessManagerServer.logger.warning("Error WebServer port is invalid !");
 				}
 			}
 		}
