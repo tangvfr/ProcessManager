@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class test {
 
@@ -113,13 +115,30 @@ public class test {
 		if (!file.getName().endsWith(".tangweb"))
 			return buff;
 		String code = new String(buff, "UTF8");
-		
-		code = code.replace("<import=etatProcess>", "on");
-		code = code.replace("<import=onStartProcess>", "on");
-		code = code.replace("<import=nameProcess>",	"serveurTest");
-		code = code.replace("<import=cmdProcess>",	"java -jar server.jar");
-		code = code.replace("<import=repProcess>",	"C:/Users/tangv/desktop");
-		
+		//-----------------------------------------
+		Map<String, String> maps = new HashMap<String, String>();
+		while (code.contains("<export=")) {
+			int startOneBalise = code.indexOf("<export=")+8;
+			int endOneBalise = code.indexOf(">", startOneBalise);
+			String nameBalise = code.substring(startOneBalise, endOneBalise);
+			int endBalise = code.indexOf("</export>", endOneBalise);
+			String contBalise = code.substring(endOneBalise+1, endBalise);
+			code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
+			if (maps.containsKey(nameBalise))
+				maps.replace(nameBalise, contBalise);
+			else
+				maps.put(nameBalise, contBalise);
+		}
+		//-----------------------------------------
+		if (maps.containsKey("oneProcess")) { 
+			maps.replace("oneProcess", maps.get("oneProcess")
+				.replace("<import=etatProcess>", "on")
+				.replace("<import=onStartProcess>", "on")
+				.replace("<import=nameProcess>",	"serveurTest")
+				.replace("<import=cmdProcess>",	"java -jar server.jar")
+				.replace("<import=repProcess>",	"C:/Users/tangv/desktop")
+			);
+		}
 		return code.getBytes("UTF8");
 	}
 	

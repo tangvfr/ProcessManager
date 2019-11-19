@@ -6,7 +6,7 @@
 </head>
 <body style="background: #222222;">
 
-<import=oneProcess>
+<export=oneProcess>
 <div class="processWindowTitle"><span class="<import=etatProcess>"></span>
     <span class="titleProcess"><import=nameProcess></span>
     <form method="POST" action="/action_process" style="display: inline;"><input type="image" name="onStart <import=nameProcess>" value=" " class="<import=onStartProcess> right"></form>
@@ -17,7 +17,7 @@
 <div class="processWindow"><form method="POST" action="/action_process" style="display: inline;"><input type="image" name="cmd <import=nameProcess>" src="/cmd.png" class="labelProcess"></form> <span class="textProcess"><import=cmdProcess></span>
                         <br><form method="POST" action="/action_process" style="display: inline;"><input type="image" name="rep <import=nameProcess>" src="/rep.png" class="labelProcess"></form> <span class="textProcess"><import=repProcess></span>
 </div>
-</import>
+</export>
 
 </div>
 </body>
