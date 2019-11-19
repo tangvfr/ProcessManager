@@ -8,10 +8,9 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import fr.tangv.processmanagerserver.ProcessManagerServer;
+import fr.tangv.processmanagerserver.util.ProcessPlus;
 
 public class WebServer {
 
@@ -34,81 +33,87 @@ public class WebServer {
 	public WebServer(int port, ProcessManagerServer processManagerServer) {
 		this.port = port;
 		this.processManagerServer = processManagerServer;
-		try {
-			this.serv = new ServerSocket(port);
-			while (!serv.isClosed()) {
-				Socket socket = serv.accept();
-				Thread thread = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							//lecture text
-							InputStream in = socket.getInputStream();
-							byte[] buf = new byte[1];
-							String data = "";
-							in.read(buf);
-							data += new String(buf, "UTF8");
-							if (in.available() > 0) {
-								buf = new byte[in.available()];
-								in.read(buf);
-								data += new String(buf, "UTF8");
-							}
-							//traitement text
-							try {
-								String lineData = data.substring(0, data.indexOf(" HTTP"));
-								int separatorRequet = lineData.indexOf(" ");
-								String typeRequet = lineData.substring(0, separatorRequet);
-								String repRequet = lineData.substring(separatorRequet+1);
-								String hostData = data.substring(data.indexOf("Host: ")+6);
-								String hostRequet = hostData.substring(0, hostData.indexOf("\r\n"));
-								String[] dataData = hostData.split("\n");
-								String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
-								String ipRequet = socket.getInetAddress().getHostAddress();
-								//traitement de la requet
-								OutputStream out = socket.getOutputStream();
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					serv = new ServerSocket(port);
+					while (!serv.isClosed()) {
+						Socket socket = serv.accept();
+						Thread thread = new Thread(new Runnable() {
+							@Override
+							public void run() {
 								try {
-									if (data.startsWith("GET") || data.startsWith("HEAD")) {
-										if (repRequet.equals("/")) {
-											repRequet = "/index.tangweb";
-											if (!new File("./web/"+repRequet).exists())
-												repRequet = "/index.html";
-										}
-										//------------------------------------
-										File fileGet = new File("./web"+repRequet);
-										if (!fileGet.exists()) {
-											sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
-										} else {
-											String cont = getContentType(repRequet);
-											sendRequet(out, getCodeFile(fileGet), cont);
-										}
-									} else if (data.startsWith("POST")) {
-										//modif
-										if (repRequet.equals("/action_process")) {
-											System.out.println(dataRequet);
-										}
-										File fileGet = new File("./web/index.tangweb");
-										if (fileGet.exists()) {
-											String cont = getContentType(fileGet.getName());
-											sendRequet(out, getCodeFile(fileGet), cont);
-										} else
-											sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
-										
+									//lecture text
+									InputStream in = socket.getInputStream();
+									byte[] buf = new byte[1];
+									String data = "";
+									in.read(buf);
+									data += new String(buf, "UTF8");
+									if (in.available() > 0) {
+										buf = new byte[in.available()];
+										in.read(buf);
+										data += new String(buf, "UTF8");
 									}
+									//traitement text
+									try {
+										String lineData = data.substring(0, data.indexOf(" HTTP"));
+										int separatorRequet = lineData.indexOf(" ");
+										String typeRequet = lineData.substring(0, separatorRequet);
+										String repRequet = lineData.substring(separatorRequet+1);
+										String hostData = data.substring(data.indexOf("Host: ")+6);
+										String hostRequet = hostData.substring(0, hostData.indexOf("\r\n"));
+										String[] dataData = hostData.split("\n");
+										String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
+										String ipRequet = socket.getInetAddress().getHostAddress();
+										//traitement de la requet
+										OutputStream out = socket.getOutputStream();
+										try {
+											if (data.startsWith("GET") || data.startsWith("HEAD")) {
+												if (repRequet.equals("/")) {
+													repRequet = "/index.tangweb";
+													if (!new File("./web/"+repRequet).exists())
+														repRequet = "/index.html";
+												}
+												//------------------------------------
+												File fileGet = new File("./web"+repRequet);
+												if (!fileGet.exists()) {
+													sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
+												} else {
+													String cont = getContentType(repRequet);
+													sendRequet(out, getCodeFile(fileGet), cont);
+												}
+											} else if (data.startsWith("POST")) {
+												//modif
+												if (repRequet.equals("/action_process")) {
+													System.out.println(dataRequet);
+												}
+												File fileGet = new File("./web/index.tangweb");
+												if (fileGet.exists()) {
+													String cont = getContentType(fileGet.getName());
+													sendRequet(out, getCodeFile(fileGet), cont);
+												} else
+													sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
+												
+											}
+										} catch (IOException e) {
+											e.printStackTrace();
+										}
+									} catch (Exception e) {}
+									socket.close();
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
-							} catch (Exception e) {}
-							socket.close();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+							}
+						});
+						thread.start();
 					}
-				});
-				thread.start();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		});
+		thread.start();
 	}
 
 	public String getContentType(String nameFile) {
@@ -143,30 +148,30 @@ public class WebServer {
 			return buff;
 		String code = new String(buff, "UTF8");
 		//-----------------------------------------
-		Map<String, String> maps = new HashMap<String, String>();
+		//modif opti
 		while (code.contains("<export=")) {
 			int startOneBalise = code.indexOf("<export=")+8;
 			int endOneBalise = code.indexOf(">", startOneBalise);
 			String nameBalise = code.substring(startOneBalise, endOneBalise);
 			int endBalise = code.indexOf("</export>", endOneBalise);
 			String contBalise = code.substring(endOneBalise+1, endBalise);
-			code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
-			if (maps.containsKey(nameBalise))
-				maps.replace(nameBalise, contBalise);
-			else
-				maps.put(nameBalise, contBalise);
+			//-------------------------------
+			if (nameBalise.equals("oneProcess")) {
+				String codeAdd = "";
+				for (ProcessPlus process : processManagerServer.getProcessManager().getListProcess()) {
+					codeAdd += contBalise
+					.replace("<import=etatProcess>", process.getProcess().isStart() ? "on" : "off")
+					.replace("<import=onStartProcess>", process.isActiveOnStart() ? "on" : "off")
+					.replace("<import=nameProcess>", process.getName())
+					.replace("<import=cmdProcess>",	process.getCmd())
+					.replace("<import=repProcess>",	process.getRep());
+				}
+				code = code.substring(0, startOneBalise-8)+codeAdd+code.substring(endBalise+9, code.length());
+			} else {
+				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
+			}
 		}
 		//-----------------------------------------
-		//66 modif
-		if (maps.containsKey("oneProcess")) { 
-			maps.replace("oneProcess", maps.get("oneProcess")
-				.replace("<import=etatProcess>", "on")
-				.replace("<import=onStartProcess>", "on")
-				.replace("<import=nameProcess>",	"serveurTest")
-				.replace("<import=cmdProcess>",	"java -jar server.jar")
-				.replace("<import=repProcess>",	"C:/Users/tangv/desktop")
-			);
-		}
 		return code.getBytes("UTF8");
 	}
 	
