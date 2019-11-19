@@ -17,6 +17,7 @@
 <div class="processWindow"><form method="POST" action="/action_process" style="display: inline;"><input type="image" name="cmd <import=nameProcess>" src="/cmd.png" class="labelProcess"></form> <span class="textProcess"><import=cmdProcess></span>
                         <br><form method="POST" action="/action_process" style="display: inline;"><input type="image" name="rep <import=nameProcess>" src="/rep.png" class="labelProcess"></form> <span class="textProcess"><import=repProcess></span>
 </div>
+<br>
 </export>
 
 </div>
