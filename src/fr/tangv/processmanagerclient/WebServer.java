@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.Map;
+import java.util.Vector;
 
 import fr.tangv.processmanagerserver.ProcessManagerServer;
 import fr.tangv.processmanagerserver.util.ProcessPlus;
@@ -17,6 +19,21 @@ public class WebServer {
 	private ProcessManagerServer processManagerServer;
 	private ServerSocket serv;
 	private int port;
+	private Vector<RequetExecute> postRequetExecutes;
+	private Vector<RequetExecute> getRequetExecutes;
+	private Map<String, HandleBaliseExport> mapHandle;
+	
+	public void addPostRequetExecutes(RequetExecute req) {
+		postRequetExecutes.add(req);
+	}
+	
+	public void addGetRequetExecutes(RequetExecute req) {
+		getRequetExecutes.add(req);
+	}
+	
+	public void registreHandle(String name, HandleBaliseExport handle) {
+		mapHandle.put(name, handle);
+	}
 	
 	public void stop() throws IOException {
 		serv.close();
@@ -31,6 +48,7 @@ public class WebServer {
 	}
 	
 	public WebServer(int port, ProcessManagerServer processManagerServer) {
+		
 		this.port = port;
 		this.processManagerServer = processManagerServer;
 		Thread thread = new Thread(new Runnable() {
@@ -63,17 +81,19 @@ public class WebServer {
 										String repRequet = lineData.substring(separatorRequet+1);
 										String hostData = data.substring(data.indexOf("Host: ")+6);
 										String hostRequet = hostData.substring(0, hostData.indexOf("\r\n"));
-										String[] dataData = hostData.split("\n");
+										String contType = data.substring(data.indexOf("Content-Type: ")+14);
+										String contTypeRequet = contType.substring(0, contType.indexOf("\r\n"));
+										String[] dataData = data.split("\n");
 										String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
 										String ipRequet = socket.getInetAddress().getHostAddress();
 										//traitement de la requet
 										OutputStream out = socket.getOutputStream();
 										try {
-											if (data.startsWith("GET") || data.startsWith("HEAD")) {
+											if (typeRequet.equals("GET")) {
 												//modif
 												sendPageName(out, repRequet);
 												
-											} else if (data.startsWith("POST")) {
+											} else if (typeRequet.equals("POST")) {
 												//modif
 												
 												System.out.println(dataRequet);
@@ -132,7 +152,6 @@ public class WebServer {
 		String code = new String(buff, "UTF8");
 		//-----------------------------------------
 		//modif opti
-		String noProcess = "";
 		while (code.contains("<export=")) {
 			int startOneBalise = code.indexOf("<export=")+8;
 			int endOneBalise = code.indexOf(">", startOneBalise);
@@ -140,26 +159,10 @@ public class WebServer {
 			int endBalise = code.indexOf("</export>", endOneBalise);
 			String contBalise = code.substring(endOneBalise+1, endBalise);
 			//-------------------------------
-			if (nameBalise.equals("oneProcess")) {
-				String codeAdd = "";
-				for (ProcessPlus process : processManagerServer.getProcessManager().getListProcess()) {
-					codeAdd += contBalise
-					.replace("<import=etatProcess>", process.getProcess().isStart() ? "on" : "off")
-					.replace("<import=onStartProcess>", process.isActiveOnStart() ? "on" : "off")
-					.replace("<import=nameProcess>", process.getName())
-					.replace("<import=cmdProcess>",	process.getCmd())
-					.replace("<import=repProcess>",	process.getRep());
-				}
-				if (codeAdd.isEmpty())
-					code = code.substring(0, startOneBalise-8)+noProcess+code.substring(endBalise+9, code.length());
-				else
-					code = code.substring(0, startOneBalise-8)+codeAdd+code.substring(endBalise+9, code.length());
-			} else if (nameBalise.equals("noProcess")) {
-				noProcess = contBalise;
+			if ()
+				code = code.substring(0, startOneBalise-8)++code.substring(endBalise+9, code.length());
+			else
 				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
-			} else {
-				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
-			}
 		}
 		//-----------------------------------------
 		return code.getBytes("UTF8");

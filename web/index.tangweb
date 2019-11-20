@@ -4,16 +4,13 @@
 <link href="/index.css" rel="stylesheet" type="text/css">
 <title>Page index test !</title>
 <script>
-/*var xhr = new XMLHttpRequest();
-xhr.open("POST", '/server', true);
-xhr.send("start");*/
-
 var xhr = new XMLHttpRequest();
-xhr.open("POST", "/cmd", true);
+xhr.open("POST", "/", true);
+xhr.setRequestHeader("Content-Type", "test");
 xhr.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        console.log(this.responseText);
         document.write(this.responseText);
+        document.close();
     }
 };
 xhr.send("start if");
