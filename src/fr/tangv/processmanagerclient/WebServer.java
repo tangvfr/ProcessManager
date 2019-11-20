@@ -70,31 +70,14 @@ public class WebServer {
 										OutputStream out = socket.getOutputStream();
 										try {
 											if (data.startsWith("GET") || data.startsWith("HEAD")) {
-												if (repRequet.equals("/")) {
-													repRequet = "/index.tangweb";
-													if (!new File("./web/"+repRequet).exists())
-														repRequet = "/index.html";
-												}
-												//------------------------------------
-												File fileGet = new File("./web"+repRequet);
-												if (!fileGet.exists()) {
-													sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
-												} else {
-													String cont = getContentType(repRequet);
-													sendRequet(out, getCodeFile(fileGet), cont);
-												}
+												//modif
+												sendPageName(out, repRequet);
+												
 											} else if (data.startsWith("POST")) {
 												//modif
-												if (repRequet.equals("/action_process")) {
-													System.out.println(dataRequet);
-												}
-												File fileGet = new File("./web/index.tangweb");
-												if (fileGet.exists()) {
-													String cont = getContentType(fileGet.getName());
-													sendRequet(out, getCodeFile(fileGet), cont);
-												} else
-													sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
 												
+												System.out.println(dataRequet);
+												sendPageName(out, repRequet);
 											}
 										} catch (IOException e) {
 											e.printStackTrace();
@@ -149,6 +132,7 @@ public class WebServer {
 		String code = new String(buff, "UTF8");
 		//-----------------------------------------
 		//modif opti
+		String noProcess = "";
 		while (code.contains("<export=")) {
 			int startOneBalise = code.indexOf("<export=")+8;
 			int endOneBalise = code.indexOf(">", startOneBalise);
@@ -166,13 +150,35 @@ public class WebServer {
 					.replace("<import=cmdProcess>",	process.getCmd())
 					.replace("<import=repProcess>",	process.getRep());
 				}
-				code = code.substring(0, startOneBalise-8)+codeAdd+code.substring(endBalise+9, code.length());
+				if (codeAdd.isEmpty())
+					code = code.substring(0, startOneBalise-8)+noProcess+code.substring(endBalise+9, code.length());
+				else
+					code = code.substring(0, startOneBalise-8)+codeAdd+code.substring(endBalise+9, code.length());
+			} else if (nameBalise.equals("noProcess")) {
+				noProcess = contBalise;
+				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
 			} else {
 				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
 			}
 		}
 		//-----------------------------------------
 		return code.getBytes("UTF8");
+	}
+	
+	public void sendPageName(OutputStream out, String name) throws IOException {
+		if (name.equals("/")) {
+			name = "/index.tangweb";
+			if (!new File("./web/"+name).exists())
+				name = "/index.html";
+		}
+		//------------------------------------
+		File fileGet = new File("./web"+name);
+		if (!fileGet.exists()) {
+			sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
+		} else {
+			String cont = getContentType(name);
+			sendRequet(out, getCodeFile(fileGet), cont);
+		}
 	}
 	
 	public void sendRequet(OutputStream out, byte[] data, String contentType) throws IOException {

@@ -3,8 +3,29 @@
 <meta charset="UTF-8"> 
 <link href="/index.css" rel="stylesheet" type="text/css">
 <title>Page index test !</title>
+<script>
+/*var xhr = new XMLHttpRequest();
+xhr.open("POST", '/server', true);
+xhr.send("start");*/
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "/cmd", true);
+xhr.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+        document.write(this.responseText);
+    }
+};
+xhr.send("start if");
+</script>
 </head>
 <body style="background: #222222;">
+
+<export=noProcess>
+<div class="processWindow">
+    <span class="titleProcess">No process</span>
+</div>
+</export>
 
 <export=oneProcess>
 <div class="processWindowTitle"><span class="<import=etatProcess>"></span>
