@@ -8,11 +8,11 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
 import fr.tangv.processmanagerserver.ProcessManagerServer;
-import fr.tangv.processmanagerserver.util.ProcessPlus;
 
 public class WebServer {
 
@@ -22,6 +22,7 @@ public class WebServer {
 	private Vector<RequetExecute> postRequetExecutes;
 	private Vector<RequetExecute> getRequetExecutes;
 	private Map<String, HandleBaliseExport> mapHandle;
+	private WebServer web;
 	
 	public void addPostRequetExecutes(RequetExecute req) {
 		postRequetExecutes.add(req);
@@ -48,7 +49,10 @@ public class WebServer {
 	}
 	
 	public WebServer(int port, ProcessManagerServer processManagerServer) {
-		
+		this.web = this;
+		this.getRequetExecutes = new Vector<RequetExecute>();
+		this.postRequetExecutes = new Vector<RequetExecute>();
+		this.mapHandle = new HashMap<String, HandleBaliseExport>();
 		this.port = port;
 		this.processManagerServer = processManagerServer;
 		Thread thread = new Thread(new Runnable() {
@@ -90,14 +94,13 @@ public class WebServer {
 										OutputStream out = socket.getOutputStream();
 										try {
 											if (typeRequet.equals("GET")) {
-												//modif
-												sendPageName(out, repRequet);
-												
+												for (RequetExecute req : getRequetExecutes) {
+													req.execute(web, out, typeRequet, repRequet, hostRequet, contTypeRequet, dataRequet, ipRequet);
+												}
 											} else if (typeRequet.equals("POST")) {
-												//modif
-												
-												System.out.println(dataRequet);
-												sendPageName(out, repRequet);
+												for (RequetExecute req : postRequetExecutes) {
+													req.execute(web, out, typeRequet, repRequet, hostRequet, contTypeRequet, dataRequet, ipRequet);
+												}
 											}
 										} catch (IOException e) {
 											e.printStackTrace();
@@ -159,8 +162,8 @@ public class WebServer {
 			int endBalise = code.indexOf("</export>", endOneBalise);
 			String contBalise = code.substring(endOneBalise+1, endBalise);
 			//-------------------------------
-			if ()
-				code = code.substring(0, startOneBalise-8)++code.substring(endBalise+9, code.length());
+			if (mapHandle.containsKey(nameBalise))
+				code = code.substring(0, startOneBalise-8)+mapHandle.get(nameBalise).handle(this, nameBalise, contBalise)+code.substring(endBalise+9, code.length());
 			else
 				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
 		}

@@ -1,5 +1,7 @@
 package fr.tangv.processmanagerclient;
 
+import java.io.IOException;
+
 import fr.tangv.processmanagerserver.util.ProcessPlus;
 
 public class ProcessAffiche implements HandleBaliseExport {
@@ -11,7 +13,7 @@ public class ProcessAffiche implements HandleBaliseExport {
 	}
 	
 	@Override
-	public String handle(WebServer webServer, String name, String cont) {
+	public String handle(WebServer webServer, String name, String cont) throws IOException {
 		if (name.equals("oneProcess")) {
 			String codeAdd = "";
 			for (ProcessPlus process : webServer.getProcessManagerServer().getProcessManager().getListProcess()) {
