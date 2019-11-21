@@ -9,7 +9,7 @@ import fr.tangv.processmanagerserver.ProcessManagerServer;
 public class Main {
 
 	public static String version = "Alpha_1.2";
-	
+	//wanteeed code promo direct
 	public static void main(String[] args) {
 		if (args.length >= 1 && args[0].equalsIgnoreCase("-server")) {
 			ProcessManagerServer pms = new ProcessManagerServer();

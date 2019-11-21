@@ -1,0 +1,39 @@
+<html>
+<head>
+<meta charset="UTF-8"> 
+<link href="/index.css" rel="stylesheet" type="text/css">
+<title>Page index test !</title>
+<script>
+var iden = "";
+function onIdentif() {
+    iden = document.getElementById("user").value+" "+document.getElementById("pass").value;
+    sendRequet("GET", "/info.tangweb", "");
+}
+
+function sendRequet(type ,rep, data) {
+    let xhr = new XMLHttpRequest();
+    xhr.open(type, rep, true);
+    xhr.setRequestHeader("Content-Type", iden);
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.write(this.responseText);
+            document.close();
+        }
+    };
+    if (type == "POST")
+        xhr.send(data);
+    else
+        xhr.send();
+}
+
+</script>
+</head>
+<body style="background: #222222;">
+
+<input type="text" id="user">
+<input type="text" id="pass">
+<input type="button" value="Connect" id="btn" onclick="onIdentif();">
+
+</div>
+</body>
+</html>
