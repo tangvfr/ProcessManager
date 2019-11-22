@@ -1,10 +1,10 @@
 package fr.tangv;
 
-import fr.tangv.processmanagerclient.GetExecute;
-import fr.tangv.processmanagerclient.PostExecute;
-import fr.tangv.processmanagerclient.ProcessAffiche;
-import fr.tangv.processmanagerclient.WebServer;
 import fr.tangv.processmanagerserver.ProcessManagerServer;
+import fr.tangv.processmanagerwebserver.GetExecute;
+import fr.tangv.processmanagerwebserver.PostExecute;
+import fr.tangv.processmanagerwebserver.ProcessAffiche;
+import fr.tangv.processmanagerwebserver.WebServer;
 
 public class Main {
 

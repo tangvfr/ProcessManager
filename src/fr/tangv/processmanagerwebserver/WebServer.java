@@ -1,4 +1,4 @@
-package fr.tangv.processmanagerclient;
+package fr.tangv.processmanagerwebserver;
 
 import java.io.File;
 import java.io.FileInputStream;
