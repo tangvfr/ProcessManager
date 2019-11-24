@@ -7,6 +7,15 @@
 var iden = "";
 var consoleText = "Console:";
 var sendText = "";
+var consoleGet = "";
+var consoleOpen = false;
+var actualConsole = () => {};
+
+function actual() {
+    actualConsole();
+}
+setInterval(actual, 1000);
+
 function onIdentif() {
     iden = document.getElementById("user").value+" "+document.getElementById("pass").value;
     sendRequet("GET", "/info.tangweb", "");

@@ -10,6 +10,53 @@
     width: 100%;
 }
 
+.downPageClose {
+    position: fixed;
+    display: block;
+    top: calc(100% - 38px);
+    left: 0%;
+    background: #444;
+    color: #eee;
+    border-top: 2px solid #888;
+    padding: 2px;
+    width: 100%;
+}
+
+.downPageOpen {
+    position: fixed;
+    display: block;
+    top: calc(40% - 40px);
+    left: 0%;
+    background: #444;
+    color: #eee;
+    border-top: 2px solid #888;
+    border-bottom: 2px solid #888;
+    padding: 2px;
+    width: 100%;
+}
+
+.console {
+    position: fixed;
+    display: block;
+    top: 40%;
+    left: 0%;
+    background: #555;
+    color: #eee;
+    padding: 2px;
+    width: 100%;
+    height: calc(60% - 42px);
+}
+
+.consoleTitle {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    color: #eee;
+    font-size: 18px;
+    left: 5px;
+    top: 5px;
+}
+
 .title {
     position: relative;
     display: inline-block;

@@ -31,17 +31,17 @@ function changeRename(name) {
 
 function addProcess() {
     let name = prompt("Entrée le nom du nouveau process:");
-    if (name != null) {
+    if (name != null && name != "") {
         if (name.includes(" ") || name.includes("~")) {
             alert("Erreur le nom d'un process ne peux contenir un ' ' ou '~'.");
         } else {
             let cmd = prompt("Entrée la command du nouveau process \""+name+"\":");
-            if (cmd != null) {
+            if (cmd != null && cmd != "") {
                 if (cmd.includes("~")) {
                     alert("Erreur la command d'un process ne peux contenir un '~'.");
                 } else {
                     let rep = prompt("Entrée le répertoire du nouveau process \""+name+"\":");
-                    if (rep != null) {
+                    if (rep != null && rep != "") {
                         if (rep.includes("~")) {
                             alert("Erreur la command d'un process ne peux contenir un '~'.");
                         } else {
@@ -63,11 +63,38 @@ function changeRemove(name) {
 }
 
 function actionSend(name) {
-    let input = prompt("Cmd pour \""+name+"\":");
-    if (input != null) {
-        btnRequet("send "+name+" "+input, true);
+    let input = document.getElementById("sendText").value;
+    document.getElementById("sendText").value = "";
+    if (input != null && input != "") {
+        sendRequet("POST", "info.tangweb", "send "+name+" "+input);
     }
 }
+
+function updateConsole() {
+    if (consoleOpen == true) {
+        document.getElementById("openConsole").src = "/close_console.png";
+        document.getElementById("downPage").classList.remove("downPageClose");
+        document.getElementById("downPage").classList.add("downPageOpen");
+        document.getElementById("consolePanel").style.visibility = "visible";
+    } else {
+        document.getElementById("openConsole").src = "/open_console.png";
+        document.getElementById("downPage").classList.remove("downPageOpen");
+        document.getElementById("downPage").classList.add("downPageClose");
+        document.getElementById("consolePanel").style.visibility = "hidden";
+    }
+}
+
+function setConsoleGet(name) {
+    consoleGet = name;
+    document.getElementById("consoleTitle").innerHTML = consoleGet;
+    actualConsole();
+}
+
+actualConsole = function() {
+    if (consoleGet != null && consoleGet != "") {
+        actionRead(consoleGet);
+    }
+};
 
 function actionRead(name) {
     let xhr = new XMLHttpRequest();
@@ -75,7 +102,7 @@ function actionRead(name) {
     xhr.setRequestHeader("Content-Type", iden);
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            consoleText = "Console:<br>"+this.responseText;
+            consoleText = this.responseText;
             document.getElementById("console").innerHTML = consoleText;
         }
     };
@@ -96,6 +123,7 @@ function btnRequet(cmd, action) {
 
 function sendRequet(type ,rep, data) {
     clearTimeout(timeout);
+    sendText = document.getElementById("sendText").value;
     let xhr = new XMLHttpRequest();
     xhr.open(type, rep, true);
     xhr.setRequestHeader("Content-Type", iden);
@@ -106,7 +134,7 @@ function sendRequet(type ,rep, data) {
         }
     };
     if (type == "POST")
-        xhr.send(data);
+        xhr.send(data);                                              
     else
         xhr.send();
 }
@@ -129,31 +157,50 @@ function refrech() {
 </export>
 
 <export=oneProcess>
-<div class="processWindowTitle"><span class="<import=etatProcess>"></span>
+<div id="<import=nameProcess>" class="processWindowTitle" ondblclick="setConsoleGet(this.id);"><span class="<import=etatProcess>"></span>
     <span class="titleProcess"><import=nameProcess></span>
     <div id="onStart <import=nameProcess>" class="<import=onStartProcess> right" onclick="btnRequet(this.id, false);"> </div>
     <image id="stop <import=nameProcess>" src="/stop.png" class="right" onclick="btnRequet(this.id, true);">
     <image id="restart <import=nameProcess>" src="/restart.png" class="right" onclick="btnRequet(this.id, true);">
     <image id="start <import=nameProcess>" src="/start.png" class="right" onclick="btnRequet(this.id, true);">
 </div>
-<div class="processWindow"><image id="<import=nameProcess>" src="/cmd.png" class="labelProcess" onclick="changeCmd(this.id);"> <span class="textProcess"><import=cmdProcess></span><image id="<import=nameProcess>" src="/rename.png" class="labelProcess right" onclick="changeRename(this.id);"><image id="<import=nameProcess>" src="/rename.png" class="labelProcess right" onclick="actionSend(this.id);">
-                        <br><image id="<import=nameProcess>" src="/rep.png" class="labelProcess" onclick="changeRep(this.id);"> <span class="textProcess"><import=repProcess></span><image id="<import=nameProcess>" src="/remove.png" class="labelProcess right" onclick="changeRemove(this.id);"><image id="<import=nameProcess>" src="/cmd.png" class="labelProcess right" onclick="actionRead(this.id);">
+<div  id="<import=nameProcess>" class="processWindow" ondblclick="setConsoleGet(this.id);">
+    <image id="<import=nameProcess>" src="/cmd.png" class="labelProcess" onclick="changeCmd(this.id);">
+        <span class="textProcess"><import=cmdProcess></span>
+        <image id="<import=nameProcess>" src="/rename.png" class="labelProcess right" onclick="changeRename(this.id);">
+        <br>
+        <image id="<import=nameProcess>" src="/rep.png" class="labelProcess" onclick="changeRep(this.id);">
+        <span class="textProcess"><import=repProcess></span>
+        <image id="<import=nameProcess>" src="/remove.png" class="labelProcess right" onclick="changeRemove(this.id);">
 </div>
 <br>
 </export>
 
-<div id="console"></div>
-<div class="topPage">
-        <span class="title">ProcessManager Alpha_1.3</span>
-        <image src="/refrech.png" class="left" onclick="refrech();">
-        <hr class="right">
-        <image src="/add.png" class="right" onclick="addProcess();">
+<div id="downPage" class="downPageClose">
+    <image id="openConsole" class="left" onclick="consoleOpen = !consoleOpen; updateConsole();">
+    <span id="consoleTitle" class="left consoleTitle">jsp</span><<<probleme s'affiche pas
+</div>
+<div id="consolePanel">
+    <div id="console" class="console"></div>
+    <div id="execute" class="downPageClose">
+        <span class="left consoleTitle">Execute: </span>
+        <input id="sendText" type="text">
+        <image src="/send.png" onclick="actionSend(consoleGet);">
     </div>
+</div>
 
+<div class="topPage">
+    <span class="title">ProcessManager Alpha_1.3</span>
+    <image src="/refrech.png" class="left" onclick="refrech();">
+    <hr class="right">
+    <image src="/add.png" class="right" onclick="addProcess();">
 </div>
 
 <script>
+    document.getElementById("consoleTitle").innerHTML = consoleGet;
     document.getElementById("console").innerHTML = consoleText;
+    document.getElementById("sendText").value = sendText;
+    updateConsole();
     var timeout = setTimeout(refrech, 30000);
 </script>
 </body>
