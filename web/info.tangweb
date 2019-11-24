@@ -2,13 +2,82 @@
 <head>
 <meta charset="UTF-8"> 
 <link href="/index.css" rel="stylesheet" type="text/css">
-<title>Page index test !</title>
+<title>ProcessManager Alpha_1.3</title>
 <script>
-function btnRequet(ob) {
-    sendRequet("POST", "info.tangweb", ob.id);
+function changeCmd(name) {
+    let input = prompt("Entrée la nouvelle commande du process \""+name+"\":");
+    if (input != null) {
+        btnRequet("cmd "+name+" "+input, false);
+    }
 }
 
+function changeRep(name) {
+    let input = prompt("Entrée le nouveau répertoire du process \""+name+"\":");
+    if (input != null) {
+        btnRequet("rep "+name+" "+input, false);
+    }
+}
+
+function changeRename(name) {
+    let input = prompt("Entrée le nouveau nom du process \""+name+"\":");
+    if (input != null) {
+        if (input.includes(" ")) {
+            alert("Erreur le nom d'un process ne peux contenir un ' '.");
+        } else {
+            btnRequet("rename "+name+" "+input, false);
+        }
+    }
+}
+
+function addProcess() {
+    let name = prompt("Entrée le nom du nouveau process:");
+    if (name != null) {
+        if (name.includes(" ") || name.includes("~")) {
+            alert("Erreur le nom d'un process ne peux contenir un ' ' ou '~'.");
+        } else {
+            let cmd = prompt("Entrée la command du nouveau process \""+name+"\":");
+            if (cmd != null) {
+                if (cmd.includes("~")) {
+                    alert("Erreur la command d'un process ne peux contenir un '~'.");
+                } else {
+                    let rep = prompt("Entrée le répertoire du nouveau process \""+name+"\":");
+                    if (rep != null) {
+                        if (rep.includes("~")) {
+                            alert("Erreur la command d'un process ne peux contenir un '~'.");
+                        } else {
+                            let onStart = confirm("Voulez vous que le nouveau process \""+name+"\" démare au démarage du logicelle:");
+                            btnRequet("add~"+name+"~"+cmd+"~"+rep+"~"+onStart, false);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function changeRemove(name) {
+    let input = confirm("Voulez vous suprimé le process \""+name+"\":");
+    if (input) {
+        btnRequet("remove "+name, true);
+    }
+}
+
+function btnRequet(cmd, action) {
+    if (action) {
+        if (confirm("Action: "+cmd)) {
+            sendRequet("POST", "info.tangweb", cmd);
+        }
+    } else {
+        if (confirm("Change: "+cmd)) {
+            sendRequet("POST", "info.tangweb", cmd);
+        }
+    }
+}
+
+var timeout = setTimeout(refrech, 30000);
+
 function sendRequet(type ,rep, data) {
+    clearTimeout(timeout);
     let xhr = new XMLHttpRequest();
     xhr.open(type, rep, true);
     xhr.setRequestHeader("Content-Type", iden);
@@ -24,9 +93,16 @@ function sendRequet(type ,rep, data) {
         xhr.send();
 }
 
+function refrech() {
+    sendRequet("GET", "/info.tangweb", "");
+}
+
 </script>
 </head>
 <body style="background: #222222;">
+
+<br>
+<br>
 
 <export=noProcess>
 <div class="processWindow">
@@ -37,17 +113,25 @@ function sendRequet(type ,rep, data) {
 <export=oneProcess>
 <div class="processWindowTitle"><span class="<import=etatProcess>"></span>
     <span class="titleProcess"><import=nameProcess></span>
-    <div id="onStart <import=nameProcess>" class="<import=onStartProcess> right" onclick="btnRequet(this);"> </div>
-    <image id="stop <import=nameProcess>" src="/stop.png" class="right" onclick="btnRequet(this);">
-    <image id="restart <import=nameProcess>" src="/restart.png" class="right" onclick="btnRequet(this);">
-    <image id="start <import=nameProcess>" src="/start.png" class="right" onclick="btnRequet(this);">
+    <div id="onStart <import=nameProcess>" class="<import=onStartProcess> right" onclick="btnRequet(this.id, false);"> </div>
+    <image id="stop <import=nameProcess>" src="/stop.png" class="right" onclick="btnRequet(this.id, true);">
+    <image id="restart <import=nameProcess>" src="/restart.png" class="right" onclick="btnRequet(this.id, true);">
+    <image id="start <import=nameProcess>" src="/start.png" class="right" onclick="btnRequet(this.id, true);">
 </div>
-<div class="processWindow"><image id="cmd" src="/cmd.png" class="labelProcess"> <span class="textProcess"><import=cmdProcess></span>
-                        <br><image id="rep" src="/rep.png" class="labelProcess"> <span class="textProcess"><import=repProcess></span>
+<div class="processWindow"><image id="<import=nameProcess>" src="/cmd.png" class="labelProcess" onclick="changeCmd(this.id);"> <span class="textProcess"><import=cmdProcess></span><image id="<import=nameProcess>" src="/rename.png" class="labelProcess right" onclick="changeRename(this.id);"></image>
+                        <br><image id="<import=nameProcess>" src="/rep.png" class="labelProcess" onclick="changeRep(this.id);"> <span class="textProcess"><import=repProcess></span><image id="<import=nameProcess>" src="/remove.png" class="labelProcess right" onclick="changeRemove(this.id);"></image>
 </div>
 <br>
 </export>
 
+<div class="topPage">
+        <span class="title">ProcessManager Alpha_1.3</span>
+        <image src="/refrech.png" class="left" onclick="refrech();">
+        <hr class="right">
+        <image src="/add.png" class="right" onclick="addProcess();">
+    </div>
+
 </div>
+
 </body>
 </html>

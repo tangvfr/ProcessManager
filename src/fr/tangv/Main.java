@@ -8,7 +8,7 @@ import fr.tangv.processmanagerwebserver.WebServer;
 
 public class Main {
 
-	public static String version = "Alpha_1.2";
+	public static String version = "Alpha_1.3";
 	//wanteeed code promo direct
 	public static void main(String[] args) {
 		if (args.length >= 1 && args[0].equalsIgnoreCase("-server")) {

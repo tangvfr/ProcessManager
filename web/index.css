@@ -1,3 +1,25 @@
+.topPage {
+    position: fixed;
+    display: block;
+    top: 0%;
+    left: 0%;
+    background: #444;
+    color: #eee;
+    border-bottom: 2px solid #888;
+    padding: 2px;
+    width: 100%;
+}
+
+.title {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    color: #eee;
+    font-size: 20px;
+    left: 10px;
+    top: 4px;
+}
+
 .processWindowTitle {
     position: relative;
     display: block;

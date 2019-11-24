@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
+import fr.tangv.Main;
 import fr.tangv.processmanagerserver.ProcessManagerServer;
 
 public class WebServer {
@@ -190,7 +191,7 @@ public class WebServer {
 	public void sendRequet(OutputStream out, byte[] data, String contentType) throws IOException {
 		out.write(("HTTP/1.1 200 OK\n"+
 				"Date: "+new Date()+"\n"+
-				"Server: Tangv_Serveur_Web_1.0\n"+
+				"Server: Tangv_Serveur_Web_"+Main.version+"\n"+
 				"Content-Length: "+data.length+"\n"+
 				"Content-Type: "+contentType+"\n"+
 				"\n").getBytes());
