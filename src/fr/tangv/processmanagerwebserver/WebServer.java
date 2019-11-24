@@ -49,18 +49,18 @@ public class WebServer {
 		return processManagerServer;
 	}
 	
-	public WebServer(int port, ProcessManagerServer processManagerServer) {
+	public WebServer(int port, ProcessManagerServer processManagerServer) throws IOException {
 		this.web = this;
 		this.getRequetExecutes = new Vector<RequetExecute>();
 		this.postRequetExecutes = new Vector<RequetExecute>();
 		this.mapHandle = new HashMap<String, HandleBaliseExport>();
 		this.port = port;
 		this.processManagerServer = processManagerServer;
+		serv = new ServerSocket(port);
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					serv = new ServerSocket(port);
 					while (!serv.isClosed()) {
 						Socket socket = serv.accept();
 						Thread thread = new Thread(new Runnable() {

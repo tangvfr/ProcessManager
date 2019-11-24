@@ -2,7 +2,6 @@ package fr.tangv.processmanagerwebserver;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import fr.tangv.processmanagerserver.util.ProcessManager;
 import fr.tangv.processmanagerserver.util.ProcessPlus;
 
@@ -19,6 +18,7 @@ public class PostExecute implements RequetExecute {
 					if (webServer.getProcessManagerServer().getUserAndMdp().get(name).equals(pwd)) {
 						try {
 							ProcessManager pmg = webServer.getProcessManagerServer().getProcessManager();
+							dataRequet = dataRequet.replace("<", "").replace(">", "");
 							String[] args = dataRequet.split(" ", 2);
 							if (args.length == 2) {
 								String[] cmd;
@@ -69,7 +69,7 @@ public class PostExecute implements RequetExecute {
 										break;
 									case "rename":
 										cmd = args[1].split(" ", 2);
-										if (cmd.length == 2 && pmg.hasProcess(cmd[0])) {
+										if (cmd.length == 2 && pmg.hasProcess(cmd[0]) && !pmg.hasProcess(cmd[1])) {
 											pmg.renameProcess(cmd[0], cmd[1]);
 										}
 										break;
@@ -78,16 +78,30 @@ public class PostExecute implements RequetExecute {
 											pmg.removeProcess(args[1]);
 										}
 										break;
+									case "send":
+										cmd = args[1].split(" ", 2);
+										if (cmd.length == 2 && pmg.hasProcess(cmd[0])) {
+											ProcessPlus process = pmg.getProcess(cmd[0]);
+											process.send(cmd[1]);
+										}
+										break;
+									case "read":
+										if (pmg.hasProcess(args[1])) {
+											ProcessPlus process = pmg.getProcess(args[1]);
+											String console = process.read(20);
+											webServer.sendRequet(out, console.getBytes("UTF8"), "console");
+											return;
+										}
+										break;
+									case "add":
+										String[] data = args[1].split("~");
+										if (data.length == 4) {
+											ProcessPlus process = new ProcessPlus(data[0], data[1], data[2], "UTF8", Boolean.parseBoolean(data[3]));
+											pmg.addProcess(process);
+										}
+										break;
 									default:
 										break;
-								}
-							} else {
-								if (dataRequet.startsWith("add~")) {
-									String[] data = dataRequet.split("~");
-									if (data.length == 5) {
-										ProcessPlus process = new ProcessPlus(data[1], data[2], data[3], "UTF8", Boolean.parseBoolean(data[4]));
-										pmg.addProcess(process);
-									}
 								}
 							}
 						} catch (Exception e) {
