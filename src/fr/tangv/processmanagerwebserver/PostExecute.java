@@ -70,9 +70,7 @@ public class PostExecute implements RequetExecute {
 									case "rename":
 										cmd = args[1].split(" ", 2);
 										if (cmd.length == 2 && pmg.hasProcess(cmd[0])) {
-											ProcessPlus process = pmg.getProcess(cmd[0]);
-											process.setName(cmd[1]);
-											pmg.saveProcces(process.getName());
+											pmg.renameProcess(cmd[0], cmd[1]);
 										}
 										break;
 									case "remove":
