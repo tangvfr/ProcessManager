@@ -5,6 +5,8 @@
 <title>Page index test !</title>
 <script>
 var iden = "";
+var consoleText = "Console:";
+var sendText = "";
 function onIdentif() {
     iden = document.getElementById("user").value+" "+document.getElementById("pass").value;
     sendRequet("GET", "/info.tangweb", "");
