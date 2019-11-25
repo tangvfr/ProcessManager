@@ -45,6 +45,7 @@
     padding: 2px;
     width: 100%;
     height: calc(60% - 42px);
+    overflow: auto;
 }
 
 .consoleTitle {

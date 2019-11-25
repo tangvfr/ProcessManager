@@ -77,23 +77,23 @@ public class ProcessPlus {
 	}
 	
 	public String read(int maxLine) throws IOException {
-		String input = process.getInput().replace("\n", "<br>");
-		String error = process.getError().replace("\n", "<br>");
+		String input = process.getInput();
+		String error = process.getError();
 		if (!input.isEmpty())
-			this.console += "<span style=\"color: white;\">"+input+"</span>";
+			this.console += input;
 		if (!error.isEmpty())
-			this.console += "<span style=\"color: red;\">"+error+"</span>";
+			this.console += error;
 		//-----------------------------------------------
-		String[] consoleLine = console.split("<br>");
+		String[] consoleLine = console.split("\n");
 		if (consoleLine.length > maxLine) {
-			String newConsole = "<span style=\"color: white;\">";
+			String newConsole = "";
 			for (int i = consoleLine.length-maxLine; i < consoleLine.length; i++) {
 				if (i == consoleLine.length-1)
 					newConsole += consoleLine[i];
 				else
-					newConsole += consoleLine[i]+"<br>";
+					newConsole += consoleLine[i]+"\n";
 			}
-			this.console = newConsole+"</span>";
+			this.console = newConsole;
 		}
 		return this.console;
 	}

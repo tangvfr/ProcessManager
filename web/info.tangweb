@@ -103,7 +103,7 @@ function actionRead(name) {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             consoleText = this.responseText;
-            document.getElementById("console").innerHTML = consoleText;
+            document.getElementById("console").innerText = consoleText;
         }
     };
     xhr.send("read "+name);
@@ -123,6 +123,8 @@ function btnRequet(cmd, action) {
 
 function sendRequet(type ,rep, data) {
     clearTimeout(timeout);
+    sW = document.getElementById("console").scrollWidth;
+    sH = document.getElementById("console").scrollHeight;
     sendText = document.getElementById("sendText").value;
     let xhr = new XMLHttpRequest();
     xhr.open(type, rep, true);
@@ -178,10 +180,10 @@ function refrech() {
 
 <div id="downPage" class="downPageClose">
     <image id="openConsole" class="left" onclick="consoleOpen = !consoleOpen; updateConsole();">
-    <span id="consoleTitle" class="left consoleTitle">jsp</span><<<probleme s'affiche pas
+    <span id="consoleTitle" class="left consoleTitle">jsp</span>
 </div>
 <div id="consolePanel">
-    <div id="console" class="console"></div>
+    <code id="console" class="console"></code>
     <div id="execute" class="downPageClose">
         <span class="left consoleTitle">Execute: </span>
         <input id="sendText" type="text">
@@ -198,7 +200,9 @@ function refrech() {
 
 <script>
     document.getElementById("consoleTitle").innerHTML = consoleGet;
-    document.getElementById("console").innerHTML = consoleText;
+    document.getElementById("console").innerText = consoleText;
+    document.getElementById("console").scrollWidth = sW;
+    document.getElementById("console").scrollHeight = sH;
     document.getElementById("sendText").value = sendText;
     updateConsole();
     var timeout = setTimeout(refrech, 30000);
