@@ -35,12 +35,24 @@
     width: 100%;
 }
 
+.textSend {
+    position: relative;
+    color: #eee;
+    font-size: 14px;
+    background: #555;
+    border: 2px solid #888;
+    left: 8px;
+    top: 6px;
+    width: calc(100% - 114px);
+}
+
 .console {
     position: fixed;
     display: block;
     top: 40%;
     left: 0%;
     background: #555;
+    font-size: 15px;
     color: #eee;
     padding: 2px;
     width: 100%;

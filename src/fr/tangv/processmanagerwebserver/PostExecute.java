@@ -83,16 +83,19 @@ public class PostExecute implements RequetExecute {
 										if (cmd.length == 2 && pmg.hasProcess(cmd[0])) {
 											ProcessPlus process = pmg.getProcess(cmd[0]);
 											process.send(cmd[1]);
+											return;
+										} else {
+											return;
 										}
-										break;
 									case "read":
 										if (pmg.hasProcess(args[1])) {
 											ProcessPlus process = pmg.getProcess(args[1]);
-											String console = process.read(50);
+											String console = '@'+process.read(50);
 											webServer.sendRequet(out, console.getBytes("UTF8"), "console");
 											return;
+										} else {
+											return;
 										}
-										break;
 									case "add":
 										String[] data = args[1].split("~");
 										if (data.length == 4) {
@@ -107,7 +110,8 @@ public class PostExecute implements RequetExecute {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					webServer.sendPageName(out, repRequet);
+					if (!dataRequet.isEmpty())
+						webServer.sendPageName(out, repRequet);
 					return;
 				}
 			}

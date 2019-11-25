@@ -66,7 +66,7 @@ function actionSend(name) {
     let input = document.getElementById("sendText").value;
     document.getElementById("sendText").value = "";
     if (input != null && input != "") {
-        sendRequet("POST", "info.tangweb", "send "+name+" "+input);
+        miseAf("POST", "info.tangweb", "send "+name+" "+input);
     }
 }
 
@@ -86,63 +86,69 @@ function updateConsole() {
 
 function setConsoleGet(name) {
     consoleGet = name;
+    document.getElementById("console").scrollLeft = 0;
+    document.getElementById("console").scrollTop = 0;
     document.getElementById("consoleTitle").innerHTML = consoleGet;
     actualConsole();
 }
 
-actualConsole = function() {
-    if (consoleGet != null && consoleGet != "") {
-        actionRead(consoleGet);
-    }
-};
-
-function actionRead(name) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "info.tangweb", true);
-    xhr.setRequestHeader("Content-Type", iden);
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            consoleText = this.responseText;
-            document.getElementById("console").innerText = consoleText;
-        }
-    };
-    xhr.send("read "+name);
+function miseAf(a1, a2, a3) {
+    cmdAf = a1;
+    cmdAf2 = a2;
+    cmdAf3 = a3;
 }
+
+actualConsole = function() {
+    if (cmdAf != null && cmdAf != "") {
+        sendRequet(cmdAf, cmdAf2, cmdAf3);
+        cmdAf = "";
+    } else {
+        if (compt >= 30) {
+            compt = 0;
+            sendRequet("GET", "/info.tangweb", "");
+            return;
+        } else if (consoleGet != null && consoleGet != "") {
+            sendRequet("POST", "info.tangweb", "read "+consoleGet);
+        }
+    }
+    compt++;
+};
 
 function btnRequet(cmd, action) {
     if (action) {
         if (confirm("Action: "+cmd)) {
-            sendRequet("POST", "info.tangweb", cmd);
+            miseAf("POST", "info.tangweb", cmd);
         }
     } else {
         if (confirm("Change: "+cmd)) {
-            sendRequet("POST", "info.tangweb", cmd);
+            miseAf("POST", "info.tangweb", cmd);
         }
     }
 }
 
 function sendRequet(type ,rep, data) {
-    clearTimeout(timeout);
-    sW = document.getElementById("console").scrollWidth;
-    sH = document.getElementById("console").scrollHeight;
+    sW = document.getElementById("console").scrollLeft;
+    sH = document.getElementById("console").scrollTop;
     sendText = document.getElementById("sendText").value;
     let xhr = new XMLHttpRequest();
     xhr.open(type, rep, true);
     xhr.setRequestHeader("Content-Type", iden);
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.write(this.responseText);
-            document.close();
+            let reponse = this.responseText;
+            if (reponse.charAt(0) == "@") {
+                consoleText = reponse.substring(1, reponse.length);
+                document.getElementById("console").innerText = consoleText;
+            } else {
+                document.write(reponse);
+                document.close();
+            }
         }
     };
     if (type == "POST")
         xhr.send(data);                                              
     else
         xhr.send();
-}
-
-function refrech() {
-    sendRequet("GET", "/info.tangweb", "");
 }
 
 </script>
@@ -177,17 +183,19 @@ function refrech() {
 </div>
 <br>
 </export>
+<br>
 
 <div id="downPage" class="downPageClose">
     <image id="openConsole" class="left" onclick="consoleOpen = !consoleOpen; updateConsole();">
     <span id="consoleTitle" class="left consoleTitle">jsp</span>
 </div>
 <div id="consolePanel">
-    <code id="console" class="console"></code>
+    <div id="console" class="console"></div>
     <div id="execute" class="downPageClose">
         <span class="left consoleTitle">Execute: </span>
-        <input id="sendText" type="text">
-        <image src="/send.png" onclick="actionSend(consoleGet);">
+        <input autocomplete="off" id="sendText" class="textSend" type="text" onkeydown="if(event.keyCode == 13) actionSend(consoleGet);">
+        <hr width=4 class="right" style="opacity: 0%;">
+        <image src="/send.png" class="right" onclick="actionSend(consoleGet);">
     </div>
 </div>
 
@@ -201,11 +209,11 @@ function refrech() {
 <script>
     document.getElementById("consoleTitle").innerHTML = consoleGet;
     document.getElementById("console").innerText = consoleText;
-    document.getElementById("console").scrollWidth = sW;
-    document.getElementById("console").scrollHeight = sH;
+    document.getElementById("console").scrollLeft = sW;
+    document.getElementById("console").scrollTop = sH;
+    document.getElementById("console").scrollHeight = document.getElementById("console").offsetHeight;
     document.getElementById("sendText").value = sendText;
     updateConsole();
-    var timeout = setTimeout(refrech, 30000);
 </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8"> 
 <link href="/index.css" rel="stylesheet" type="text/css">
-<title>Page index test !</title>
+<title>Connect ProcessManager Alpha_1.3</title>
 <script>
 var iden = "";
 var consoleText = "";
@@ -11,6 +11,10 @@ var consoleGet = "";
 var consoleOpen = false;
 var sW = 0;
 var sH = 0;
+var cmdAf = "";
+var cmdAf2 = "";
+var cmdAf3 = "";
+var compt = 0;
 var actualConsole = () => {};
 
 function actual() {
@@ -43,9 +47,12 @@ function sendRequet(type ,rep, data) {
 </head>
 <body style="background: #222222;">
 
+<center>
+<h1>Connect ProcessManager Alpha_1.3 :</h1>
 <input type="text" id="user">
-<input type="text" id="pass">
+<input type="password" id="pass">
 <input type="button" value="Connect" id="btn" onclick="onIdentif();">
+</center>
 
 </div>
 </body>

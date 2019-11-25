@@ -92,6 +92,7 @@ public class WebServer {
 										String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
 										String ipRequet = socket.getInetAddress().getHostAddress();
 										//traitement de la requet
+										System.out.println(ipRequet+" >: "+typeRequet+" >: "+hostRequet+" >: "+repRequet+" >: "+contTypeRequet+" >: "+dataRequet);
 										OutputStream out = socket.getOutputStream();
 										try {
 											if (typeRequet.equals("GET")) {
