@@ -107,7 +107,7 @@ actualConsole = function() {
             compt = 0;
             sendRequet("GET", "/info.tangweb", "");
             return;
-        } else if (consoleGet != null && consoleGet != "") {
+        } else if (consoleGet != null && consoleGet != "" && consoleOpen == true) {
             sendRequet("POST", "info.tangweb", "read "+consoleGet);
         }
     }
@@ -201,7 +201,7 @@ function sendRequet(type ,rep, data) {
 
 <div class="topPage">
     <span class="title">ProcessManager Alpha_1.3</span>
-    <image src="/refrech.png" class="left" onclick="refrech();">
+    <image src="/refrech.png" class="left" onclick="compt = 0; sendRequet('GET', '/info.tangweb', '');">
     <hr class="right">
     <image src="/add.png" class="right" onclick="addProcess();">
 </div>
