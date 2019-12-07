@@ -13,22 +13,12 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import fr.tangv.Main;
-import fr.tangv.processmanager.commands.CommandAddProcess;
-import fr.tangv.processmanager.commands.CommandEditProcess;
 import fr.tangv.processmanager.commands.CommandHelp;
-import fr.tangv.processmanager.commands.CommandListProcess;
 import fr.tangv.processmanager.commands.CommandListUsers;
 import fr.tangv.processmanager.commands.CommandLoadUsers;
 import fr.tangv.processmanager.commands.CommandManager;
-import fr.tangv.processmanager.commands.CommandReadProcess;
-import fr.tangv.processmanager.commands.CommandRemoveProcess;
-import fr.tangv.processmanager.commands.CommandRenameProcess;
-import fr.tangv.processmanager.commands.CommandRestartProcess;
 import fr.tangv.processmanager.commands.CommandSaveUsers;
-import fr.tangv.processmanager.commands.CommandSendProcess;
-import fr.tangv.processmanager.commands.CommandStartProcess;
 import fr.tangv.processmanager.commands.CommandStop;
-import fr.tangv.processmanager.commands.CommandStopProcess;
 import fr.tangv.processmanager.util.ProcessManager;
 
 public class ProcessManagerServer {
@@ -140,21 +130,17 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("stop", new CommandStop(this));
 			cmdManager.registreCommand("saveusers", new CommandSaveUsers(this));
 			cmdManager.registreCommand("loadusers", new CommandLoadUsers(this));
-			cmdManager.registreCommand("listprocess", new CommandListProcess(this));
-			cmdManager.registreCommand("addprocess", new CommandAddProcess(this));
-			cmdManager.registreCommand("editprocess", new CommandEditProcess(this));
-			cmdManager.registreCommand("stopprocess", new CommandStopProcess(this));
-			cmdManager.registreCommand("startprocess", new CommandStartProcess(this));
-			cmdManager.registreCommand("removeprocess", new CommandRemoveProcess(this));
-			cmdManager.registreCommand("renameprocess", new CommandRenameProcess(this));
-			cmdManager.registreCommand("restartprocess", new CommandRestartProcess(this));
-			cmdManager.registreCommand("readprocess", new CommandReadProcess(this));
-			cmdManager.registreCommand("sendprocess", new CommandSendProcess(this));
 			cmdManager.start();
 			//----------------------------------------------
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
 		}
+	}
+	
+	public void stopNoForce() {
+		
+		
+		
 	}
 	
 	public void stop() throws IOException {
