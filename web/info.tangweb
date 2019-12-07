@@ -200,7 +200,7 @@ function sendRequet(type ,rep, data) {
 </div>
 
 <div class="topPage">
-    <span class="title">ProcessManager Alpha_1.3</span>
+    <span class="title">ProcessManager <import=version></span>
     <image src="/refrech.png" class="left" onclick="compt = 0; sendRequet('GET', '/info.tangweb', '');">
     <hr class="right">
     <image src="/add.png" class="right" onclick="addProcess();">
