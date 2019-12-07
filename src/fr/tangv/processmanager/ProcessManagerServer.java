@@ -19,7 +19,9 @@ import fr.tangv.processmanager.commands.CommandLoadUsers;
 import fr.tangv.processmanager.commands.CommandManager;
 import fr.tangv.processmanager.commands.CommandSaveUsers;
 import fr.tangv.processmanager.commands.CommandStop;
+import fr.tangv.processmanager.commands.CommandStopNoForce;
 import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.util.ProcessPlus;
 
 public class ProcessManagerServer {
 	
@@ -128,6 +130,7 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("help", new CommandHelp(this));
 			cmdManager.registreCommand("listusers", new CommandListUsers(this));
 			cmdManager.registreCommand("stop", new CommandStop(this));
+			cmdManager.registreCommand("stopnoforce", new CommandStopNoForce(this));
 			cmdManager.registreCommand("saveusers", new CommandSaveUsers(this));
 			cmdManager.registreCommand("loadusers", new CommandLoadUsers(this));
 			cmdManager.start();
@@ -137,10 +140,19 @@ public class ProcessManagerServer {
 		}
 	}
 	
-	public void stopNoForce() {
-		
-		
-		
+	public void stopNoForce() throws IOException {
+		processManager.getListProcess().forEach((ProcessPlus process) -> {
+			if (process.getCmdStop() != null && !process.getCmdStop().isEmpty()) {
+				try {
+					process.send(process.getCmdStop());
+				} catch (IOException e) {
+					ProcessManagerServer.logger.warning(e.getMessage());
+				}
+			} else {
+				process.getProcess().stop();
+			}
+		});
+		//att avant endcmd
 	}
 	
 	public void stop() throws IOException {

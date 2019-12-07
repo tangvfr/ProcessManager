@@ -8,7 +8,8 @@ import fr.tangv.processmanager.webserver.WebServer;
 
 public class Main {
 
-	public static String version = "Alpha_1.4";
+	public static final String version = "Alpha_1.4";
+	public static volatile String cmdEnd = "";
 	
 	public static void main(String[] args) {
 		if (args.length >= 1 && args[0].equalsIgnoreCase("-server")) {

@@ -155,6 +155,7 @@ public class WebServer {
 				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
 		}
 		code = code.replace("<import=version>", Main.version);
+		code = code.replace("<import=cmdend>", Main.cmdEnd);
 		//----------------------------------------
 		return code.getBytes("UTF8");
 	}

@@ -82,6 +82,7 @@ public class ProcessManager {
 				out.writeUTF(process.getRep());
 				out.writeUTF(process.getEncoding());
 				out.writeUTF(""+process.isActiveOnStart());
+				out.writeUTF(process.getCmdStop());
 				out.close();
 				return true;
 			}
@@ -98,9 +99,10 @@ public class ProcessManager {
 				String rep = in.readUTF();
 				String encoding = in.readUTF();
 				boolean active = Boolean.parseBoolean(in.readUTF());
+				String cmdStop = in.available() > 0 ? in.readUTF() : "";
 				in.close();
 				if (!hasProcess(name)) {
-					ProcessPlus process = new ProcessPlus(nameP, cmd, rep, encoding, active);
+					ProcessPlus process = new ProcessPlus(nameP, cmd, rep, encoding, active, cmdStop);
 					listProcess.add(process);
 				} else {
 					ProcessPlus process = getProcess(name);
@@ -115,22 +117,6 @@ public class ProcessManager {
 		return false;
 	}
 	
-	public boolean saveProccesAll() throws IOException {
-		for (ProcessPlus process : listProcess) {
-			File file  = new File("./process/"+process.getName());
-			if (!file.exists()) file.createNewFile();
-			DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
-			out.writeUTF(process.getName());
-			out.writeUTF(process.getCmd());
-			out.writeUTF(process.getRep());
-			out.writeUTF(process.getEncoding());
-			out.writeUTF(""+process.isActiveOnStart());
-			out.close();
-			return true;
-		}
-		return false;
-	}
-	
 	public void loadProccesAll() throws IOException {
 		for(File file : folder.listFiles()) {
 			if (file.isFile()) {
@@ -141,9 +127,10 @@ public class ProcessManager {
 				String rep = in.readUTF();
 				String encoding = in.readUTF();
 				boolean active = Boolean.parseBoolean(in.readUTF());
+				String cmdStop = in.available() > 0 ? in.readUTF() : "";
 				in.close();
 				if (!hasProcess(name)) {
-					ProcessPlus process = new ProcessPlus(nameP, cmd, rep, encoding, active);
+					ProcessPlus process = new ProcessPlus(nameP, cmd, rep, encoding, active, cmdStop);
 					listProcess.add(process);
 				} else {
 					ProcessPlus process = getProcess(name);

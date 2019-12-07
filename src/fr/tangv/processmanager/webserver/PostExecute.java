@@ -3,6 +3,7 @@ package fr.tangv.processmanager.webserver;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import fr.tangv.Main;
 import fr.tangv.processmanager.ProcessManagerServer;
 import fr.tangv.processmanager.util.ProcessManager;
 import fr.tangv.processmanager.util.ProcessPlus;
@@ -25,8 +26,17 @@ public class PostExecute implements RequetExecute {
 							if (args.length == 2) {
 								String[] cmd;
 								switch(args[0]) {
-								case "onStart":
-									if (pmg.hasProcess(args[1])) {
+									case "timestopnoforce":
+										
+										break;
+									case "stopnoforce":
+										
+										break;
+									case "cmdend":
+										Main.cmdEnd = args[1];
+										break;
+									case "onStart":
+										if (pmg.hasProcess(args[1])) {
 											ProcessPlus process = pmg.getProcess(args[1]);
 											process.setActiveOnStart(!process.isActiveOnStart());
 											pmg.saveProcces(process.getName());
@@ -58,6 +68,14 @@ public class PostExecute implements RequetExecute {
 										if (cmd.length == 2 && pmg.hasProcess(cmd[0])) {
 											ProcessPlus process = pmg.getProcess(cmd[0]);
 											process.setCmd(cmd[1]);
+											pmg.saveProcces(process.getName());
+										}
+										break;
+									case "cmdstop":
+										cmd = args[1].split(" ", 2);
+										if (cmd.length == 2 && pmg.hasProcess(cmd[0])) {
+											ProcessPlus process = pmg.getProcess(cmd[0]);
+											process.setCmdStop(cmd[1]);
 											pmg.saveProcces(process.getName());
 										}
 										break;
@@ -100,8 +118,8 @@ public class PostExecute implements RequetExecute {
 										}
 									case "add":
 										String[] data = args[1].split("~");
-										if (data.length == 4) {
-											ProcessPlus process = new ProcessPlus(data[0], data[1], data[2], "UTF8", Boolean.parseBoolean(data[3]));
+										if (data.length == 5) {
+											ProcessPlus process = new ProcessPlus(data[0], data[1], data[2], "UTF8", Boolean.parseBoolean(data[3]), data[4]);
 											pmg.addProcess(process);
 										}
 										break;

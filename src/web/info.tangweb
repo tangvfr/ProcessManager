@@ -11,6 +11,20 @@ function changeCmd(name) {
     }
 }
 
+function changeCmdStop(name) {
+    let input = prompt("Entrée la nouvelle commande de stop du process \""+name+"\":");
+    if (input != null) {
+        btnRequet("cmdstop "+name+" "+input, false);
+    }
+}
+
+function changeCmdEnd() {
+    let input = prompt("Entrée la nouvelle commande end:");
+    if (input != null) {
+        btnRequet("cmdend "+input, false);
+    }
+}
+
 function changeRep(name) {
     let input = prompt("Entrée le nouveau répertoire du process \""+name+"\":");
     if (input != null) {
@@ -46,7 +60,14 @@ function addProcess() {
                             alert("Erreur la command d'un process ne peux contenir un '~'.");
                         } else {
                             let onStart = confirm("Voulez vous que le nouveau process \""+name+"\" démare au démarage du logicelle:");
-                            btnRequet("add "+name+"~"+cmd+"~"+rep+"~"+onStart, false);
+                            let cmdStop = prompt("Entrée la command de stop du nouveau process \""+name+"\":");
+		                    if (cmdStop != null && cmdStop != "") {
+		                        if (cmdStop.includes("~")) {
+		                            alert("Erreur la command d'un process ne peux contenir un '~'.");
+		                        } else {
+		                            btnRequet("add "+name+"~"+cmd+"~"+rep+"~"+onStart+"~"+cmdStop, false);
+		                        }
+		                    }
                         }
                     }
                 }
@@ -173,13 +194,17 @@ function sendRequet(type ,rep, data) {
     <image id="start <import=nameProcess>" src="/start.png" class="right" onclick="btnRequet(this.id, true);">
 </div>
 <div  id="<import=nameProcess>" class="processWindow" ondblclick="setConsoleGet(this.id);">
-    <image id="<import=nameProcess>" src="/cmd.png" class="labelProcess" onclick="changeCmd(this.id);">
+    	<image id="<import=nameProcess>" src="/cmd.png" class="labelProcess" onclick="changeCmd(this.id);">
         <span class="textProcess"><import=cmdProcess></span>
         <image id="<import=nameProcess>" src="/rename.png" class="labelProcess right" onclick="changeRename(this.id);">
         <br>
         <image id="<import=nameProcess>" src="/rep.png" class="labelProcess" onclick="changeRep(this.id);">
         <span class="textProcess"><import=repProcess></span>
         <image id="<import=nameProcess>" src="/remove.png" class="labelProcess right" onclick="changeRemove(this.id);">
+        <br>
+        <image id="<import=nameProcess>" src="/cmdstop.png" class="labelProcess" onclick="changeCmdStop(this.id);">
+        <span class="textProcess" style="color: #f82;"><import=cmdStopProcess></span>
+        <image id="send <import=nameProcess> <import=cmdStopProcess>" src="/cmdstop.png" class="labelProcess right" onclick="btnRequet(this.id, true);">
 </div>
 <br>
 </export>
@@ -187,7 +212,11 @@ function sendRequet(type ,rep, data) {
 
 <div id="downPage" class="downPageClose">
     <image id="openConsole" class="left" onclick="consoleOpen = !consoleOpen; updateConsole();">
-    <span id="consoleTitle" class="left consoleTitle">jsp</span>
+    <span id="consoleTitle" class="left consoleTitle"></span>
+    <hr width=4 class="right" style="opacity: 0%;">
+    <image class="right" src="/cmdend.png" onclick="changeCmdEnd();">
+    <hr width=8 class="right" style="opacity: 0%;">
+    <span class="right consoleTitle" style="color: #f82;"><import=cmdend></span>
 </div>
 <div id="consolePanel">
     <div id="console" class="console"></div>
@@ -200,8 +229,8 @@ function sendRequet(type ,rep, data) {
 </div>
 
 <div class="topPage">
-    <span class="title">ProcessManager <import=version></span>
     <image src="/refrech.png" class="left" onclick="compt = 0; sendRequet('GET', '/info.tangweb', '');">
+    <span class="left title">ProcessManager <import=version></span>
     <hr class="right">
     <image src="/add.png" class="right" onclick="addProcess();">
 </div>

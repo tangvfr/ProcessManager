@@ -11,13 +11,15 @@ public class ProcessPlus {
 	private String cmd;
 	private String name;
 	private String console;
+	private String cmdStop;
 	
-	public ProcessPlus(String name, String cmd, String rep, String encoding, boolean activeOnStart) throws IOException {
+	public ProcessPlus(String name, String cmd, String rep, String encoding, boolean activeOnStart, String cmdStop) throws IOException {
 		this.activeOnStart = activeOnStart;
 		this.name = name;
 		this.cmd = cmd;
 		this.rep = rep;
 		this.encoding = encoding;
+		this.cmdStop = cmdStop;
 		this.process = new Process(cmd, rep, encoding);
 		this.console = "";
 	}
@@ -42,6 +44,10 @@ public class ProcessPlus {
 		return cmd; 
 	}
 	
+	public String getCmdStop() {
+		return cmdStop; 
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -62,11 +68,15 @@ public class ProcessPlus {
 		this.cmd = cmd;
 	}
 	
+	public void setCmdStop(String cmdStop) {
+		this.cmdStop = cmdStop;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	public void reload() {
+	public synchronized void reload() {
 		process.stop();
 		process = new Process(cmd, rep, encoding);
 	}
@@ -76,7 +86,7 @@ public class ProcessPlus {
 			process.send(msg);
 	}
 	
-	public String read(int maxLine) throws IOException {
+	public synchronized String read(int maxLine) throws IOException {
 		String input = process.getInput();
 		String error = process.getError();
 		if (!input.isEmpty())

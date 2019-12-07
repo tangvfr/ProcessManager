@@ -22,7 +22,8 @@ public class ProcessAffiche implements HandleBaliseExport {
 				.replace("<import=onStartProcess>", process.isActiveOnStart() ? "on" : "off")
 				.replace("<import=nameProcess>", process.getName())
 				.replace("<import=cmdProcess>",	process.getCmd())
-				.replace("<import=repProcess>",	process.getRep());
+				.replace("<import=repProcess>",	process.getRep())
+				.replace("<import=cmdStopProcess>",	process.getCmdStop());
 			}
 			if (codeAdd.isEmpty())
 				return noProcess;
