@@ -1,8 +1,7 @@
 package fr.tangv.processmanager.webserver;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -120,12 +119,12 @@ public class WebServer {
 	}
 	
 	public byte[] getNotFound() throws IOException {
-		File file = new File("404.html");
-		if (file.exists()) {
-			FileInputStream inF = new FileInputStream(file);
-			byte[] buff = new byte[(int) file.length()];
-			inF.read(buff);
-			inF.close();
+		String res = "web/404.html";
+		if (existRes(res)) {
+			InputStream in = getClass().getClassLoader().getResourceAsStream(res);
+			byte[] buff = new byte[in.available()];
+			in.read(buff);
+			in.close();
 			return buff;
 		} else {
 			return	"<html><head><title>Not found !</title><meta charset=\"UTF-8\"></head><body style=\"background: #3333DD;\"><center><h1>Not found page</h1></center></body></html>"
@@ -133,12 +132,12 @@ public class WebServer {
 		}
 	}
 	
-	public byte[] getCodeFile(File file) throws IOException {
-		FileInputStream inF = new FileInputStream(file);
-		byte[] buff = new byte[(int) file.length()];
-		inF.read(buff);
-		inF.close();
-		if (!file.getName().endsWith(".tangweb"))
+	public byte[] getCodeFile(String res) throws IOException {
+		InputStream in = getClass().getClassLoader().getResourceAsStream(res);
+		byte[] buff = new byte[in.available()];
+		in.read(buff);
+		in.close();
+		if (!res.endsWith(".tangweb"))
 			return buff;
 		String code = new String(buff, "UTF8");
 		//-----------------------------------------
@@ -155,24 +154,28 @@ public class WebServer {
 			else
 				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
 		}
-		code.replace("<import=version>", Main.version);
+		code = code.replace("<import=version>", Main.version);
 		//-----------------------------------------
 		return code.getBytes("UTF8");
+	}
+	
+	private boolean existRes(String res) {
+		return getClass().getClassLoader().getResource(res) != null;
 	}
 	
 	public void sendPageName(OutputStream out, String name) throws IOException {
 		if (name.equals("/")) {
 			name = "/index.tangweb";
-			if (!new File("./web/"+name).exists())
+			if (!existRes("/web/"+name))
 				name = "/index.html";
 		}
 		//------------------------------------
-		File fileGet = new File("./web"+name);
-		if (!fileGet.exists()) {
+		String res = "web"+name;
+		if (!existRes(res)) {
 			sendRequet(out, getNotFound(), "text/html; charset=UTF-8");
 		} else {
 			String cont = getContentType(name);
-			sendRequet(out, getCodeFile(fileGet), cont);
+			sendRequet(out, getCodeFile(res), cont);
 		}
 	}
 	
