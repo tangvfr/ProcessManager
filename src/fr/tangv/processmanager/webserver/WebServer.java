@@ -93,7 +93,7 @@ public class WebServer {
 							long last = System.currentTimeMillis()-time;
 							if (last < 3000) {
 								socket.close();
-								System.out.println(ip+" >: blocked");
+								ProcessManagerServer.logger.info(ip+" >: blocked");
 							} else {
 								listAntiBrutus.remove(ip);
 								new HandleSocket(web, socket).start();

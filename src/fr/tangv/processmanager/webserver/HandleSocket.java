@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import fr.tangv.processmanager.ProcessManagerServer;
+
 public class HandleSocket extends Thread {
 	
 	private Socket socket;
@@ -43,7 +45,8 @@ public class HandleSocket extends Thread {
 				String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
 				String ipRequet = socket.getInetAddress().getHostAddress();
 				//traitement de la requet
-				System.out.println(ipRequet+" >: "+typeRequet+" >: "+hostRequet+" >: "+repRequet+" >: "+contTypeRequet+" >: "+dataRequet);
+				if (!dataRequet.startsWith("read "))
+					ProcessManagerServer.logger.info(ipRequet+" >: "+typeRequet+" >: "+hostRequet+" >: "+repRequet+" >: "+contTypeRequet+" >: "+dataRequet);
 				OutputStream out = socket.getOutputStream();
 				try {
 					if (typeRequet.equals("GET")) {

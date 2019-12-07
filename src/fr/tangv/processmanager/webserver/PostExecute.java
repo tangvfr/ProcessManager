@@ -3,6 +3,7 @@ package fr.tangv.processmanager.webserver;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import fr.tangv.processmanager.ProcessManagerServer;
 import fr.tangv.processmanager.util.ProcessManager;
 import fr.tangv.processmanager.util.ProcessPlus;
 
@@ -117,6 +118,7 @@ public class PostExecute implements RequetExecute {
 				}
 			}
 			webServer.getListAntiBrutus().put(ipRequet, System.currentTimeMillis());
+			ProcessManagerServer.logger.info(ipRequet+" >: "+contTypeRequet+" >: add_blocked");
 			webServer.sendPageName(out, "/invalide.html");
 		} else {
 			webServer.sendPageName(out, repRequet);
