@@ -92,7 +92,7 @@ public class PostExecute implements RequetExecute {
 									case "read":
 										if (pmg.hasProcess(args[1])) {
 											ProcessPlus process = pmg.getProcess(args[1]);
-											String console = '@'+process.read(50);
+											String console = '@'+process.read(100);
 											webServer.sendRequet(out, console.getBytes("UTF8"), "console");
 											return;
 										} else {

@@ -71,7 +71,7 @@ public class ProcessPlus {
 		process = new Process(cmd, rep, encoding);
 	}
 	
-	public void send(String msg) throws IOException {
+	public synchronized void send(String msg) throws IOException {
 		if (process.isStart())
 			process.send(msg);
 	}
