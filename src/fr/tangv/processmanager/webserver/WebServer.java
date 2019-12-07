@@ -140,7 +140,7 @@ public class WebServer {
 		if (!res.endsWith(".tangweb"))
 			return buff;
 		String code = new String(buff, "UTF8");
-		//-----------------------------------------
+		//----------------------------------------
 		//modif opti
 		while (code.contains("<export=")) {
 			int startOneBalise = code.indexOf("<export=")+8;
@@ -155,7 +155,7 @@ public class WebServer {
 				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
 		}
 		code = code.replace("<import=version>", Main.version);
-		//-----------------------------------------
+		//----------------------------------------
 		return code.getBytes("UTF8");
 	}
 	
