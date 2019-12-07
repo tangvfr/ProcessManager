@@ -130,8 +130,7 @@ public class ProcessManagerServer {
 		fileParameter = new File("./parameter");
 		try {
 			loadParameter();
-			ProcessManagerServer.logger.info("Number User: "+userAndMdp.size());
-			ProcessManagerServer.logger.info("#--------------------------#");
+			ProcessManagerServer.logger.info("Number User: "+userAndMdp.size()+"\r\n");
 			processManager = new ProcessManager();
 			//----------------------------------------------
 			this.cmdManager = new CommandManager(System.in);
