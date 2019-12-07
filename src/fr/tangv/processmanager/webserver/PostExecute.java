@@ -7,7 +7,7 @@ import fr.tangv.processmanager.util.ProcessManager;
 import fr.tangv.processmanager.util.ProcessPlus;
 
 public class PostExecute implements RequetExecute {
-
+	
 	@Override
 	public void execute(WebServer webServer, OutputStream out, String typeRequet, String repRequet, String hostRequet,
 			String contTypeRequet, String dataRequet, String ipRequet) throws IOException {
@@ -116,7 +116,8 @@ public class PostExecute implements RequetExecute {
 					return;
 				}
 			}
-			 webServer.sendPageName(out, "/invalide.html");
+			webServer.getListAntiBrutus().put(ipRequet, System.currentTimeMillis());
+			webServer.sendPageName(out, "/invalide.html");
 		} else {
 			webServer.sendPageName(out, repRequet);
 		}

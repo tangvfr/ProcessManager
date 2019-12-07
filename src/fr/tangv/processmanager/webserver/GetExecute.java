@@ -18,7 +18,8 @@ public class GetExecute implements RequetExecute {
 						return;
 					}
 			}
-			 webServer.sendPageName(out, "/invalide.html");
+			webServer.getListAntiBrutus().put(ipRequet, System.currentTimeMillis());
+			webServer.sendPageName(out, "/invalide.html");
 		} else {
 			webServer.sendPageName(out, repRequet);
 		}

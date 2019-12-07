@@ -3,7 +3,6 @@ package fr.tangv.processmanager.webserver;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
 import fr.tangv.Main;
 import fr.tangv.processmanager.ProcessManagerServer;
@@ -19,11 +19,16 @@ public class WebServer {
 
 	private ProcessManagerServer processManagerServer;
 	private ServerSocket serv;
+	private WebServer web;
 	private int port;
 	private Vector<RequetExecute> postRequetExecutes;
 	private Vector<RequetExecute> getRequetExecutes;
 	private Map<String, HandleBaliseExport> mapHandle;
-	private WebServer web;
+	private ConcurrentHashMap<String, Long> listAntiBrutus;
+	
+	public ConcurrentHashMap<String, Long> getListAntiBrutus() {
+		return listAntiBrutus;
+	}
 	
 	public void addPostRequetExecutes(RequetExecute req) {
 		postRequetExecutes.add(req);
@@ -45,6 +50,14 @@ public class WebServer {
 		return port;
 	}
 	
+	public Vector<RequetExecute> getPostRequetExecutes() {
+		return postRequetExecutes;
+	}
+	
+	public Vector<RequetExecute> getGetRequetExecutes() {
+		return getRequetExecutes;
+	}
+	
 	public ProcessManagerServer getProcessManagerServer() {
 		return processManagerServer;
 	}
@@ -63,58 +76,18 @@ public class WebServer {
 				try {
 					while (!serv.isClosed()) {
 						Socket socket = serv.accept();
-						Thread thread = new Thread(new Runnable() {
-							@Override
-							public void run() {
-								try {
-									//lecture text
-									InputStream in = socket.getInputStream();
-									byte[] buf = new byte[1];
-									String data = "";
-									in.read(buf);
-									data += new String(buf, "UTF8");
-									if (in.available() > 0) {
-										buf = new byte[in.available()];
-										in.read(buf);
-										data += new String(buf, "UTF8");
-									}
-									//traitement text
-									try {
-										String lineData = data.substring(0, data.indexOf(" HTTP"));
-										int separatorRequet = lineData.indexOf(" ");
-										String typeRequet = lineData.substring(0, separatorRequet);
-										String repRequet = lineData.substring(separatorRequet+1);
-										String hostData = data.substring(data.indexOf("Host: ")+6);
-										String hostRequet = hostData.substring(0, hostData.indexOf("\r\n"));
-										String contType = data.substring(data.indexOf("Content-Type: ")+14);
-										String contTypeRequet = contType.substring(0, contType.indexOf("\r\n"));
-										String[] dataData = data.split("\n");
-										String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
-										String ipRequet = socket.getInetAddress().getHostAddress();
-										//traitement de la requet
-										System.out.println(ipRequet+" >: "+typeRequet+" >: "+hostRequet+" >: "+repRequet+" >: "+contTypeRequet+" >: "+dataRequet);
-										OutputStream out = socket.getOutputStream();
-										try {
-											if (typeRequet.equals("GET")) {
-												for (RequetExecute req : getRequetExecutes) {
-													req.execute(web, out, typeRequet, repRequet, hostRequet, contTypeRequet, dataRequet, ipRequet);
-												}
-											} else if (typeRequet.equals("POST")) {
-												for (RequetExecute req : postRequetExecutes) {
-													req.execute(web, out, typeRequet, repRequet, hostRequet, contTypeRequet, dataRequet, ipRequet);
-												}
-											}
-										} catch (IOException e) {
-											e.printStackTrace();
-										}
-									} catch (Exception e) {}
-									socket.close();
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
+						String ip = socket.getInetAddress().getHostAddress();
+						if (listAntiBrutus.contains(ip)) {
+							long time = listAntiBrutus.get(ip);
+							if (System.currentTimeMillis()-time < 3000) {
+								socket.close();
+							} else {
+								listAntiBrutus.remove(ip);
+								new HandleSocket(web, socket).start();
 							}
-						});
-						thread.start();
+						} else {
+							new HandleSocket(web, socket).start();
+						}
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
