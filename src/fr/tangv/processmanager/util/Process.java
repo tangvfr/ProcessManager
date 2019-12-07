@@ -1,4 +1,4 @@
-package fr.tangv.processmanagerserver.util;
+package fr.tangv.processmanager.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

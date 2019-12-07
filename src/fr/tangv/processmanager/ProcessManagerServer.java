@@ -1,4 +1,4 @@
-package fr.tangv.processmanagerserver;
+package fr.tangv.processmanager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,23 +13,23 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import fr.tangv.Main;
-import fr.tangv.processmanagerserver.commands.CommandAddProcess;
-import fr.tangv.processmanagerserver.commands.CommandEditProcess;
-import fr.tangv.processmanagerserver.commands.CommandHelp;
-import fr.tangv.processmanagerserver.commands.CommandListProcess;
-import fr.tangv.processmanagerserver.commands.CommandListUser;
-import fr.tangv.processmanagerserver.commands.CommandLoadPara;
-import fr.tangv.processmanagerserver.commands.CommandManager;
-import fr.tangv.processmanagerserver.commands.CommandReadProcess;
-import fr.tangv.processmanagerserver.commands.CommandRemoveProcess;
-import fr.tangv.processmanagerserver.commands.CommandRenameProcess;
-import fr.tangv.processmanagerserver.commands.CommandRestartProcess;
-import fr.tangv.processmanagerserver.commands.CommandSavePara;
-import fr.tangv.processmanagerserver.commands.CommandSendProcess;
-import fr.tangv.processmanagerserver.commands.CommandStartProcess;
-import fr.tangv.processmanagerserver.commands.CommandStop;
-import fr.tangv.processmanagerserver.commands.CommandStopProcess;
-import fr.tangv.processmanagerserver.util.ProcessManager;
+import fr.tangv.processmanager.commands.CommandAddProcess;
+import fr.tangv.processmanager.commands.CommandEditProcess;
+import fr.tangv.processmanager.commands.CommandHelp;
+import fr.tangv.processmanager.commands.CommandListProcess;
+import fr.tangv.processmanager.commands.CommandListUser;
+import fr.tangv.processmanager.commands.CommandLoadPara;
+import fr.tangv.processmanager.commands.CommandManager;
+import fr.tangv.processmanager.commands.CommandReadProcess;
+import fr.tangv.processmanager.commands.CommandRemoveProcess;
+import fr.tangv.processmanager.commands.CommandRenameProcess;
+import fr.tangv.processmanager.commands.CommandRestartProcess;
+import fr.tangv.processmanager.commands.CommandSavePara;
+import fr.tangv.processmanager.commands.CommandSendProcess;
+import fr.tangv.processmanager.commands.CommandStartProcess;
+import fr.tangv.processmanager.commands.CommandStop;
+import fr.tangv.processmanager.commands.CommandStopProcess;
+import fr.tangv.processmanager.util.ProcessManager;
 
 public class ProcessManagerServer {
 	

@@ -2,7 +2,7 @@ package fr.tangv.processmanager.webserver;
 
 import java.io.IOException;
 
-import fr.tangv.processmanagerserver.util.ProcessPlus;
+import fr.tangv.processmanager.util.ProcessPlus;
 
 public class ProcessAffiche implements HandleBaliseExport {
 

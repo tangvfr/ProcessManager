@@ -1,6 +1,6 @@
-package fr.tangv.processmanagerserver.sender;
+package fr.tangv.processmanager.sender;
 
-import fr.tangv.processmanagerserver.ProcessManagerServer;
+import fr.tangv.processmanager.ProcessManagerServer;
 
 public class ConsoleSender implements Sender {
 

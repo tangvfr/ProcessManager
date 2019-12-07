@@ -1,8 +1,8 @@
-package fr.tangv.processmanagerserver.commands;
+package fr.tangv.processmanager.commands;
 
-import fr.tangv.processmanagerserver.ProcessManagerServer;
-import fr.tangv.processmanagerserver.sender.Sender;
-import fr.tangv.processmanagerserver.util.ProcessPlus;
+import fr.tangv.processmanager.ProcessManagerServer;
+import fr.tangv.processmanager.sender.Sender;
+import fr.tangv.processmanager.util.ProcessPlus;
 
 public class CommandListProcess implements Command {
 

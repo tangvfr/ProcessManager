@@ -2,8 +2,9 @@ package fr.tangv.processmanager.webserver;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import fr.tangv.processmanagerserver.util.ProcessManager;
-import fr.tangv.processmanagerserver.util.ProcessPlus;
+
+import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.util.ProcessPlus;
 
 public class PostExecute implements RequetExecute {
 

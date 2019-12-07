@@ -1,4 +1,4 @@
-package fr.tangv.processmanagerserver.util;
+package fr.tangv.processmanager.util;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Vector;
 
-import fr.tangv.processmanagerserver.ProcessManagerServer;
+import fr.tangv.processmanager.ProcessManagerServer;
 
 public class ProcessManager {
 

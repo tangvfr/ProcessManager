@@ -1,12 +1,12 @@
-package fr.tangv.processmanagerserver.commands;
+package fr.tangv.processmanager.commands;
 
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import fr.tangv.processmanagerserver.sender.ConsoleSender;
-import fr.tangv.processmanagerserver.sender.Sender;
+import fr.tangv.processmanager.sender.ConsoleSender;
+import fr.tangv.processmanager.sender.Sender;
 
 public class CommandManager implements Runnable {
 

@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import fr.tangv.Main;
-import fr.tangv.processmanagerserver.ProcessManagerServer;
+import fr.tangv.processmanager.ProcessManagerServer;
 
 public class WebServer {
 

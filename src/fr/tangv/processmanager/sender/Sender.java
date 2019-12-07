@@ -1,4 +1,4 @@
-package fr.tangv.processmanagerserver.sender;
+package fr.tangv.processmanager.sender;
 
 public interface Sender {
 
