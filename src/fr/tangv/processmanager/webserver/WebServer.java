@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -62,11 +63,21 @@ public class WebServer {
 		return processManagerServer;
 	}
 	
+	private boolean isBlocked(String key) {
+		Enumeration<String> keys = listAntiBrutus.keys();
+		while (keys.hasMoreElements()) {
+			if (keys.nextElement().equals(key))
+				return true;
+		}
+		return false;
+	}
+	
 	public WebServer(int port, ProcessManagerServer processManagerServer) throws IOException {
 		this.web = this;
 		this.getRequetExecutes = new Vector<RequetExecute>();
 		this.postRequetExecutes = new Vector<RequetExecute>();
 		this.mapHandle = new HashMap<String, HandleBaliseExport>();
+		this.listAntiBrutus = new ConcurrentHashMap<String, Long>();
 		this.port = port;
 		this.processManagerServer = processManagerServer;
 		serv = new ServerSocket(port);
@@ -77,10 +88,12 @@ public class WebServer {
 					while (!serv.isClosed()) {
 						Socket socket = serv.accept();
 						String ip = socket.getInetAddress().getHostAddress();
-						if (listAntiBrutus.contains(ip)) {
+						if (isBlocked(ip)) {
 							long time = listAntiBrutus.get(ip);
-							if (System.currentTimeMillis()-time < 3000) {
+							long last = System.currentTimeMillis()-time;
+							if (last < 3000) {
 								socket.close();
+								System.out.println(ip+" >: blocked");
 							} else {
 								listAntiBrutus.remove(ip);
 								new HandleSocket(web, socket).start();
