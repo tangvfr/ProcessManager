@@ -1,4 +1,4 @@
-package fr.tangv.processmanagerwebserver;
+package fr.tangv.processmanager.webserver;
 
 import java.io.IOException;
 import java.io.OutputStream;

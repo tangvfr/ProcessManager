@@ -1,4 +1,4 @@
-package fr.tangv.processmanagerwebserver;
+package fr.tangv.processmanager.webserver;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -169,6 +169,7 @@ public class WebServer {
 			else
 				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
 		}
+		code.replace("<import=version>", Main.version);
 		//-----------------------------------------
 		return code.getBytes("UTF8");
 	}

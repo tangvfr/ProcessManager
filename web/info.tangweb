@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8"> 
 <link href="/index.css" rel="stylesheet" type="text/css">
-<title>ProcessManager Alpha_1.3</title>
+<title>ProcessManager <import=version></title>
 <script>
 function changeCmd(name) {
     let input = prompt("Entrée la nouvelle commande du process \""+name+"\":");

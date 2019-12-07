@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import fr.tangv.processmanagerserver.sender.Client;
 import fr.tangv.processmanagerserver.sender.ConsoleSender;
 import fr.tangv.processmanagerserver.sender.Sender;
 
@@ -34,11 +33,7 @@ public class CommandManager implements Runnable {
 	}
 	
 	public void executeCommand(String name, String arg, Sender sender) {
-		if (sender instanceof Client) {
-			consoleSender.send("\""+((Client) sender).getIp()+"\" user \""+sender.getName()+"\" excute > "+name+" "+arg);
-		} else {
-			consoleSender.send("\"Console\" user \""+sender.getName()+"\" excute > "+name+" "+arg);
-		}
+		consoleSender.send("\"Console\" user \""+sender.getName()+"\" excute > "+name+" "+arg);
 		if (commands.containsKey(name)) {
 			if(!commands.get(name).command(sender, name, arg))
 				sender.send("Command: "+commands.get(name).getUsage());

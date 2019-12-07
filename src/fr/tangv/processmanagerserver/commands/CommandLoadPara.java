@@ -18,7 +18,6 @@ public class CommandLoadPara implements Command {
 		try {
 			processManagerServer.loadParameter();
 			sender.send("Server load parameter !");
-			ProcessManagerServer.logger.info("Server load parameter !");
 			return true;
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
