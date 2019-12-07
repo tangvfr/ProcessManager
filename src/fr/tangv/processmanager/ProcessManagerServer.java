@@ -17,14 +17,14 @@ import fr.tangv.processmanager.commands.CommandAddProcess;
 import fr.tangv.processmanager.commands.CommandEditProcess;
 import fr.tangv.processmanager.commands.CommandHelp;
 import fr.tangv.processmanager.commands.CommandListProcess;
-import fr.tangv.processmanager.commands.CommandListUser;
-import fr.tangv.processmanager.commands.CommandLoadPara;
+import fr.tangv.processmanager.commands.CommandListUsers;
+import fr.tangv.processmanager.commands.CommandLoadUsers;
 import fr.tangv.processmanager.commands.CommandManager;
 import fr.tangv.processmanager.commands.CommandReadProcess;
 import fr.tangv.processmanager.commands.CommandRemoveProcess;
 import fr.tangv.processmanager.commands.CommandRenameProcess;
 import fr.tangv.processmanager.commands.CommandRestartProcess;
-import fr.tangv.processmanager.commands.CommandSavePara;
+import fr.tangv.processmanager.commands.CommandSaveUsers;
 import fr.tangv.processmanager.commands.CommandSendProcess;
 import fr.tangv.processmanager.commands.CommandStartProcess;
 import fr.tangv.processmanager.commands.CommandStop;
@@ -61,23 +61,24 @@ public class ProcessManagerServer {
 		return cmdManager;
 	}
 	
-	public void saveParameter() throws IOException {
+	public void saveUsers() throws IOException {
 		if (!fileParameter.exists())
 			fileParameter.createNewFile();
 		FileOutputStream out = new FileOutputStream(fileParameter);
 		String text = "";
 		for (String user : userAndMdp.keySet()) {
-			text += "\n"+user;
+			text += user;
 			text += "\n"+userAndMdp.get(user);
+			text += "\n";
 			text += "\n";
 		}
 		out.write(text.getBytes("UTF8"));
 		out.close();
 	}
 				
-	public void loadParameter() throws IOException {
+	public void loadUsers() throws IOException {
 		if (!fileParameter.exists())
-			saveParameter();
+			saveUsers();
 		Map<String, String> userAndMdp = new HashMap<String, String>();
 		Scanner sc = new Scanner(fileParameter,"UTF8");
 		while (sc.hasNextLine()) {
@@ -127,18 +128,18 @@ public class ProcessManagerServer {
 		//----------------------------------------
 		this.userAndMdp = new HashMap<String, String>();
 		this.userAndMdp.put("admin", "password");
-		fileParameter = new File("./parameter");
+		fileParameter = new File("./users");
 		try {
-			loadParameter();
-			ProcessManagerServer.logger.info("Number User: "+userAndMdp.size()+"\r\n");
+			loadUsers();
+			ProcessManagerServer.logger.info("Load Parameter, Number User: "+userAndMdp.size());
 			processManager = new ProcessManager();
 			//----------------------------------------------
 			this.cmdManager = new CommandManager(System.in);
 			cmdManager.registreCommand("help", new CommandHelp(this));
-			cmdManager.registreCommand("listuser", new CommandListUser(this));
+			cmdManager.registreCommand("listusers", new CommandListUsers(this));
 			cmdManager.registreCommand("stop", new CommandStop(this));
-			cmdManager.registreCommand("savepara", new CommandSavePara(this));
-			cmdManager.registreCommand("loadpara", new CommandLoadPara(this));
+			cmdManager.registreCommand("saveusers", new CommandSaveUsers(this));
+			cmdManager.registreCommand("loadusers", new CommandLoadUsers(this));
 			cmdManager.registreCommand("listprocess", new CommandListProcess(this));
 			cmdManager.registreCommand("addprocess", new CommandAddProcess(this));
 			cmdManager.registreCommand("editprocess", new CommandEditProcess(this));

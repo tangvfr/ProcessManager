@@ -2,6 +2,7 @@
 .classpath
 .project
 parameter
+users
 *.log
 /logs/
 /process/

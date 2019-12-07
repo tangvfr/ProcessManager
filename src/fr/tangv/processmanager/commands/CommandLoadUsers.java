@@ -5,19 +5,19 @@ import java.io.IOException;
 import fr.tangv.processmanager.ProcessManagerServer;
 import fr.tangv.processmanager.sender.Sender;
 
-public class CommandSavePara implements Command {
+public class CommandLoadUsers implements Command {
 
 	private ProcessManagerServer processManagerServer;
 	
-	public CommandSavePara(ProcessManagerServer processManagerServer) {
+	public CommandLoadUsers(ProcessManagerServer processManagerServer) {
 		this.processManagerServer = processManagerServer;
 	}
 	
 	@Override
 	public boolean command(Sender sender, String cmd, String arg) {
 		try {
-			processManagerServer.saveParameter();
-			sender.send("Server save parameter !");
+			processManagerServer.loadUsers();
+			sender.send("Server load users !");
 			return true;
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
@@ -27,12 +27,12 @@ public class CommandSavePara implements Command {
 
 	@Override
 	public String getUsage() {
-		return "savepara";
+		return "loadusers";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Save parameter server";
+		return "Load users server";
 	}
 
 }
