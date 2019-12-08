@@ -2,10 +2,15 @@ et afficher combien de temps il est démaré démarage et lancer l'etianga prope
 
 add in js
 
-"timestopnoforce":
-"stopnoforceserver":
-"stopscriptserver":
-"stopserver":
+"timestopnoforce"
+"stopnoforceserver"
+"stopscriptserver"
+"stopserver"
+
+"<import=timestopnoforce>"
+"<import=timestart>"
+"<import=timeisstart>"
+"<import=timerestart>"
 
 maj auto
 

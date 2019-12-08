@@ -154,8 +154,13 @@ public class WebServer {
 			else
 				code = code.substring(0, startOneBalise-8)+code.substring(endBalise+9, code.length());
 		}
-		code = code.replace("<import=version>", Main.version);
-		code = code.replace("<import=cmdend>", Main.cmdEnd);
+		code = code
+				.replace("<import=version>", Main.version)
+				.replace("<import=cmdend>", Main.cmdEnd)
+				.replace("<import=timestopnoforce>", Main.timeStopNoForce+"")
+				.replace("<import=timestart>", Main.timeStart+"")
+				.replace("<import=timeisstart>", Main.timeIsStart+"")
+				.replace("<import=timerestart>", Main.timeRestart+"");
 		//----------------------------------------
 		return code.getBytes("UTF8");
 	}
