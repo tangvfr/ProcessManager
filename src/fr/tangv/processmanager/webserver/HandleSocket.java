@@ -59,12 +59,12 @@ public class HandleSocket extends Thread {
 						}
 					}
 				} catch (IOException e) {
-					e.printStackTrace();
+					ProcessManagerServer.logger.warning(e.getMessage());
 				}
 			} catch (Exception e) {}
 			socket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			ProcessManagerServer.logger.warning(e.getMessage());
 		}
 	}
 	

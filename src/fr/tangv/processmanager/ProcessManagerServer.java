@@ -152,6 +152,14 @@ public class ProcessManagerServer {
 				process.getProcess().stop();
 			}
 		});
+		while (true) {
+			
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				ProcessManagerServer.logger.warning(e.getMessage());
+			}
+		}
 		//att avant endcmd
 	}
 	

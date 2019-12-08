@@ -102,7 +102,7 @@ public class WebServer {
 						}
 					}
 				} catch (IOException e) {
-					e.printStackTrace();
+					ProcessManagerServer.logger.warning(e.getMessage());
 				}
 			}
 		});

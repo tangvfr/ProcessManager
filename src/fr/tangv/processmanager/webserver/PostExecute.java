@@ -128,7 +128,7 @@ public class PostExecute implements RequetExecute {
 								}
 							}
 						} catch (Exception e) {
-							e.printStackTrace();
+							ProcessManagerServer.logger.warning(e.getMessage());
 						}
 					if (!dataRequet.isEmpty())
 						webServer.sendPageName(out, repRequet);
