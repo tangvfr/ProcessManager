@@ -12,6 +12,7 @@ public class Main {
 	public static volatile String cmdEnd = "";
 	
 	public static void main(String[] args) {
+		//load cmdEnd
 		if (args.length >= 1 && args[0].equalsIgnoreCase("-server")) {
 			ProcessManagerServer pms = new ProcessManagerServer();
 			if (args.length >= 2 && args[1].equalsIgnoreCase("-web")) {
