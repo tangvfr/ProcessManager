@@ -20,6 +20,7 @@ import fr.tangv.processmanager.commands.CommandManager;
 import fr.tangv.processmanager.commands.CommandSaveUsers;
 import fr.tangv.processmanager.commands.CommandStop;
 import fr.tangv.processmanager.commands.CommandStopNoForce;
+import fr.tangv.processmanager.commands.CommandStopScript;
 import fr.tangv.processmanager.util.ProcessManager;
 import fr.tangv.processmanager.util.ProcessPlus;
 
@@ -36,6 +37,7 @@ public class ProcessManagerServer {
 	private Map<String, String> userAndMdp;
 	private CommandManager cmdManager;
 	private ProcessManager processManager;
+	private boolean stopNoForce;
 	
 	public ProcessManager getProcessManager() {
 		return processManager;
@@ -51,6 +53,10 @@ public class ProcessManagerServer {
 	
 	public CommandManager getCmdManager() {
 		return cmdManager;
+	}
+	
+	public boolean isStopNoForce() {
+		return this.stopNoForce;
 	}
 	
 	public void saveUsers() throws IOException {
@@ -89,6 +95,7 @@ public class ProcessManagerServer {
 	}
 				
 	public ProcessManagerServer() {
+		this.stopNoForce = false;
 		try {
 			System.setProperty("java.util.logging.ConsoleHandler.formatter", "java.util.logging.SimpleFormatter");
 			System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s %n");
@@ -122,6 +129,7 @@ public class ProcessManagerServer {
 		this.userAndMdp.put("admin", "password");
 		fileParameter = new File("./users");
 		try {
+			Main.loadData();
 			loadUsers();
 			ProcessManagerServer.logger.info("Load Parameter, Number User: "+userAndMdp.size());
 			processManager = new ProcessManager();
@@ -131,10 +139,13 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("listusers", new CommandListUsers(this));
 			cmdManager.registreCommand("stop", new CommandStop(this));
 			cmdManager.registreCommand("stopnoforce", new CommandStopNoForce(this));
+			cmdManager.registreCommand("stopscript", new CommandStopScript(this));
 			cmdManager.registreCommand("saveusers", new CommandSaveUsers(this));
 			cmdManager.registreCommand("loadusers", new CommandLoadUsers(this));
 			cmdManager.start();
 			//----------------------------------------------
+			
+			//check is time
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
 		}
@@ -148,7 +159,8 @@ public class ProcessManagerServer {
 		return true;
 	}
 	
-	public void stopNoForce() throws IOException {
+	public void stopNoForce() {
+		this.stopNoForce = true;
 		for (ProcessPlus process : processManager.getListProcess()) {
 			if (process.getCmdStop() != null && !process.getCmdStop().isEmpty()) {
 				try {
@@ -169,6 +181,10 @@ public class ProcessManagerServer {
 			if (allProcessIsOff())
 				break;
 		}
+		stopScript();
+	}
+	
+	public void stopScript() {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
@@ -190,7 +206,7 @@ public class ProcessManagerServer {
 		stop();
 	}
 	
-	public void stop() throws IOException {
+	public void stop() {
 		System.exit(0);
 	}
 				

@@ -1,6 +1,11 @@
-system d'étnagne prope stop server 
-(cmd end process and no stop process temps que tout les process sont pas etient, et iune command finial comme shutdown)
-et afficher combien de temps il est démaré démarage
+et afficher combien de temps il est démaré démarage et lancer l'etianga prope et lafficher les time
+
+add in js
+
+"timestopnoforce":
+"stopnoforceserver":
+"stopscriptserver":
+"stopserver":
 
 maj auto
 
