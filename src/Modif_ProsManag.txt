@@ -1,0 +1,19 @@
+system d'étnagne prope stop server 
+(cmd end process and no stop process temps que tout les process sont pas etient, et iune command finial comme shutdown)
+et afficher combien de temps il est démaré démarage
+
+maj auto
+
+afficher le max de ram qui peux etre use
+afficher ram utiliser au total
+afficher ram utiliser par chaque process
+
+saisie d'info Rajouter un systeme de recuperai la valeur deja inscrit
+
+no start procces if is stopnoforce
+
+//-- not my
+trier de facon diférente | et ajouter des filtre
+ameliorer design web
+//-- not my
+
