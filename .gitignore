@@ -1,8 +1,7 @@
 /bin/
 .classpath
 .project
-parameter
 users
-*.log
+data
 /logs/
 /process/
