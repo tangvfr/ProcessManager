@@ -140,8 +140,16 @@ public class ProcessManagerServer {
 		}
 	}
 	
+	private boolean allProcessIsOff() {
+		for (ProcessPlus process : processManager.getListProcess()) {
+			if (process.getProcess().isStart())
+				return false;
+		}
+		return true;
+	}
+	
 	public void stopNoForce() throws IOException {
-		processManager.getListProcess().forEach((ProcessPlus process) -> {
+		for (ProcessPlus process : processManager.getListProcess()) {
 			if (process.getCmdStop() != null && !process.getCmdStop().isEmpty()) {
 				try {
 					process.send(process.getCmdStop());
@@ -151,16 +159,35 @@ public class ProcessManagerServer {
 			} else {
 				process.getProcess().stop();
 			}
-		});
+		}
 		while (true) {
-			
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				ProcessManagerServer.logger.warning(e.getMessage());
 			}
+			if (allProcessIsOff())
+				break;
 		}
-		//att avant endcmd
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				String cmd = Main.cmdEnd;
+				if (cmd != null && !cmd.isEmpty()) {
+					try {
+			            String os = System.getProperty("os.name").toLowerCase();
+			            if (os.contains("win")) {
+			                Runtime.getRuntime().exec("cmd /c start "+cmd);
+			            } else {
+			                Runtime.getRuntime().exec("sh "+cmd);
+			            }
+			        } catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		stop();
 	}
 	
 	public void stop() throws IOException {
