@@ -144,8 +144,32 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("loadusers", new CommandLoadUsers(this));
 			cmdManager.start();
 			//----------------------------------------------
-			
-			//check is time
+			Main.timeStart = System.currentTimeMillis();
+			Thread thread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					while (true) {
+						Main.timeIsStart = Main.timeStart-System.currentTimeMillis();
+						if (Main.timeStopNoForce > 0) {
+							Main.timeRestart = Main.timeStopNoForce-Main.timeIsStart;
+							if (Main.timeRestart <= 0) { 
+								Main.timeRestart = 0;
+								stopNoForce();
+								break;
+							}
+						} else {
+							Main.timeRestart = 0;
+						}
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							ProcessManagerServer.logger.warning(e.getMessage());
+						}
+					}
+				}
+			});
+			thread.start();
+			//----------------------------------------------
 		} catch (IOException e) {
 			ProcessManagerServer.logger.warning(e.getMessage());
 		}
