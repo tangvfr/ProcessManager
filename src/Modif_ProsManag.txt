@@ -1,11 +1,12 @@
-maj auto
-
 afficher ram utiliser au total et max by logi
 afficher ram utiliser par chaque process et max
 toto des deux
 
-saisie d'info Rajouter un systeme de recuperai la valeur deja inscrit
+Anonce Maj
 
+
+//not pres
+saisie d'info Rajouter un systeme de recuperai la valeur deja inscrit
 //-- not my
 trier de facon diférente | et ajouter des filtre
 ameliorer design web
