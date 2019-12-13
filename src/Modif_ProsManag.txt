@@ -1,8 +1,8 @@
 maj auto
 
-afficher le max de ram qui peux etre use
-afficher ram utiliser au total
-afficher ram utiliser par chaque process
+afficher ram utiliser au total et max by logi
+afficher ram utiliser par chaque process et max
+toto des deux
 
 saisie d'info Rajouter un systeme de recuperai la valeur deja inscrit
 
