@@ -19,6 +19,7 @@ import fr.tangv.processmanager.commands.CommandManager;
 import fr.tangv.processmanager.commands.CommandSaveUsers;
 import fr.tangv.processmanager.commands.CommandStop;
 import fr.tangv.processmanager.commands.CommandStopNoForce;
+import fr.tangv.processmanager.commands.CommandStopNoForceNoScript;
 import fr.tangv.processmanager.commands.CommandStopScript;
 import fr.tangv.processmanager.util.ProcessManager;
 import fr.tangv.processmanager.util.ProcessPlus;
@@ -130,7 +131,7 @@ public class ProcessManagerServer {
 		try {
 			Main.loadData();
 			loadUsers();
-			ProcessManagerServer.logger.info("Load Parameter, Number User: "+userAndMdp.size());
+			ProcessManagerServer.logger.info("Load Users, Number Users: "+userAndMdp.size());
 			processManager = new ProcessManager();
 			//----------------------------------------------
 			this.cmdManager = new CommandManager(System.in);
@@ -138,6 +139,7 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("listusers", new CommandListUsers(this));
 			cmdManager.registreCommand("stop", new CommandStop(this));
 			cmdManager.registreCommand("stopnoforce", new CommandStopNoForce(this));
+			cmdManager.registreCommand("stopnoforcenoscript", new CommandStopNoForceNoScript(this));
 			cmdManager.registreCommand("stopscript", new CommandStopScript(this));
 			cmdManager.registreCommand("saveusers", new CommandSaveUsers(this));
 			cmdManager.registreCommand("loadusers", new CommandLoadUsers(this));
@@ -153,7 +155,7 @@ public class ProcessManagerServer {
 							Main.timeRestart = Main.timeStopNoForce-Main.timeIsStart;
 							if (Main.timeRestart <= 0) { 
 								Main.timeRestart = 0;
-								stopNoForce();
+								stopNoForce(true);
 								break;
 							}
 						} else {
@@ -182,7 +184,7 @@ public class ProcessManagerServer {
 		return true;
 	}
 	
-	public void stopNoForce() {
+	public void stopNoForce(boolean script) {
 		this.stopNoForce = true;
 		for (ProcessPlus process : processManager.getListProcess()) {
 			if (process.getCmdStop() != null && !process.getCmdStop().isEmpty()) {
@@ -204,7 +206,10 @@ public class ProcessManagerServer {
 			if (allProcessIsOff())
 				break;
 		}
-		stopScript();
+		if (script)
+			stopScript();
+		else
+			stop();
 	}
 	
 	public void stopScript() {

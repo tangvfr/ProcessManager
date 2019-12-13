@@ -25,6 +25,19 @@ function changeCmdEnd() {
     }
 }
 
+function changeTime() {
+    let inputh = prompt("Entrée le temps avant le redémarage automatique (0 = ∞): Heure");
+    if (inputh == null) return;
+    let inputm = prompt("Entrée le temps avant le redémarage automatique (0 = ∞): Minute");
+    if (inputh == null) return;
+    let inputs = prompt("Entrée le temps avant le redémarage automatique (0 = ∞): Seconde");
+    if (inputh == null) return;
+    let input = (parseInt(inputh)*3600+parseInt(inputm)*60+parseInt(inputs))*1000;
+    if (input != null) {
+        btnRequet("timestopnoforce "+input, false);
+    }
+}
+
 function changeRep(name) {
     let input = prompt("Entrée le nouveau répertoire du process \""+name+"\":");
     if (input != null) {
@@ -179,12 +192,37 @@ function sendRequet(type ,rep, data) {
 <br>
 <br>
 
-<div id="timestopnoforce"><import=timestopnoforce></div>
-<div id="timestart"><import=timestart></div>
-<div id="timeisstart"><import=timeisstart></div>
-<div id="timerestart"><import=timerestart></div>
+<span style="color: red; background: gray;" id="timestart"><import=timestart></span><br>
+<span style="color: red; background: gray;" id="timeisstart"><import=timeisstart></span><br>
+<span style="color: red; background: gray;" id="timestopnoforce"><import=timestopnoforce></span><br>
+<span style="color: red; background: gray;" id="timerestart"><import=timerestart></span><br>
+
+<span style="color: green; background: pink;" class="right" onclick="changeTime();">Change Time Restart</span>
+
+<span style="color: green; background: pink;" id="stopnoforceserver all" class="" onclick="btnRequet(this.id, true);">StopNoForceWithScript</span>
+<span style="color: green; background: pink;" id="stopnoforcenoscriptserver all" class="" onclick="btnRequet(this.id, true);">StopNoForceNoScript</span>
+<span style="color: green; background: pink;" id="stopscriptserver all" class="" onclick="btnRequet(this.id, true);">StopForceWithScript</span>
+<span style="color: green; background: pink;" id="stopserver all" class="" onclick="btnRequet(this.id, true);">StopForce</span>
+
+<br>
+<br>
+
 <script>
-    
+    function convertTimeBalise(nameBalise, decal) {
+        let number = parseInt(document.getElementById(nameBalise).innerText);
+        if (number == "0") return "∞";
+        let date = new Date(number);
+        return (date.getHours()-decal)+"h "+date.getMinutes()+"min "+date.getSeconds()+"sec";
+    }
+
+    function rempBalise(nameBalise, decal) {
+        document.getElementById(nameBalise).innerText = convertTimeBalise(nameBalise, decal);
+    }
+
+    rempBalise("timestart", 0);
+    rempBalise("timeisstart", 1);
+    rempBalise("timestopnoforce", 1);
+    rempBalise("timerestart", 1);
 </script>
 
 <export=noProcess>

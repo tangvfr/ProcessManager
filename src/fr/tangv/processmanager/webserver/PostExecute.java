@@ -31,7 +31,10 @@ public class PostExecute implements RequetExecute {
 										Main.saveData();
 										break;
 									case "stopnoforceserver":
-										webServer.getProcessManagerServer().stopNoForce();
+										webServer.getProcessManagerServer().stopNoForce(true);
+										break;
+									case "stopnoforcenoscriptserver":
+										webServer.getProcessManagerServer().stopNoForce(false);
 										break;
 									case "stopscriptserver":
 										webServer.getProcessManagerServer().stopScript();

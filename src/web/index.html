@@ -16,17 +16,14 @@ var cmdAf2 = "";
 var cmdAf3 = "";
 var compt = 0;
 var actualConsole = () => {};
-
 function actual() {
     actualConsole();
 }
 setInterval(actual, 1000);
-
 function onIdentif() {
     iden = document.getElementById("user").value+" "+document.getElementById("pass").value;
     sendRequet("GET", "/info.tangweb", "");
 }
-
 function sendRequet(type ,rep, data) {
     let xhr = new XMLHttpRequest();
     xhr.open(type, rep, true);
@@ -42,15 +39,14 @@ function sendRequet(type ,rep, data) {
     else
         xhr.send();
 }
-
 </script>
 </head>
 <body style="background: #222222;">
 
 <center>
 <h1>Connect ProcessManager:</h1>
-<input type="text" id="user">
-<input type="password" id="pass">
+<input type="text" id="user" onkeydown="if (event.keyCode == 13) onIdentif();">
+<input type="password" id="pass" onkeydown="if (event.keyCode == 13) onIdentif();">
 <input type="button" value="Connect" id="btn" onclick="onIdentif();">
 </center>
 
