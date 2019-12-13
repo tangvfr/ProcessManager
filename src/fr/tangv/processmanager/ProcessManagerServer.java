@@ -148,7 +148,7 @@ public class ProcessManagerServer {
 				@Override
 				public void run() {
 					while (true) {
-						Main.timeIsStart = Main.timeStart-System.currentTimeMillis();
+						Main.timeIsStart = System.currentTimeMillis()-Main.timeStart;
 						if (Main.timeStopNoForce > 0) {
 							Main.timeRestart = Main.timeStopNoForce-Main.timeIsStart;
 							if (Main.timeRestart <= 0) { 

@@ -4,6 +4,7 @@
 .project
 parameter
 users
+data
 *.log
 /logs/
 /process/

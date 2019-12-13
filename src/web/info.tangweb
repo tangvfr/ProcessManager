@@ -179,6 +179,14 @@ function sendRequet(type ,rep, data) {
 <br>
 <br>
 
+<div id="timestopnoforce"><import=timestopnoforce></div>
+<div id="timestart"><import=timestart></div>
+<div id="timeisstart"><import=timeisstart></div>
+<div id="timerestart"><import=timerestart></div>
+<script>
+    
+</script>
+
 <export=noProcess>
 <div class="processWindow">
     <span class="titleProcess">No process</span>
