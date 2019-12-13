@@ -1,17 +1,3 @@
-et afficher combien de temps il est démaré démarage et lancer l'etianga prope et lafficher les time
-
-add in js
-
-"timestopnoforce"
-"stopnoforceserver"
-"stopscriptserver"
-"stopserver"
-
-"<import=timestopnoforce>"
-"<import=timestart>"
-"<import=timeisstart>"
-"<import=timerestart>"
-
 maj auto
 
 afficher le max de ram qui peux etre use
@@ -19,8 +5,6 @@ afficher ram utiliser au total
 afficher ram utiliser par chaque process
 
 saisie d'info Rajouter un systeme de recuperai la valeur deja inscrit
-
-no start procces if is stopnoforce
 
 //-- not my
 trier de facon diférente | et ajouter des filtre
