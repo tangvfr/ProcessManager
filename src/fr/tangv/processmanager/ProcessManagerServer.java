@@ -12,7 +12,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import fr.tangv.Main;
 import fr.tangv.processmanager.commands.CommandHelp;
 import fr.tangv.processmanager.commands.CommandListUsers;
 import fr.tangv.processmanager.commands.CommandLoadUsers;

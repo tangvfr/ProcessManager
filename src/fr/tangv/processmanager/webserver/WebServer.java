@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
-import fr.tangv.Main;
+import fr.tangv.processmanager.Main;
 import fr.tangv.processmanager.ProcessManagerServer;
 
 public class WebServer {

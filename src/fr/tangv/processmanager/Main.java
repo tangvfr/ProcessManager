@@ -1,4 +1,4 @@
-package fr.tangv;
+package fr.tangv.processmanager;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import fr.tangv.processmanager.ProcessManagerServer;
 import fr.tangv.processmanager.webserver.GetExecute;
 import fr.tangv.processmanager.webserver.PostExecute;
 import fr.tangv.processmanager.webserver.ProcessAffiche;
