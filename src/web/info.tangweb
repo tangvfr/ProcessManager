@@ -10,7 +10,7 @@ function changeCmd(name) {
         btnRequet("cmd "+name+" "+input, false);
     }
 }
-
+ 
 function changeCmdStop(name) {
     let input = prompt("Entrée la nouvelle commande de stop du process \""+name+"\":");
     if (input != null) {
