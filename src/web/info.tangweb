@@ -276,7 +276,7 @@ function sendRequet(type ,rep, data) {
 
 <div class="topPage">
     <image src="/refrech.png" class="left" onclick="compt = 0; sendRequet('GET', '/info.tangweb', '');">
-    <span class="left title">ProcessManager <import=version>s | <import=checkupdate></span>
+    <span class="left title">ProcessManager <import=version> | <import=checkupdate></span>
     <hr class="right">
     <image src="/add.png" class="right" onclick="addProcess();">
 </div>

@@ -124,7 +124,7 @@ public class ProcessManagerServer {
 				" / ____/ /  / /_/ / /__/  __(__  |__  ) /  / / /_/ / / / / /_/ / /_/ /  __/ /    \r\n" + 
 				"/_/   /_/   \\____/\\___/\\___/____/____/_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n" + 
 				"                                                              /____/             \r\n" + 
-				"Version: "+Main.version+"\r\n"+Main.getUpdate()+"\r\n");
+				"Version: "+Main.version+"\r\n"+Main.getUpdate(false)+"\r\n");
 		//----------------------------------------
 		this.userAndMdp = new HashMap<String, String>();
 		this.userAndMdp.put("admin", "password");

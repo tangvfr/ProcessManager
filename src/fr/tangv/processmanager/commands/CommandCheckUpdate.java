@@ -7,7 +7,7 @@ public class CommandCheckUpdate implements Command {
 
 	@Override
 	public boolean command(Sender sender, String cmd, String arg) {
-		sender.send(Main.getUpdate());
+		sender.send(Main.getUpdate(false));
 		return true;
 	}
 

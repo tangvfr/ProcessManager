@@ -161,7 +161,7 @@ public class WebServer {
 				.replace("<import=timestart>", Main.timeStart+"")
 				.replace("<import=timeisstart>", Main.timeIsStart+"")
 				.replace("<import=timerestart>", Main.timeRestart+"")
-				.replace("<import=checkupdate>", Main.getUpdate());
+				.replace("<import=checkupdate>", Main.getUpdate(true));
 		//----------------------------------------
 		return code.getBytes("UTF8");
 	}

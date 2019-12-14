@@ -26,7 +26,7 @@ public class Main {
 	public static volatile long timeRestart;
 	public static final long value24H = (24*3600000);
 	
-	public static String getUpdate() {
+	public static String getUpdate(boolean web) {
 		try {
 			URL url = new URL("https://tangv.fr/ProcessManager/version");
 			try {
@@ -37,7 +37,7 @@ public class Main {
 				try {
 					String lastVersion = new String(buf, "UTF8");
 					if (!version.equals(lastVersion)) {
-						return "ProcessManager n'est pas à jour, la dernière version est "+lastVersion+" ! Site web for download new version: https://tangv.fr/ProcessManager/";
+						return "ProcessManager n'est pas à jour, la dernière version est "+lastVersion+(web ? " ! <a href=\"https://tangv.fr/ProcessManager/\">Download</a>" : " ! Download: https://tangv.fr/ProcessManager/");
 					} else {
 						return "ProcessManager est à jour !";
 					}
