@@ -160,7 +160,8 @@ public class WebServer {
 				.replace("<import=timestopnoforce>", Main.timeStopNoForce+"")
 				.replace("<import=timestart>", Main.timeStart+"")
 				.replace("<import=timeisstart>", Main.timeIsStart+"")
-				.replace("<import=timerestart>", Main.timeRestart+"");
+				.replace("<import=timerestart>", Main.timeRestart+"")
+				.replace("<import=checkupdate>", Main.getUpdate());
 		//----------------------------------------
 		return code.getBytes("UTF8");
 	}

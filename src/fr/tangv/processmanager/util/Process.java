@@ -113,16 +113,4 @@ public class Process {
 		}
 	}
 	
-	public void resetInput() throws IOException {
-		if (isStart()) {
-			process.getInputStream().reset();
-		}
-	}
-	
-	public void resetError() throws IOException {
-		if (isStart()) {
-			process.getErrorStream().reset();
-		}
-	}
-	
 }

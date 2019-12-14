@@ -12,6 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import fr.tangv.processmanager.commands.CommandCheckUpdate;
 import fr.tangv.processmanager.commands.CommandHelp;
 import fr.tangv.processmanager.commands.CommandListUsers;
 import fr.tangv.processmanager.commands.CommandLoadUsers;
@@ -123,7 +124,7 @@ public class ProcessManagerServer {
 				" / ____/ /  / /_/ / /__/  __(__  |__  ) /  / / /_/ / / / / /_/ / /_/ /  __/ /    \r\n" + 
 				"/_/   /_/   \\____/\\___/\\___/____/____/_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n" + 
 				"                                                              /____/             \r\n" + 
-				"Version: "+Main.version+"\r\n");
+				"Version: "+Main.version+"\r\n"+Main.getUpdate()+"\r\n");
 		//----------------------------------------
 		this.userAndMdp = new HashMap<String, String>();
 		this.userAndMdp.put("admin", "password");
@@ -143,6 +144,7 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("stopscript", new CommandStopScript(this));
 			cmdManager.registreCommand("saveusers", new CommandSaveUsers(this));
 			cmdManager.registreCommand("loadusers", new CommandLoadUsers(this));
+			cmdManager.registreCommand("checkupdate", new CommandCheckUpdate());
 			cmdManager.start();
 			//----------------------------------------------
 			Main.timeStart = System.currentTimeMillis();
