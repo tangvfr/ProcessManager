@@ -26,11 +26,11 @@ function changeCmdEnd() {
 }
 
 function changeTime() {
-    let inputh = prompt("Entrée le temps avant le redémarage automatique (0 = ∞): Heure");
+    let inputh = prompt("Entrée le temps avant le redémarage automatique (0 = ∞, negatife = date indiquer): Heure");
     if (inputh == null) return;
-    let inputm = prompt("Entrée le temps avant le redémarage automatique (0 = ∞): Minute");
+    let inputm = prompt("Entrée le temps avant le redémarage automatique (0 = ∞, negatife = date indiquer): Minute");
     if (inputh == null) return;
-    let inputs = prompt("Entrée le temps avant le redémarage automatique (0 = ∞): Seconde");
+    let inputs = prompt("Entrée le temps avant le redémarage automatique (0 = ∞, negatife = date indiquer): Seconde");
     if (inputh == null) return;
     let input = (parseInt(inputh)*3600+parseInt(inputm)*60+parseInt(inputs))*1000;
     if (input != null) {
