@@ -146,17 +146,27 @@ public class ProcessManagerServer {
 			cmdManager.start();
 			//----------------------------------------------
 			Main.timeStart = System.currentTimeMillis();
+			boolean thisDay = -Main.timeStopNoForce > Main.transTime(Main.timeStart);
+			long timeNoPres = Main.timeStart-Main.transTime(Main.timeStart);
 			Thread thread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					while (true) {
-						Main.timeIsStart = System.currentTimeMillis()-Main.timeStart;
-						if (Main.timeStopNoForce > 0) {
-							Main.timeRestart = Main.timeStopNoForce-Main.timeIsStart;
-							if (Main.timeRestart <= 0) { 
-								Main.timeRestart = 0;
-								stopNoForce(true);
-								break;
+						long time =  System.currentTimeMillis();
+						Main.timeIsStart = time-Main.timeStart;
+						if (Main.timeStopNoForce != 0) {
+							if (Main.timeStopNoForce > 0) {
+								Main.timeRestart = Main.timeStopNoForce-Main.timeIsStart;
+								if (Main.timeRestart <= 0) { 
+									Main.timeRestart = 0;
+									break;
+								}
+							} else {
+								Main.timeRestart = timeNoPres+(thisDay ? 0 : Main.value24H)-Main.timeStopNoForce-time;
+								if (Main.timeRestart <= 0) { 
+									Main.timeRestart = 0;
+									break;
+								}
 							}
 						} else {
 							Main.timeRestart = 0;

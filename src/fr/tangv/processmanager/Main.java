@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 import fr.tangv.processmanager.webserver.GetExecute;
 import fr.tangv.processmanager.webserver.PostExecute;
@@ -20,6 +21,13 @@ public class Main {
 	public static volatile long timeStart;
 	public static volatile long timeIsStart;
 	public static volatile long timeRestart;
+	public static final long value24H = (24*3600000);
+	
+	@SuppressWarnings("deprecation")
+	public static long transTime(long time) {
+		Date date = new Date(time);
+		return (date.getHours()*3600+date.getMinutes()*60+date.getSeconds())*1000;
+	}
 	
 	public static synchronized void saveData() throws IOException {
 		File file = new File("./data");
