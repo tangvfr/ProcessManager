@@ -28,6 +28,7 @@ public class PostExecute implements RequetExecute {
 								switch(args[0]) {
 									case "timestopnoforce":
 										Main.timeStopNoForce = Long.parseLong(args[1]);
+										Main.dateRestart = Main.dateRestart(-Main.timeStopNoForce).getTime();
 										Main.saveData();
 										break;
 									case "stopnoforceserver":

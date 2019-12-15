@@ -161,6 +161,8 @@ public class WebServer {
 				.replace("<import=timestart>", Main.timeStart+"")
 				.replace("<import=timeisstart>", Main.timeIsStart+"")
 				.replace("<import=timerestart>", Main.timeRestart+"")
+				.replace("<import=daterestart>", Main.dateRestart+"")
+				.replace("<import=isstop>", web.getProcessManagerServer().isStopNoForce()+"")
 				.replace("<import=checkupdate>", Main.getUpdate(true));
 		//----------------------------------------
 		return code.getBytes("UTF8");

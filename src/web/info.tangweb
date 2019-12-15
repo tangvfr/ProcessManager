@@ -196,6 +196,8 @@ function sendRequet(type ,rep, data) {
 <span style="color: red; background: gray;" id="timeisstart"><import=timeisstart></span><br>
 <span style="color: red; background: gray;" id="timestopnoforce"><import=timestopnoforce></span><br>
 <span style="color: red; background: gray;" id="timerestart"><import=timerestart></span><br>
+<span style="color: red; background: gray;" id="daterestart"><import=daterestart></span><br>
+<span style="color: red; background: gray;" id="isstop"><import=isstop></span><br>
 
 <span style="color: green; background: pink;" class="right" onclick="changeTime();">Change Time Restart</span>
 
@@ -208,21 +210,42 @@ function sendRequet(type ,rep, data) {
 <br>
 
 <script>
-    function convertTimeBalise(nameBalise, decal) {
+    function convertTimeBalise(nameBalise, normal) {
         let number = parseInt(document.getElementById(nameBalise).innerText);
-        if (number == "0") return "∞";
-        let date = new Date(number);
-        return (date.getHours()-decal)+"h "+date.getMinutes()+"min "+date.getSeconds()+"sec";
+        if (number == 0) return "∞";
+        if (normal) {
+        	let date = new Date(number);
+       		const options = {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'};
+        	return date.toLocaleDateString('fr-FR', options);
+        } else {
+        	let time = Math.floor((number < 0 ? -number : number)/1000);
+			let heures = Math.floor(time/3600);
+			let minutesI = Math.floor(time%3600);
+			let minutes = Math.floor(minutesI/60);
+			let secondes = Math.floor(minutesI%60);
+        	return heures+":"+minutes+":"+secondes;
+        }
     }
 
-    function rempBalise(nameBalise, decal) {
-        document.getElementById(nameBalise).innerText = convertTimeBalise(nameBalise, decal);
+    function rempBalise(nameBalise, normal) {
+        document.getElementById(nameBalise).innerText = convertTimeBalise(nameBalise, normal);
     }
 
-    rempBalise("timestart", 0);
-    rempBalise("timeisstart", 1);
-    rempBalise("timestopnoforce", 1);
-    rempBalise("timerestart", 1);
+	timestop = parseInt(document.getElementById("timestopnoforce").innerText);
+	
+    rempBalise("timestart", 1);
+    rempBalise("timeisstart", 0);
+    rempBalise("timestopnoforce", 0);
+    rempBalise("timerestart", 0);
+    rempBalise("daterestart", 1);
+    
+    if (timestop < 0) {
+		document.getElementById("timestopnoforce").innerText = "Horaire "+document.getElementById("timestopnoforce").innerText;
+	} else if (timestop > 0) {
+		document.getElementById("timestopnoforce").innerText = "Crono "+document.getElementById("timestopnoforce").innerText;
+	} else {
+		document.getElementById("timestopnoforce").innerText = "Aucun "+document.getElementById("timestopnoforce").innerText;
+	}
 </script>
 
 <export=noProcess>

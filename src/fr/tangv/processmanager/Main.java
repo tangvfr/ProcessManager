@@ -24,7 +24,8 @@ public class Main {
 	public static volatile long timeStart;
 	public static volatile long timeIsStart;
 	public static volatile long timeRestart;
-	public static final long value24H = (24*3600000);
+	public static final long valueh24H = (24*3600000);
+	public static volatile long dateRestart;
 	
 	public static String getUpdate(boolean web) {
 		try {
@@ -53,9 +54,31 @@ public class Main {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static long transTime(long time) {
-		Date date = new Date(time);
-		return (date.getHours()*3600+date.getMinutes()*60+date.getSeconds())*1000;
+	public static Date dateRestart(long time) {
+		time /= 1000;
+		int heures = (int) (time/3600);
+		int minutesI = (int) (time%3600);
+		int minutes = minutesI/60;
+		int secondes = minutesI%60;
+		long cTime = System.currentTimeMillis();
+		Date dateAc = new Date(cTime);
+		Date date = new Date(cTime);
+		date.setHours(heures);
+		date.setMinutes(minutes);
+		date.setSeconds(secondes);
+		if (!date.after(dateAc))
+			date.setDate(date.getDate()+1);
+		return date;
+	}
+	
+	public static String formatTime(long time) {
+		int days = (int) (time/valueh24H);
+		int dayI = (int) ((time%valueh24H)/1000);
+		int heures = dayI/3600;
+		int minutesI = dayI%3600;
+		int minutes = minutesI/60;
+		int secondes = minutesI%60;
+		return days+"day "+heures+"H "+minutes+"min "+secondes+"sec";
 	}
 	
 	public static synchronized void saveData() throws IOException {

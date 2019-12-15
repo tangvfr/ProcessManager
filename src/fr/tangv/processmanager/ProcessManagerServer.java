@@ -148,13 +148,12 @@ public class ProcessManagerServer {
 			cmdManager.start();
 			//----------------------------------------------
 			Main.timeStart = System.currentTimeMillis();
-			boolean thisDay = -Main.timeStopNoForce > Main.transTime(Main.timeStart);
-			long timeNoPres = Main.timeStart-Main.transTime(Main.timeStart);
+			Main.dateRestart = Main.dateRestart(-Main.timeStopNoForce).getTime();
 			Thread thread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					while (true) {
-						long time =  System.currentTimeMillis();
+						long time = System.currentTimeMillis();
 						Main.timeIsStart = time-Main.timeStart;
 						if (Main.timeStopNoForce != 0) {
 							if (Main.timeStopNoForce > 0) {
@@ -165,7 +164,7 @@ public class ProcessManagerServer {
 									break;
 								}
 							} else {
-								Main.timeRestart = timeNoPres+(thisDay ? 0 : Main.value24H)-Main.timeStopNoForce-time;
+								Main.timeRestart = Main.dateRestart-time;
 								if (Main.timeRestart <= 0) { 
 									Main.timeRestart = 0;
 									stopNoForce(true);
