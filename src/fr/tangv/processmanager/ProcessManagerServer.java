@@ -161,12 +161,14 @@ public class ProcessManagerServer {
 								Main.timeRestart = Main.timeStopNoForce-Main.timeIsStart;
 								if (Main.timeRestart <= 0) { 
 									Main.timeRestart = 0;
+									stopNoForce(true);
 									break;
 								}
 							} else {
 								Main.timeRestart = timeNoPres+(thisDay ? 0 : Main.value24H)-Main.timeStopNoForce-time;
 								if (Main.timeRestart <= 0) { 
 									Main.timeRestart = 0;
+									stopNoForce(true);
 									break;
 								}
 							}
