@@ -5,95 +5,163 @@
 <title>ProcessManager <import=version></title>
 <script>
 function changeCmd(name) {
-    let input = prompt("Entrée la nouvelle commande du process \""+name+"\":");
-    if (input != null) {
-        btnRequet("cmd "+name+" "+input, false);
-    }
+	openPopMenu("Command Process", "Entrée la nouvelle commande du process \""+name+"\"", 1, [
+            {
+                'label': 'Command',
+                'name': 'cmd',
+                'type': 'text'
+            }
+        ], (result) => {
+        	let cmd = result["cmd"];
+        	if (cmd != "") {
+        		btnRequet("cmd "+name+" "+cmd, false);
+        	}
+        });
 }
 
 function changeCmdStop(name) {
-    let input = prompt("Entrée la nouvelle commande de stop du process \""+name+"\":");
-    if (input != null) {
-        btnRequet("cmdstop "+name+" "+input, false);
-    }
+    openPopMenu("Command Stop Process", "Entrée la nouvelle commande de stop du process \""+name+"\"", 1, [
+            {
+                'label': 'Command',
+                'name': 'cmdstop',
+                'type': 'text'
+            }
+        ], (result) => {
+        	let cmd = result["cmdstop"];
+        	if (cmd != "") {
+        		 btnRequet("cmdstop "+name+" "+cmd, false);
+        	}
+        });
 }
 
 function changeCmdEnd() {
-    let input = prompt("Entrée la nouvelle commande end:");
-    if (input != null) {
-        btnRequet("cmdend "+input, false);
-    }
+    openPopMenu("Command End", "Entrée la nouvelle commande end", 1, [
+            {
+                'label': 'Command',
+                'name': 'cmdend',
+                'type': 'text'
+            }
+        ], (result) => {
+        	let cmd = result["cmdend"];
+        	if (cmd != "") {
+        		btnRequet("cmdend "+cmd, false);
+        	}
+        });
 }
 
 function changeTime() {
-    let inputh = prompt("Entrée le temps avant le redémarage automatique (0 = ∞, negatife = date indiquer): Heure");
-    if (inputh == null) return;
-    let inputm = prompt("Entrée le temps avant le redémarage automatique (0 = ∞, negatife = date indiquer): Minute");
-    if (inputh == null) return;
-    let inputs = prompt("Entrée le temps avant le redémarage automatique (0 = ∞, negatife = date indiquer): Seconde");
-    if (inputh == null) return;
-    let input = (parseInt(inputh)*3600+parseInt(inputm)*60+parseInt(inputs))*1000;
-    if (input != null) {
-        btnRequet("timestopnoforce "+input, false);
-    }
+	openPopMenu("Time Restart", "Entrée le temps avant le redémarage automatique (0 = ∞)", 1, [
+            {
+                'label': 'Heures',
+                'name': 'heur',
+                'type': 'number'
+            },
+            {
+                'label': 'Minutes',
+                'name': 'min',
+                'type': 'number'
+            },
+            {
+                'label': 'Secondes',
+                'name': 'sec',
+                'type': 'number'
+            },
+            {
+                'label': 'Horaire',
+                'name': 'horaire',
+                'type': 'checkbox'
+            }
+        ], (result) => {
+        	if (result["heur"] != "" && result["min"] != "" && result["sec"] != "" && result["horaire"] != "") {
+        		let input = (parseInt(result["heur"])*3600+parseInt(result["min"])*60+parseInt(result["sec"]))*1000;
+        		if (result["horaire"] == "true") {
+        			input = -input;
+        		}
+        		btnRequet("timestopnoforce "+input, false);
+        	}
+        });
 }
 
 function changeRep(name) {
-    let input = prompt("Entrée le nouveau répertoire du process \""+name+"\":");
-    if (input != null) {
-        btnRequet("rep "+name+" "+input, false);
-    }
+    openPopMenu("Folder Process", "Entrée le nouveau répertoire du process \""+name+"\"", 1, [
+            {
+                'label': 'Répertoire',
+                'name': 'rep',
+                'type': 'text'
+            }
+        ], (result) => {
+        	let rep = result["rep"];
+        	if (rep != "") {
+                btnRequet("rep "+name+" "+rep, false);
+        	}
+        });
 }
 
 function changeRename(name) {
-    let input = prompt("Entrée le nouveau nom du process \""+name+"\":");
-    if (input != null) {
-        if (input.includes(" ")) {
-            alert("Erreur le nom d'un process ne peux contenir un ' '.");
-        } else {
-            btnRequet("rename "+name+" "+input, false);
-        }
-    }
+    openPopMenu("Rename Process", "Entrée le nouveau nom du process \""+name+"\"", 1, [
+            {
+                'label': 'Nom',
+                'name': 'name',
+                'type': 'text'
+            }
+        ], (result) => {
+        	let namei = result["name"];
+        	if (namei != "") {
+                if (namei.includes(" ")) {
+                    openPopMenu("Erreur", "Le nom d'un process ne peux contenir de ' '", 0);
+                } else {
+                    btnRequet("rename "+name+" "+namei, false);
+                }
+        	}
+        });
 }
 
 function addProcess() {
-    let name = prompt("Entrée le nom du nouveau process:");
-    if (name != null && name != "") {
-        if (name.includes(" ") || name.includes("~")) {
-            alert("Erreur le nom d'un process ne peux contenir un ' ' ou '~'.");
-        } else {
-            let cmd = prompt("Entrée la command du nouveau process \""+name+"\":");
-            if (cmd != null && cmd != "") {
-                if (cmd.includes("~")) {
-                    alert("Erreur la command d'un process ne peux contenir un '~'.");
+    openPopMenu("Add process", "Entrée les données du nouveau process", 1, [
+            {
+                'label': 'Nom',
+                'name': 'name',
+                'type': 'text'
+            },
+            {
+                'label': 'Command',
+                'name': 'cmd',
+                'type': 'text'
+            },
+            {
+                'label': 'Répertoire',
+                'name': 'rep',
+                'type': 'text'
+            },
+            {
+                'label': 'Démare au démarage',
+                'name': 'start',
+                'type': 'checkbox'
+            },
+            {
+                'label': 'Command Stop',
+                'name': 'cmdstop',
+                'type': 'text'
+            }
+        ], (result) => {
+            if (result["name"] != "" && result["cmd"] != "" && result["rep"] != "" && result["start"] != "" && result["cmdstop"] != "") {
+                if (result["name"].includes(" ") || result["name"].includes("~")) {
+                    openPopMenu("Erreur", "Le nom d'un process ne peux contenir de ' ' ou '~'", 0);
                 } else {
-                    let rep = prompt("Entrée le répertoire du nouveau process \""+name+"\":");
-                    if (rep != null && rep != "") {
-                        if (rep.includes("~")) {
-                            alert("Erreur la command d'un process ne peux contenir un '~'.");
-                        } else {
-                            let onStart = confirm("Voulez vous que le nouveau process \""+name+"\" démare au démarage du logicelle:");
-                            let cmdStop = prompt("Entrée la command de stop du nouveau process \""+name+"\":");
-		                    if (cmdStop != null && cmdStop != "") {
-		                        if (cmdStop.includes("~")) {
-		                            alert("Erreur la command d'un process ne peux contenir un '~'.");
-		                        } else {
-		                            btnRequet("add "+name+"~"+cmd+"~"+rep+"~"+onStart+"~"+cmdStop, false);
-		                        }
-		                    }
-                        }
+                    if (result["cmd"].includes("~") || result["rep"].includes("~") || result["start"].includes("~") || result["cmdstop"].includes("~")) {
+                        openPopMenu("Erreur", "La donné d'un process ne peux contenir de '~'", 0);
+                    } else {
+                        btnRequet("add "+result["name"]+"~"+result["cmd"]+"~"+result["rep"]+"~"+result["start"]+"~"+result["cmdstop"], false);
                     }
                 }
             }
-        }
-    }
+        });
 }
 
 function changeRemove(name) {
-    let input = confirm("Voulez vous suprimé le process \""+name+"\":");
-    if (input) {
+    openPopMenu("Remove Process", "Voulez vous suprimé le process \""+name+"\"", 2, [], (result) => {
         btnRequet("remove "+name, true);
-    }
+    });
 }
 
 function actionSend(name) {
@@ -138,8 +206,10 @@ actualConsole = function() {
         cmdAf = "";
     } else {
         if (compt >= 30) {
-            compt = 0;
-            sendRequet("GET", "/info.tangweb", "");
+            if (popMenu.innerHTML == "") {
+            	compt = 0;
+            	sendRequet("GET", "/info.tangweb", "");
+            }
             return;
         } else if (consoleGet != null && consoleGet != "" && consoleOpen == true) {
             sendRequet("POST", "info.tangweb", "read "+consoleGet);
@@ -149,15 +219,9 @@ actualConsole = function() {
 };
 
 function btnRequet(cmd, action) {
-    if (action) {
-        if (confirm("Action: "+cmd)) {
-            miseAf("POST", "info.tangweb", cmd);
-        }
-    } else {
-        if (confirm("Change: "+cmd)) {
-            miseAf("POST", "info.tangweb", cmd);
-        }
-    }
+    openPopMenu("Validation d'envoie de requet", (action ? "Action: " : "Change: ")+cmd, 2, [], (result) => {
+        miseAf("POST", "info.tangweb", cmd);
+    });
 }
 
 function sendRequet(type ,rep, data) {
@@ -313,5 +377,6 @@ function sendRequet(type ,rep, data) {
     document.getElementById("sendText").value = sendText;
     updateConsole();
 </script>
+<script src="/PopMenu.js"></script>
 </body>
 </html>
