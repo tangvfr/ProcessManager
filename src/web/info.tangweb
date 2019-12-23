@@ -20,7 +20,7 @@ function changeCmd(name) {
 }
 
 function changeCmdStop(name) {
-    openPopMenu("Command Stop Process", "Entrée la nouvelle commande de stop du process \""+name+"\"", 1, [
+    openPopMenu("Command Stop Process", "Entrée la nouvelle commande de stop du process \""+name+"\" (' ' = rien)", 1, [
             {
                 'label': 'Command',
                 'name': 'cmdstop',
@@ -35,7 +35,7 @@ function changeCmdStop(name) {
 }
 
 function changeCmdEnd() {
-    openPopMenu("Command End", "Entrée la nouvelle commande end", 1, [
+    openPopMenu("Command End", "Entrée la nouvelle commande end (' ' = rien)", 1, [
             {
                 'label': 'Command',
                 'name': 'cmdend',
@@ -207,7 +207,12 @@ actualConsole = function() {
     } else {
         if (compt >= 30) {
             if (popMenu.innerHTML == "") {
-            	compt = 0;
+                compt = 0;
+                if (infoMenu.innerHTML == "") {
+                    infoOpen = false;
+                } else {
+                    infoOpen = true;
+                }
             	sendRequet("GET", "/info.tangweb", "");
             }
             return;
@@ -251,66 +256,9 @@ function sendRequet(type ,rep, data) {
 
 </script>
 </head>
-<body style="background: #222222;">
-
-<br>
-<br>
-
-<span style="color: red; background: gray;" id="timestart"><import=timestart></span><br>
-<span style="color: red; background: gray;" id="timeisstart"><import=timeisstart></span><br>
-<span style="color: red; background: gray;" id="timestopnoforce"><import=timestopnoforce></span><br>
-<span style="color: red; background: gray;" id="timerestart"><import=timerestart></span><br>
-<span style="color: red; background: gray;" id="daterestart"><import=daterestart></span><br>
-<span style="color: red; background: gray;" id="isstop"><import=isstop></span><br>
-
-<span style="color: green; background: pink;" class="right" onclick="changeTime();">Change Time Restart</span>
-
-<span style="color: green; background: pink;" id="stopnoforceserver all" class="" onclick="btnRequet(this.id, true);">StopNoForceWithScript</span>
-<span style="color: green; background: pink;" id="stopnoforcenoscriptserver all" class="" onclick="btnRequet(this.id, true);">StopNoForceNoScript</span>
-<span style="color: green; background: pink;" id="stopscriptserver all" class="" onclick="btnRequet(this.id, true);">StopForceWithScript</span>
-<span style="color: green; background: pink;" id="stopserver all" class="" onclick="btnRequet(this.id, true);">StopForce</span>
-
-<br>
-<br>
-
-<script>
-    function convertTimeBalise(nameBalise, normal) {
-        let number = parseInt(document.getElementById(nameBalise).innerText);
-        if (number == 0) return "∞";
-        if (normal) {
-        	let date = new Date(number);
-       		const options = {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'};
-        	return date.toLocaleDateString('fr-FR', options);
-        } else {
-        	let time = Math.floor((number < 0 ? -number : number)/1000);
-			let heures = Math.floor(time/3600);
-			let minutesI = Math.floor(time%3600);
-			let minutes = Math.floor(minutesI/60);
-			let secondes = Math.floor(minutesI%60);
-        	return heures+":"+minutes+":"+secondes;
-        }
-    }
-
-    function rempBalise(nameBalise, normal) {
-        document.getElementById(nameBalise).innerText = convertTimeBalise(nameBalise, normal);
-    }
-
-	timestop = parseInt(document.getElementById("timestopnoforce").innerText);
-	
-    rempBalise("timestart", 1);
-    rempBalise("timeisstart", 0);
-    rempBalise("timestopnoforce", 0);
-    rempBalise("timerestart", 0);
-    rempBalise("daterestart", 1);
+<body>
     
-    if (timestop < 0) {
-		document.getElementById("timestopnoforce").innerText = "Horaire "+document.getElementById("timestopnoforce").innerText;
-	} else if (timestop > 0) {
-		document.getElementById("timestopnoforce").innerText = "Crono "+document.getElementById("timestopnoforce").innerText;
-	} else {
-		document.getElementById("timestopnoforce").innerText = "Aucun "+document.getElementById("timestopnoforce").innerText;
-	}
-</script>
+<div id="separator"></div>
 
 <export=noProcess>
 <div class="processWindow">
@@ -337,11 +285,19 @@ function sendRequet(type ,rep, data) {
         <br>
         <image id="<import=nameProcess>" src="/cmdstop.png" class="labelProcess" onclick="changeCmdStop(this.id);">
         <span class="textProcess" style="color: #f82;"><import=cmdStopProcess></span>
-        <image id="send <import=nameProcess> <import=cmdStopProcess>" src="/cmdstop.png" class="labelProcess right" onclick="btnRequet(this.id, true);">
+        <image id="send <import=nameProcess> <import=cmdStopProcess>" src="/cmdstopexe.png" class="labelProcess right" onclick="btnRequet(this.id, true);">
 </div>
 <br>
 </export>
 <br>
+
+<div class="topPage" id="top">
+    <image src="/refrech.png" class="left" onclick="compt = 0; if (infoMenu.innerHTML == '') {infoOpen = false;} else {infoOpen = true;} sendRequet('GET', '/info.tangweb', '');">
+    <hr class="right">
+    <image src="/add.png" class="right" onclick="addProcess();">
+    <image src="/info.png" class="right" onclick="openInfo();">
+    <span class="left title">ProcessManager <import=version> | <import=checkupdate></span>
+</div>
 
 <div id="downPage" class="downPageClose">
     <image id="openConsole" class="left" onclick="consoleOpen = !consoleOpen; updateConsole();">
@@ -361,14 +317,9 @@ function sendRequet(type ,rep, data) {
     </div>
 </div>
 
-<div class="topPage">
-    <image src="/refrech.png" class="left" onclick="compt = 0; sendRequet('GET', '/info.tangweb', '');">
-    <span class="left title">ProcessManager <import=version> | <import=checkupdate></span>
-    <hr class="right">
-    <image src="/add.png" class="right" onclick="addProcess();">
-</div>
-
 <script>
+    document.getElementById("separator").style = "height: "+(document.getElementById("top").offsetHeight+5)+";";
+    document.body.onresize = () => {document.getElementById("separator").style = "height: "+(document.getElementById("top").offsetHeight+5)+";";};
     document.getElementById("consoleTitle").innerHTML = consoleGet;
     document.getElementById("console").innerText = consoleText;
     document.getElementById("console").scrollLeft = sW;
@@ -378,5 +329,67 @@ function sendRequet(type ,rep, data) {
     updateConsole();
 </script>
 <script src="/PopMenu.js"></script>
+<div id="infomenu" class="popmenubackground"></div>
+<script>
+    function convertText(number, normal) {
+        if (number == 0) return "∞";
+        if (normal) {
+        	let date = new Date(number);
+       		const options = {year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'};
+        	return date.toLocaleDateString('fr-FR', options);
+        } else {
+        	let time = Math.floor((number < 0 ? -number : number)/1000);
+			let heures = Math.floor(time/3600);
+			let minutesI = Math.floor(time%3600);
+			let minutes = Math.floor(minutesI/60);
+			let secondes = Math.floor(minutesI%60);
+        	return heures+":"+minutes+":"+secondes;
+        }
+    }
+    
+    timestop = <import=timestopnoforce>;
+    timestart = convertText(<import=timestart>, 1);
+    timeisstart = convertText(<import=timeisstart>, 0);
+    timestopnoforce = (timestop < 0 ? "Horaire " : (timestop > 0 ? "Crono " : "Aucun "))+convertText(timestop, 0)
+    timerestar = convertText(<import=timerestart>, 0);
+    daterestart = convertText(<import=daterestart>, 1);
+    isstop = (<import=isstop> ? "Oui" : "Non");
+
+    function openInfo() {
+        if (popMenu.innerHTML != "") {
+            closePopMenu()
+        }
+
+        infoMenu.setAttribute("class","popmenubackground");
+        
+        infoMenu.innerHTML =
+                `<div class="popmenutitle"><button class="popmenuexit" onclick="closeInfo();">X</button>Info ProcessManager</div>
+                <div class="popmenulabelgris">Date de démarage: `+timestart+`</div>`+
+                `<div class="popmenulabel">Combien de temps qu'il est démaré: `+timeisstart+`</div>`+
+                `<div class="popmenulabelgris">Temps du rémarage: `+timestopnoforce+`</div>`+
+                `<div class="popmenulabel">Dans combien de temps il redémare: `+timerestar+`</div>`+
+                `<div class="popmenulabelgris">En cours d'arrêt: `+isstop+`</div>`+
+                
+                `<div class="infomenubtnch" onclick="changeTime();">Change Time Restart</div>
+                <div class="groupbtn">
+                    <div id="stopserver all" class="infomenubtnnorm" onclick="btnRequet(this.id, true);">StopForce</div>
+                    <div id="stopscriptserver all" class="infomenubtnnorm" onclick="btnRequet(this.id, true);">StopForceWithScript</div>
+                    <div id="stopnoforcenoscriptserver all" class="infomenubtnnorm" onclick="btnRequet(this.id, true);">StopNoForceNoScript</div>
+                    <div id="stopnoforceserver all" class="infomenubtnnorm infomenubtncons" onclick="btnRequet(this.id, true);">StopNoForceWithScript</div>
+                </div>`;
+    }
+
+    function closeInfo() {
+        infoMenu.setAttribute("class","");
+        infoMenu.innerHTML = "";
+    }
+
+    var infoMenu = document.getElementById("infomenu");
+    if (infoOpen) {
+        openInfo();
+    } else {
+        closeInfo();
+    }
+</script>
 </body>
 </html>

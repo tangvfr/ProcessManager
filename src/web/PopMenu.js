@@ -36,6 +36,9 @@ function okPopMenu() {
 }
 
 function openPopMenu(title, message, type, option, actionOk, actionCancel, actionClose) {
+    if (infoMenu.innerHTML != "") {
+        closeInfo();
+    }
     popMenu.setAttribute("class", "popmenubackground");
     popMenu.setAttribute("numberinput", (option != undefined ? option.length : 0));
     okAction = actionOk != null ? actionOk : function(result) {};

@@ -1,3 +1,77 @@
+body {
+    background: #222222;
+    background-image: url(/fond.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 95%;
+}
+
+.infomenubtnch {
+    background: rgb(80, 80, 255);
+    border: 0.05rem solid #444;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    width: 50%;
+    height: auto;
+    font-size: 0.9rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: normal;
+    color: #FFF;
+    padding: 0.2rem;
+    margin: 0.4rem;
+}
+
+.infomenubtnnorm {
+    background: rgb(80, 80, 80);
+    border: 0.05rem solid #444;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    width: 45%;
+    height: auto;
+    font-size: 0.9rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: normal;
+    color: #FFF;
+    padding: 0.2rem;
+    margin: 0.2rem;
+}
+
+.infomenubtncons {
+    background: rgb(255, 80, 80);
+}
+
+.groupbtn {
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 1%;
+    left: 0rem;
+}
+
+.infomenubtncolor {
+    background: rgb(57, 57, 197);
+    color: #FFF;
+}
+
+.infomenubtn {
+    background: rgb(136, 136, 136);
+    border: 0.05rem solid #444;
+    position: absolute;
+    display: block;
+    text-align: center;
+    width: auto;
+    height: auto;
+    font-size: 0.9rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: normal;
+    color: #FFF;
+    padding: 0.2rem;
+    margin: 0.4rem;
+}
+
 .topPage {
     position: fixed;
     display: block;
@@ -78,6 +152,8 @@
     font-size: 20px;
     left: 10px;
     top: 4px;
+    width: auto;
+    height: auto;
 }
 
 .processWindowTitle {
@@ -89,6 +165,7 @@
     border-bottom: medium;
     padding: 2px;
     width: 99%;
+    opacity: 95%;
 }
 
 .processWindow {
@@ -99,6 +176,7 @@
     border: 2px solid #888;
     padding: 2px 2px 2px 2px;
     width: 99%;
+    opacity: 95%;
 }
 
 .titleProcess {

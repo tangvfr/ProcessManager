@@ -18,7 +18,7 @@ import fr.tangv.processmanager.webserver.WebServer;
 
 public class Main {
 
-	public static final String version = "Alpha_1.5";
+	public static final String version = "Bêta_1.5";
 	public static volatile String cmdEnd = " ";
 	public static volatile long timeStopNoForce = 0L;
 	public static volatile long timeStart;

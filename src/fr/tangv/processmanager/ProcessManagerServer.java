@@ -158,7 +158,7 @@ public class ProcessManagerServer {
 						if (Main.timeStopNoForce != 0) {
 							if (Main.timeStopNoForce > 0) {
 								Main.timeRestart = Main.timeStopNoForce-Main.timeIsStart;
-								if (Main.timeRestart <= 0) { 
+								if (Main.timeRestart <= 0) {
 									Main.timeRestart = 0;
 									stopNoForce(true);
 									break;
@@ -200,7 +200,7 @@ public class ProcessManagerServer {
 	public void stopNoForce(boolean script) {
 		this.stopNoForce = true;
 		for (ProcessPlus process : processManager.getListProcess()) {
-			if (process.getCmdStop() != null && !process.getCmdStop().isEmpty()) {
+			if (process.getCmdStop() != null && !process.getCmdStop().isEmpty() && !process.getCmdStop().equals(" ")) {
 				try {
 					process.send(process.getCmdStop());
 				} catch (IOException e) {
@@ -230,7 +230,7 @@ public class ProcessManagerServer {
 			@Override
 			public void run() {
 				String cmd = Main.cmdEnd;
-				if (cmd != null && !cmd.isEmpty()) {
+				if (cmd != null && !cmd.isEmpty() && !cmd.equals(" ")) {
 					try {
 			            String os = System.getProperty("os.name").toLowerCase();
 			            if (os.contains("win")) {
