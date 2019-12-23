@@ -44,6 +44,18 @@ public class HandleSocket extends Thread {
 				String[] dataData = data.split("\n");
 				String dataRequet = dataData[dataData.length-1].replace("\r", "").replace("\n", "");
 				String ipRequet = socket.getInetAddress().getHostAddress();
+				//anti brutus
+				if (webServer.isBlocked(ipRequet) && repRequet.equals("/info.tangweb")) {
+					long time = webServer.getListAntiBrutus().get(ipRequet);
+					long last = System.currentTimeMillis()-time;
+					if (last < 3000) {
+						socket.close();
+						ProcessManagerServer.logger.info(ipRequet+" >: blocked");
+						return;
+					} else {
+						webServer.getListAntiBrutus().remove(ipRequet);
+					}
+				}
 				//traitement de la requet
 				if (!dataRequet.startsWith("read "))
 					ProcessManagerServer.logger.info(ipRequet+" >: "+typeRequet+" >: "+hostRequet+" >: "+repRequet+" >: "+contTypeRequet+" >: "+dataRequet);

@@ -371,6 +371,8 @@ function sendRequet(type ,rep, data) {
                 `<div class="popmenulabelgris">En cours d'arrêt: `+isstop+`</div>`+
                 
                 `<div class="infomenubtnch" onclick="changeTime();">Change Time Restart</div>
+                <div class="popmenulabelgris">Commande de restart: <import=cmdend></div>
+                <div class="infomenubtnchrs" onclick="changeCmdEnd();">Change Command Restart</div>
                 <div class="groupbtn">
                     <div id="stopserver all" class="infomenubtnnorm" onclick="btnRequet(this.id, true);">StopForce</div>
                     <div id="stopscriptserver all" class="infomenubtnnorm" onclick="btnRequet(this.id, true);">StopForceWithScript</div>

@@ -1,21 +1,26 @@
-<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Invalide passwor or user</title>
-    <script>
-        function onBack() {
-            document.location.href = "/index.html"
-        }
-    </script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+		<link href="/index.css" rel="stylesheet" type="text/css">
+        <title>Echec Connect ProcessManager</title>
+        <script>
+            function onBack() {
+                document.location.href = "/index.html"
+            }
+        </script>
+    </head>
+    <body>
+        <div id="borderback" class="borderback">
+            <div class="titleindex">Echec Connect ProcessManager</div>
+            <div class="titleindex">Invalid password or user !</div>
+            <br>
+            <button class="textinputback" id="btn" onclick="onBack();">Back</button>
+        </div>
 
-<center>
-<h1>Connect ProcessManager:</h1>
-<h1>Invalid password or user !</h1>
-<input type="button" value="Back" onclick="onBack();";>
-</center>
-
-</body>
+        <script>
+            let borderback = document.getElementById("borderback");
+            borderback.style = "left: calc(50% - "+(borderback.offsetWidth/2)+"px); top: calc(50% - "+(borderback.offsetHeight/2)+"px);";
+            document.getElementById("btn").focus();
+        </script>
+    </body>
 </html>

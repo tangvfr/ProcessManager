@@ -62,7 +62,7 @@ public class WebServer {
 		return processManagerServer;
 	}
 	
-	private boolean isBlocked(String key) {
+	public boolean isBlocked(String key) {
 		Enumeration<String> keys = listAntiBrutus.keys();
 		while (keys.hasMoreElements()) {
 			if (keys.nextElement().equals(key))
@@ -86,20 +86,7 @@ public class WebServer {
 				try {
 					while (!serv.isClosed()) {
 						Socket socket = serv.accept();
-						String ip = socket.getInetAddress().getHostAddress();
-						if (isBlocked(ip)) {
-							long time = listAntiBrutus.get(ip);
-							long last = System.currentTimeMillis()-time;
-							if (last < 3000) {
-								socket.close();
-								ProcessManagerServer.logger.info(ip+" >: blocked");
-							} else {
-								listAntiBrutus.remove(ip);
-								new HandleSocket(web, socket).start();
-							}
-						} else {
-							new HandleSocket(web, socket).start();
-						}
+						new HandleSocket(web, socket).start();
 					}
 				} catch (IOException e) {
 					ProcessManagerServer.logger.warning(e.getMessage());
