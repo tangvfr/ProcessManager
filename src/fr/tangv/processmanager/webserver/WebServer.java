@@ -1,5 +1,6 @@
 package fr.tangv.processmanager.webserver;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -121,9 +122,16 @@ public class WebServer {
 	
 	public byte[] getCodeFile(String res) throws IOException {
 		InputStream in = getClass().getClassLoader().getResourceAsStream(res);
-		byte[] buff = new byte[in.available()];
-		in.read(buff);
+		ByteArrayOutputStream bufo = new ByteArrayOutputStream();
+		byte[] buf = new byte[1024];
+		int len;
+		while (in.available() > 0) {
+			len = in.read(buf);
+			bufo.write(buf, 0, len);
+		}
+		bufo.close();
 		in.close();
+		byte[] buff = bufo.toByteArray();
 		if (!res.endsWith(".tangweb"))
 			return buff;
 		String code = new String(buff, "UTF8");
