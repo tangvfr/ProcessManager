@@ -1,6 +1,6 @@
 # ProcessManager
 
-Download version Bêta1.5: https://tangv.fr/ProcessManager/ProcessManager-Bêta-1.5.jar
+Download version Bêta1.5: https://tangv.fr/ProcessManager/ProcessManager-Beta-1.5.jar
 
 Start the jar with the arguments:
 - "-server" juste server tcp (define port desired in file parameter)
