@@ -22,7 +22,7 @@ public class info implements ClassPage {
 				data = new PageData(receiveHTTP.getPathRequet().getData());
 			}
 			
-			//PrintData.printData(receiveHTTP, data);
+			PrintData.printData(receiveHTTP, data);
 			
 			if (data != null && data.containsKey("token")) {
 				Token token = index.tokenValid(data.get("token"));
