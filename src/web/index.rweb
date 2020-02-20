@@ -8,9 +8,9 @@
 
     <form method="get" action="/index.tweb" id="border" class="borderindex">
         <div class="titleindex">Connect ProcessManager</div>
-        <input class="textinputindex" type="text" id="user" placeholder="User" accesskey=38>
+        <input class="textinputindex" type="text" name="user" placeholder="User">
         <br>
-        <input class="textinputindex" type="password" id="pass" placeholder="Password" accesskey=40>
+        <input class="textinputindex" type="password" name="pass" placeholder="Password">
         <br>
         <input class="textinputindex" type="submit" value="Connect" style="background: #777;" accesskey=13>
     </form>

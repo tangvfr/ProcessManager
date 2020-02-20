@@ -11,7 +11,7 @@ public class PathHTTP {
 		if (pathHTTP.contains("?")) {
 			path = pathHTTP.substring(0,
 					pathHTTP.lastIndexOf("?"));
-			data = pathHTTP.substring(pathHTTP.lastIndexOf("?"), 
+			data = pathHTTP.substring(pathHTTP.lastIndexOf("?")+1, 
 					pathHTTP.length());
 		} else {
 			path = pathHTTP;
