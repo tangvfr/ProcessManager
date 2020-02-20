@@ -184,12 +184,12 @@ public class WebServer {
 	}
 	
 	public void sendRequet(OutputStream out, byte[] data, String contentType) throws IOException {
-		out.write(("HTTP/1.1 200 OK\n"+
-				"Date: "+new Date()+"\n"+
-				"Server: Tangv_Serveur_Web_"+Main.version+"\n"+
-				"Content-Length: "+data.length+"\n"+
-				"Content-Type: "+contentType+"\n"+
-				"\n").getBytes());
+		out.write(("HTTP/1.1 200 OK\r\n"+
+				"Date: "+new Date()+"\r\n"+
+				"Server: Tangv_Serveur_Web_"+Main.version+"\r\n"+
+				"Content-Length: "+data.length+"\r\n"+
+				"Content-Type: "+contentType+"\r\n"+
+				"\r\n").getBytes());
 		out.flush();
 		out.write(data, 0, data.length);
 		out.flush();

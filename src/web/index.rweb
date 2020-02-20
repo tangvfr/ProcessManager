@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="UTF-8"> 
+        <link href="/index.css" rel="stylesheet" type="text/css">
+        <title>Connect ProcessManager</title>
+    </head>
+    <body>
+
+    <form method="get" action="/index.tweb" id="border" class="borderindex">
+        <div class="titleindex">Connect ProcessManager</div>
+        <input class="textinputindex" type="text" id="user" placeholder="User" accesskey=38>
+        <br>
+        <input class="textinputindex" type="password" id="pass" placeholder="Password" accesskey=40>
+        <br>
+        <input class="textinputindex" type="submit" value="Connect" style="background: #777;" accesskey=13>
+    </form>
+
+    <script>
+        let border = document.getElementById("border");
+        border.style = "left: calc(50% - "+(border.offsetWidth/2)+"px); top: calc(50% - "+(border.offsetHeight/2)+"px);";
+        document.getElementById("user").focus();
+    </script>
+
+    </body>
+</html>

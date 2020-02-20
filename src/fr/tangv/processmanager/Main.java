@@ -11,14 +11,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 
-import fr.tangv.processmanager.webserver.GetExecute;
-import fr.tangv.processmanager.webserver.PostExecute;
-import fr.tangv.processmanager.webserver.ProcessAffiche;
-import fr.tangv.processmanager.webserver.WebServer;
+import fr.tangv.web.main.Web;
 
 public class Main {
 
-	public static final String version = "Bêta_1.5.1";
+	public static final String version = "Bêta_1.6.0";
 	public static volatile String cmdEnd = " ";
 	public static volatile long timeStopNoForce = 0L;
 	public static volatile long timeStart;
@@ -26,6 +23,7 @@ public class Main {
 	public static volatile long timeRestart;
 	public static final long valueh24H = (24*3600000);
 	public static volatile long dateRestart;
+	public static ProcessManagerServer processManagerServer;
 	
 	public static String getUpdate(boolean web) {
 		try {
@@ -103,18 +101,11 @@ public class Main {
 	
 	public static void main(String[] args) {
 		if (args.length >= 1 && args[0].equalsIgnoreCase("-server")) {
-			ProcessManagerServer pms = new ProcessManagerServer();
+			processManagerServer = new ProcessManagerServer();
 			if (args.length >= 2 && args[1].equalsIgnoreCase("-web")) {
 				try {
 					int port = args.length >= 3 ? Integer.parseInt(args[2]) : 80;
-					WebServer webServer = new WebServer(port, pms);
-					//----------------------------
-					webServer.addGetRequetExecutes(new GetExecute());
-					webServer.addPostRequetExecutes(new PostExecute());
-					ProcessAffiche processAffiche = new ProcessAffiche();
-					webServer.registreHandle("noProcess", processAffiche);
-					webServer.registreHandle("oneProcess", processAffiche);
-					//----------------------------
+					new Web(port, "web", ProcessManagerServer.logger);
 					ProcessManagerServer.logger.info("Open WebServer with port \""+port+"\" !");
 				} catch (Exception e) {
 					ProcessManagerServer.logger.warning("Error WebServer port is invalid !");
