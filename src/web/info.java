@@ -3,10 +3,12 @@ package web;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
 import fr.tangv.web.util.ClassPage;
+import fr.tangv.web.util.CodeHTTP;
 import fr.tangv.web.util.Page;
 import fr.tangv.web.util.PageData;
 import fr.tangv.web.util.PageRedirect;
 import fr.tangv.web.util.PageResoucre;
+import fr.tangv.web.util.PageType;
 
 public class info implements ClassPage {
 
@@ -36,8 +38,10 @@ public class info implements ClassPage {
 		System.out.println("---------------");
 		
 		if (data != null && data.containsKey("token")) {
-			String token = data.get("token");
-			
+			Token token = index.tokenValid(data.get("token"));
+			if (token != null) {
+				return new Page(pageResoucre.get(0), PageType.HTML, CodeHTTP.CODE_200_OK);
+			}
 		}
 		return new PageRedirect("/invalide.html");
 	}

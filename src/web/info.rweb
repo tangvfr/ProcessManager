@@ -1,0 +1,10 @@
+<html>
+    <head>
+        <meta charset="UTF-8"> 
+        <link href="/index.css" rel="stylesheet" type="text/css">
+        <title>Connect ProcessManager</title>
+    </head>
+    <body>
+	    <div class="titleindex">Infos !</div>
+    </body>
+</html>
