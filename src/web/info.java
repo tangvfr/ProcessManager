@@ -26,7 +26,6 @@ public class info implements ClassPage {
 			
 			if (data != null && data.containsKey("token")) {
 				Token token = index.tokenValid(data.get("token"));
-				System.out.println(token.getUUID());
 				if (token != null) {
 					return new Page(pageResoucre.get(0), PageType.HTML, CodeHTTP.CODE_200_OK);
 				}
