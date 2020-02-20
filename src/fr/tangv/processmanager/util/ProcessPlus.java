@@ -98,10 +98,7 @@ public class ProcessPlus {
 		if (consoleLine.length > maxLine) {
 			String newConsole = "";
 			for (int i = consoleLine.length-maxLine; i < consoleLine.length; i++) {
-				if (i == consoleLine.length-1)
-					newConsole += consoleLine[i];
-				else
-					newConsole += consoleLine[i]+"\n";
+				newConsole += consoleLine[i]+"\n";
 			}
 			this.console = newConsole;
 		}
