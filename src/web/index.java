@@ -69,7 +69,7 @@ public class index implements ClassPage {
 				Map<String, String> auth = Main.processManagerServer.getUserAndMdp();
 				if (auth.containsKey(user) && auth.get(user).equals(pass)) {
 					Token token = newToken(user);
-					return new PageRedirect("/info.tweb?token="+token.getUUID().toString());
+					return new PageRedirect("/info.tweb?token="+token.getUUID());
 				} else {
 					return new PageRedirect("/invalide.html");
 				}

@@ -14,36 +14,27 @@ public class info implements ClassPage {
 
 	@Override
 	public Page getPage(Web web, ReceiveHTTP receiveHTTP, PageResoucre pageResoucre) {
-		PageData data = null;
-		if (receiveHTTP.hasData()) {
-			data = new PageData(new String(receiveHTTP.getData()));
-		} else if (receiveHTTP.getPathRequet().hasData()) {
-			data = new PageData(receiveHTTP.getPathRequet().getData());
-		}
-		
-		System.out.println(receiveHTTP.getHeadRequet("Content-Type"));
-		if (data != null) {
-			for (String key : data.keySet()) {
-				System.out.println("Key: "+key+" Value: "+data.get(key));
+		if (receiveHTTP.getMethodeRequet().equalsIgnoreCase("GET") || receiveHTTP.getMethodeRequet().equalsIgnoreCase("POST")) {
+			PageData data = null;
+			if (receiveHTTP.hasData()) {
+				data = new PageData(new String(receiveHTTP.getData()));
+			} else if (receiveHTTP.getPathRequet().hasData()) {
+				data = new PageData(receiveHTTP.getPathRequet().getData());
 			}
+			
+			//PrintData.printData(receiveHTTP, data);
+			
+			if (data != null && data.containsKey("token")) {
+				Token token = index.tokenValid(data.get("token"));
+				System.out.println(token.getUUID());
+				if (token != null) {
+					return new Page(pageResoucre.get(0), PageType.HTML, CodeHTTP.CODE_200_OK);
+				}
+			}
+			return new PageRedirect("/invalide.html");
 		} else {
-			System.out.println("No data !");
+			return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_405_METHOD_NOT_ALLOWED);
 		}
-		System.out.println(receiveHTTP.getMethodeRequet());
-		System.out.println(receiveHTTP.getPathRequet().getPath());
-		System.out.println(receiveHTTP.getPathRequet().hasData());
-		System.out.println(receiveHTTP.getPathRequet().getData());
-		System.out.println(receiveHTTP.hasData());
-		System.out.println(new String(receiveHTTP.getData()));
-		System.out.println("---------------");
-		
-		if (data != null && data.containsKey("token")) {
-			Token token = index.tokenValid(data.get("token"));
-			if (token != null) {
-				return new Page(pageResoucre.get(0), PageType.HTML, CodeHTTP.CODE_200_OK);
-			}
-		}
-		return new PageRedirect("/invalide.html");
 	}
 
 }
