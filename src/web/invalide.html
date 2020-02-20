@@ -3,18 +3,15 @@
         <meta charset="UTF-8">
 		<link href="/index.css" rel="stylesheet" type="text/css">
         <title>Echec Connect ProcessManager</title>
-        <script>
-            function onBack() {
-                document.location.href = "/index.html"
-            }
-        </script>
     </head>
     <body>
         <div id="borderback" class="borderback">
             <div class="titleindex">Echec Connect ProcessManager</div>
             <div class="titleindex">Invalid password or user !</div>
             <br>
-            <button class="textinputback" id="btn" onclick="onBack();">Back</button>
+            <form method="get" action="/index.tweb">
+            	<input type="submit" value="Back" class="textinputback">
+            </form>
         </div>
 
         <script>
