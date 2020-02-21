@@ -16,7 +16,7 @@ import fr.tangv.web.util.PageRedirect;
 import fr.tangv.web.util.PageResoucre;
 import fr.tangv.web.util.PageType;
 
-public class index implements ClassPage {
+public class auth implements ClassPage {
 
 	private static volatile Vector<Token> tokens;
 	
@@ -26,9 +26,9 @@ public class index implements ClassPage {
 	
 	private static void clear() {
 		long timeCo = 5*60*1000;
-		long dateMax = System.currentTimeMillis()+timeCo;
+		long dateMax = System.currentTimeMillis()-timeCo;
 		for (int i = 0; i < tokens.size(); i++) {
-			if (tokens.get(i).getDate() > dateMax) {
+			if (tokens.get(i).getDate() < dateMax) {
 				tokens.remove(tokens.get(i));
 				i--;
 			}
@@ -63,6 +63,7 @@ public class index implements ClassPage {
 			} else if (receiveHTTP.getPathRequet().hasData()) {
 				data = new PageData(receiveHTTP.getPathRequet().getData());
 			}
+			
 			if (data != null && data.containsKey("user") && data.containsKey("pass")) {
 				String user = data.get("user");
 				String pass = data.get("pass");
@@ -73,9 +74,9 @@ public class index implements ClassPage {
 				} else {
 					return new PageRedirect("/invalide.html");
 				}
+			} else {
+				return new PageRedirect("/");
 			}
-			String page = pageResoucre.get(0);
-			return new Page(page, PageType.HTML, CodeHTTP.CODE_200_OK);
 		} else {
 			return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_405_METHOD_NOT_ALLOWED);
 		}

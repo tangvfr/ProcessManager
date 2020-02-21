@@ -25,8 +25,10 @@ public class info implements ClassPage {
 			PrintData.printData(receiveHTTP, data);
 			
 			if (data != null && data.containsKey("token")) {
-				Token token = index.tokenValid(data.get("token"));
+				Token token = auth.tokenValid(data.get("token"));
 				if (token != null) {
+					
+					
 					return new Page(pageResoucre.get(0), PageType.HTML, CodeHTTP.CODE_200_OK);
 				}
 			}

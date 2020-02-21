@@ -127,7 +127,7 @@ public class ProcessManagerServer {
 				"Version: "+Main.version+"\r\n"+Main.getUpdate(false)+"\r\n");
 		//----------------------------------------
 		this.userAndMdp = new HashMap<String, String>();
-		this.userAndMdp.put("admin", "pass");
+		this.userAndMdp.put("admin", "password");
 		fileParameter = new File("./users");
 		try {
 			Main.loadData();
