@@ -1,0 +1,210 @@
+body {
+    background: #222222;
+    background-image: url(/img/fond.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*opacity: 95%;*/
+}
+
+body, html{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+}
+
+::placeholder {
+    color: #555; 
+}
+
+div, span {
+    color: #FFF;
+    font-weight: normal;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+}
+
+header {
+    margin: 0px;
+    height: 40px;
+    width: 100%;
+    background: #444;
+    border-bottom: 2px #666 solid;
+}
+
+#title {
+    font-size: 24px;
+    padding: 0px;
+    margin-top: 3px;
+    margin-left: 6px;
+    float: left;
+}
+
+#update {
+    position: fixed;
+    display: block;
+    text-decoration: underline;
+    font-size: 16px;
+    top: 40px;
+    left: 100px;
+    background: #444;
+    border: 2px #666 solid;
+    border-top: none;
+    padding: 2px;
+    padding-top: 0px;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.headiconleft,.headiconright {
+    padding: 0px;
+    margin-top: 4px;
+    width: 32px;
+    height: 32px;
+}
+
+.headiconleft {
+    margin-left: 4px;
+    float: left;
+}
+
+.headiconright {
+    margin-right: 4px;
+    float: right;
+}
+
+.iconleft,.iconright {
+    padding: 0px;
+    margin: 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.iconleft {
+    margin-left: 4px;
+    float: left;
+}
+
+.iconright {
+    margin-right: 4px;
+    float: right;
+}
+
+.folder,.cmd,.stopcmd {
+    padding: 0px;
+    margin: 0px;
+    margin-left: 4px;
+    height: 32px;
+    font-size: 20px;
+    float: left;
+}
+
+.folder {
+    color: #DD4;
+}
+
+.cmd {
+    color: #4D4;
+}
+
+.stopcmd {
+    color: #D44;
+}
+
+.boxglobal {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;
+    width: 100%;
+    height: calc(100% - 42px);
+}
+
+.boxprocess {
+    display: block;
+    position: relative;
+    margin: auto;
+    width: 48%;
+    height: 49%;
+}
+
+.headprocess {
+    display: block;
+    position: relative;
+    background: #222222;
+    border: 2px #444 outset;
+    padding: 5px;
+    width: 100%;
+    height: auto;
+    word-wrap: break-word;
+}
+
+.headon {
+    background: #3b3;
+    border: 2px #3D3 outset;
+    width: calc(100% - 4px);
+}
+
+.headoff {
+    background: #b33;
+    border: 2px #D33 outset;
+    width: calc(100% - 4px);
+}
+
+.headfolder {
+    background: #bb3;
+    border: 2px #DD3 outset;
+    width: calc(100% - 4px);
+}
+
+.off,.on {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #000;
+    border-radius: 24px;
+    float: right;
+}
+
+.on {
+    background: #3b3;
+}
+
+.off {
+    background: #b33;
+}
+
+.contprocess {
+    display: block;
+    position: relative;
+    background: rgb(100, 100, 100);
+    border: 2px #444 solid;
+    border-top: none;
+    padding: 5px;
+    width: calc(98% - 4px);
+    margin: 1%;
+    margin-top: 0%;
+    height: content-box;
+    word-wrap: break-word;
+    overflow: auto;
+}
+
+@media (max-width: 1024px) {
+    body {
+        background-repeat: repeat-y;
+    }
+
+    .boxprocess {
+        width: 98%;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .boxglobal {
+        display: block;
+    }
+}
