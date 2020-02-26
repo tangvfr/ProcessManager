@@ -3,14 +3,48 @@
         <meta charset="UTF-8"> 
         <link href="/info.css" rel="stylesheet" type="text/css">
         <title>ProcessManager version</title>
+        <script>
+            function onMenu() {
+                let menu = document.getElementById("menu");
+                let menuopen = document.getElementById("menuopen");
+                if (menu.style.display === "block") {
+                    menu.style.display = "none";
+                    let box = document.getElementsByClassName("boxglobalhidden");
+                    for (i = 0; i < box.length; i++) {
+                        box[i].setAttribute("class", "boxglobal");
+                    }
+                    menuopen.setAttribute("value", "false");
+                } else {
+                    menu.style.display = "block";
+                    let box = document.getElementsByClassName("boxglobal");
+                    for (i = 0; i < box.length; i++) {
+                        box[i].setAttribute("class", "boxglobalhidden");
+                    }
+                    menuopen.setAttribute("value", "true");
+                }
+            }
+        </script>
     </head>
     <body>
         <header>
-            <img alt="Menu" src="/img/menu.png" class="headiconleft">
+            <img alt="Menu" src="/img/menu.png" class="headiconleft" onclick="onMenu();">
             <img alt="Refrech" src="/img/refrech.png" class="headiconleft" onclick="window.history.go(0);">
             <span id="title">ProcessManager version</span>
             <img alt="Add" src="/img/add.png" class="headiconright">
             <img alt="Info" src="/img/info.png" class="headiconright">
+            <form>
+                <input type="hidden" name="token" value="">
+                <input type="hidden" name="menu" id="menuopen" value="false">
+                <input type="submit" value="" id="searchbtn">
+                <input type="search" name="search" placeholder="Rechercher" value="" id="search">
+                <select name="sort" id="sort">
+                    <option value="Name" selected>Trier par nom</option>
+                    <option value="FolderName">Trier par nom de dosier</option>
+                    <option value="Folder">Trier par dosier</option>
+                    <option value="Started">Trier par démaré</option>
+                    <option value="Launch">Trier par démarent</option>
+                </select>
+            </form>
         </header>
         <section class="boxglobal">
             <div class="boxprocess">
@@ -110,7 +144,7 @@
                 </div>
             </div>
         </section>
-        <!--<nav>
+        <nav id="menu">
             <div>
                 test1
             </div>
@@ -119,8 +153,11 @@
             </div>
             <div>
                 test3
-            </div>-->
-        <span id="update">Mettre à jour !</span>
+            </div>
         </nav>
+        <span id="update">Mettre à jour !</span>
     </body>
+    <script>
+        //onMenu();
+    </script>
 </html>

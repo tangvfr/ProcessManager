@@ -32,6 +32,20 @@ header {
     border-bottom: 2px #666 solid;
 }
 
+#menu {
+    position: fixed;
+    display: none;
+    top: 42px;
+    left: 0px;
+    padding: 6px;
+    overflow: auto;
+    word-wrap: break-word;
+    border-right: 2px #666 solid;
+    background: #444;
+    width: 600px;
+    height: 100%;
+}
+
 #title {
     font-size: 24px;
     padding: 0px;
@@ -52,6 +66,28 @@ header {
     border-top: none;
     padding: 2px;
     padding-top: 0px;
+}
+
+#search,#sort {
+    padding: 0px;
+    margin-top: 8px;
+    width: auto;
+    height: 24px;
+    margin-right: 8px;
+    float: right;
+}
+
+#searchbtn {
+    border: none;
+    border-radius: 0px;
+    background: url("/img/search.png");
+    background-size: cover;
+    padding: 0px;
+    margin-top: 8px;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    float: right;
 }
 
 .title {
@@ -113,7 +149,7 @@ header {
     color: #D44;
 }
 
-.boxglobal {
+.boxglobal,.boxglobalhidden {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
@@ -198,6 +234,10 @@ header {
         background-repeat: repeat-y;
     }
 
+    #menu {
+        width: 100%;
+    }
+
     .boxprocess {
         width: 98%;
         margin-left: 0px;
@@ -206,5 +246,9 @@ header {
 
     .boxglobal {
         display: block;
+    }
+
+    .boxglobalhidden {
+        display: none;
     }
 }
