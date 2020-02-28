@@ -33,44 +33,46 @@
             <img alt="Add" src="/img/add.png" class="headiconright">
             <img alt="Info" src="/img/info.png" class="headiconright">
             <form>
-                <input type="hidden" name="token" value="">
-                <input type="hidden" name="menu" id="menuopen" value="false">
+                <input type="hidden" name="token" value="<targ=token></targ>">
+                <input type="hidden" name="menu" id="menuopen" value="<targ=menuopen></targ>">
                 <input type="submit" value="" id="searchbtn">
-                <input type="search" name="search" placeholder="Rechercher" value="" id="search">
+                <input type="search" name="search" placeholder="Rechercher" value="<targ=search></targ>" id="search">
                 <select name="sort" id="sort">
-                    <option value="Name" selected>Trier par nom</option>
-                    <option value="FolderName">Trier par nom de dosier</option>
-                    <option value="Folder">Trier par dosier</option>
-                    <option value="Started">Trier par démaré</option>
-                    <option value="Launch">Trier par démarent</option>
+                    <option value="name" <targ=sortname></targ>>Trier par nom</option>
+                    <option value="foldername" <targ=sortfoldername></targ>>Trier par nom de dosier</option>
+                    <option value="folder" <targ=sortfolder></targ>>Trier par dosier</option>
+                    <option value="started" <targ=sortstarted></targ>>Trier par démaré</option>
+                    <option value="launch" <targ=sortlaunch></targ>>Trier par démarent</option>
                 </select>
             </form>
         </header>
         <section class="boxglobal">
-            <div class="boxprocess">
-                <div class="headprocess headoff">
-                    <span class="title">Name</span>
-                    <a target="_self" href="/index.html" class="on"></a>
-                    <img alt="Rename" src="/img/rename.png" class="iconright">
+            <!--<targ=processbox>-->
+                <div class="boxprocess">
+                    <div class="headprocess headoff">
+                        <span class="title">Name</span>
+                        <a target="_self" href="/index.html" class="on"></a>
+                        <img alt="Rename" src="/img/rename.png" class="iconright">
+                    </div>
+                    <div class="contprocess">
+                        <img alt="Cmd" src="/img/cmd.png" class="iconleft">
+                        <span class="cmd">java mon.jar</span>
+                        <img alt="Stop" src="/img/stop.png" class="iconright">
+                        <img alt="Restart" src="/img/restart.png" class="iconright">
+                        <img alt="Start" src="/img/start.png" class="iconright">
+                        <br><br>
+                        <img alt="CmdDown" src="/img/cmddown.png" class="iconleft">
+                        <span class="stopcmd">stop</span>
+                        <img alt="StopCmd" src="/img/stopcmd.png" class="iconright">
+                        <img alt="RestartCmd" src="/img/restartcmd.png" class="iconright">
+                        <br><br>
+                        <img alt="Folder" src="/img/folder.png" class="iconleft">
+                        <span class="folder">C:/folder</span>
+                        <img alt="Remove" src="/img/remove.png" class="iconright">
+                        <!--javascript:history.go(-2); window.history.back();-->
+                    </div>
                 </div>
-                <div class="contprocess">
-                    <img alt="Cmd" src="/img/cmd.png" class="iconleft">
-                    <span class="cmd">java mon.jar</span>
-                    <img alt="Stop" src="/img/stop.png" class="iconright">
-                    <img alt="Restart" src="/img/restart.png" class="iconright">
-                    <img alt="Start" src="/img/start.png" class="iconright">
-                    <br><br>
-                    <img alt="CmdDown" src="/img/cmddown.png" class="iconleft">
-                    <span class="stopcmd">stop</span>
-                    <img alt="StopCmd" src="/img/stopcmd.png" class="iconright">
-                    <img alt="RestartCmd" src="/img/restartcmd.png" class="iconright">
-                    <br><br>
-                    <img alt="Folder" src="/img/folder.png" class="iconleft">
-                    <span class="folder">C:/folder</span>
-                    <img alt="Remove" src="/img/remove.png" class="iconright">
-                    <!--javascript:history.go(-2); window.history.back();-->
-                </div>
-            </div>
+            <!--</targ>-->
             <div class="boxprocess">
                 <div class="headprocess headon">
                     <span class="title">Name</span>

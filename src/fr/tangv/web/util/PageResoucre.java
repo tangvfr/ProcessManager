@@ -11,15 +11,18 @@ public class PageResoucre {
 	private String text;
 	
 	public PageResoucre(String path, String nameBalise) throws IOException {
-		this.nameBalise = nameBalise;
-		if (ClassLoader.getSystemResource(path) != null) {
-			text = new String(new ByteArray(ClassLoader.getSystemResourceAsStream(path)).bytes());
-		}
+		this(path, nameBalise, true);
 	}
 	
-	public PageResoucre(char[] text, String nameBalise) {
+	public PageResoucre(String text, String nameBalise, boolean filePath) throws IOException {
 		this.nameBalise = nameBalise;
-		this.text = new String(text);
+		if (filePath) {
+			if (ClassLoader.getSystemResource(text) != null) {
+				this.text = new String(new ByteArray(ClassLoader.getSystemResourceAsStream(text)).bytes());
+			}
+		} else {
+			this.text = text;
+		}
 	}
 	
 	public String getText() {
