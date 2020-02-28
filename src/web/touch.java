@@ -12,7 +12,7 @@ public class touch implements ClassPage {
 
 	@Override
 	public Page getPage(Web web, ReceiveHTTP receiveHTTP, PageResoucre pageResoucre) {
-		String text = pageResoucre.get(0);
+		String text = pageResoucre.getText();
 		return new Page(text, PageType.HTML, CodeHTTP.CODE_200_OK);
 	}
 

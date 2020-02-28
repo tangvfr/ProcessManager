@@ -29,7 +29,7 @@ public class info implements ClassPage {
 				if (token != null) {
 					
 					
-					return new Page(pageResoucre.get(0), PageType.HTML, CodeHTTP.CODE_200_OK);
+					return new Page(pageResoucre.remplaceText(null), PageType.HTML, CodeHTTP.CODE_200_OK);
 				}
 			}
 			return new PageRedirect("/invalide.html");
