@@ -23,6 +23,14 @@
                     menuopen.setAttribute("value", "true");
                 }
             }
+
+            function onAdd() {
+
+            }
+
+            function onInfo() {
+
+            }
         </script>
     </head>
     <body>
@@ -30,8 +38,9 @@
             <img alt="Menu" src="/img/menu.png" class="headiconleft" onclick="onMenu();">
             <img alt="Refrech" src="/img/refrech.png" class="headiconleft" onclick="window.history.go(0);">
             <span id="title">ProcessManager <targ=version></targ></span>
-            <img alt="Add" src="/img/add.png" class="headiconright">
-            <img alt="Info" src="/img/info.png" class="headiconright">
+            <img alt="Add" src="/img/add.png" class="headiconright" onclick="onAdd();">
+            <img alt="Info" src="/img/info.png" class="headiconright" onclick="onInfo();">
+            <!--Add change page-->
             <form>
                 <input type="hidden" name="token" value="<targ=token></targ>">
                 <input type="hidden" name="menu" id="menuopen" value="<targ=menuopen></targ>">
