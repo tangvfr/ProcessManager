@@ -1,5 +1,9 @@
 package web;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import fr.tangv.processmanager.Main;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
 import fr.tangv.web.util.ClassPage;
@@ -27,6 +31,9 @@ public class info implements ClassPage {
 			if (data != null && data.containsKey("token")) {
 				Token token = auth.tokenValid(data.get("token"));
 				if (token != null) {
+					Map<String, String> remplaceValue = new HashMap<String, String>();
+					remplaceValue.put("version", Main.version);
+					
 					
 					
 					return new Page(pageResoucre.remplaceText(null), PageType.HTML, CodeHTTP.CODE_200_OK);

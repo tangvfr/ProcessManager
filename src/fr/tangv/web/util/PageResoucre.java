@@ -27,18 +27,28 @@ public class PageResoucre {
 	}
 	
 	public String remplaceText(Map<String, String> remplaceValue) {
-		Pattern pattern = Pattern.compile("<"+nameBalise+"=(\\w*)>", Pattern.UNICODE_CASE);
+		Pattern pattern = Pattern.compile("<"+nameBalise+"=(.*)>(.*)</"+nameBalise+">", Pattern.UNICODE_CASE);
 		Matcher matcher = pattern.matcher(this.text);
 		String text = this.text;
 		while (matcher.find()) {
-			String valueBalise = matcher.group(1);
-			if (remplaceValue != null && remplaceValue.containsKey(valueBalise)) {
-				text = text.replace("<"+nameBalise+"="+valueBalise+">", remplaceValue.get(valueBalise));
+			String value = matcher.group(1);
+			String balise = "<"+nameBalise+"="+value+">"+matcher.group(2)+"</"+nameBalise+">";
+			if (remplaceValue != null && remplaceValue.containsKey(value)) {
+				text = text.replace(balise, remplaceValue.get(value));
 			} else {
-				text = text.replace("<"+nameBalise+"="+valueBalise+">", "");
+				text = text.replace(balise, "");
 			}
 		}
 		return text;
+	}
+	
+	public String getContent(String value) {
+		Pattern pattern = Pattern.compile("<"+nameBalise+"="+value+">(.*)</"+nameBalise+">", Pattern.UNICODE_CASE);
+		Matcher matcher = pattern.matcher(this.text);
+		if (matcher.find()) {
+			return matcher.group(1);
+		}
+		return null;
 	}
 	
 }

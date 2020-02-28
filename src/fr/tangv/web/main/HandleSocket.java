@@ -61,7 +61,7 @@ public class HandleSocket {
 							if (!pathNE.equals(web.getPathResource()+".")) {
 								try {
 									Class<? extends ClassPage> cl = Class.forName(pathNE).asSubclass(ClassPage.class);
-									Page page = cl.newInstance().getPage(web, receiveHTTP, new PageResoucre(pathNE.replace(".", "/")+".rweb", "<split>"));
+									Page page = cl.newInstance().getPage(web, receiveHTTP, new PageResoucre(pathNE.replace(".", "/")+".rweb", "targ"));
 									if (page != null)
 										new SendHTTP(socket, page.getCode(), page.getData(), page.getType(), page.getHeader());
 									else
