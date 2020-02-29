@@ -43,7 +43,7 @@
             <!--Add change page-->
             <form>
                 <input type="hidden" name="token" value="<targ=token></targ>">
-                <input type="hidden" name="menu" id="menuopen" value="<targ=menuopen></targ>">
+                <input type="hidden" name="menu" id="menuopen" value="false">
                 <input type="submit" value="" id="searchbtn">
                 <input type="search" name="search" placeholder="Rechercher" value="<targ=search></targ>" id="search">
                 <select name="sort" id="sort">
@@ -57,10 +57,10 @@
         </header>
         <section class="boxglobal">
             <!--<targ=processbox>-->
-                <div class="boxprocess">
+                <div class="boxprocess select">
                     <div class="headprocess headoff">
                         <span class="title">Name</span>
-                        <a target="_self" href="/index.html" class="on"></a>
+                        <span class="on" name="thepros" onclick=""></span>
                         <img alt="Rename" src="/img/rename.png" class="iconright">
                     </div>
                     <div class="contprocess">
@@ -78,11 +78,10 @@
                         <img alt="Folder" src="/img/folder.png" class="iconleft">
                         <span class="folder">C:/folder</span>
                         <img alt="Remove" src="/img/remove.png" class="iconright">
-                        <!--javascript:history.go(-2); window.history.back();-->
                     </div>
                 </div>
             <!--</targ>-->
-            <div class="boxprocess">
+            <div class="boxprocess select">
                 <div class="headprocess headon">
                     <span class="title">Name</span>
                     <a target="_self" href="/index.html" class="on"></a>
@@ -106,7 +105,7 @@
                     <!--javascript:history.go(-2); window.history.back();-->
                 </div>
             </div>
-            <div class="boxprocess">
+            <div class="boxprocess select">
                 <div class="headprocess headoff">
                     <span class="title">Name</span>
                     <a target="_self" href="/index.html" class="off"></a>
@@ -130,7 +129,7 @@
                     <!--javascript:history.go(-2); window.history.back();-->
                 </div>
             </div>
-            <div class="boxprocess">
+            <div class="boxprocess select">
                 <div class="headprocess headon">
                     <span class="title">Name</span>
                     <a target="_self" href="/index.html" class="off"></a>
@@ -156,19 +155,46 @@
             </div>
         </section>
         <nav id="menu">
-            <div>
-                test1
+            <div class="select">
+                <div class="menuheadon">
+                    <span name="1" onclick="" class="noselect">1/4 </span>
+                    <span>thepros</span>
+                    <span class="menuon" name="thepros" onclick=""></span>
+                </div>
+                <div class="menuunderhead">
+                    <span class="menufolder">F:/file/gile.jar</span>
+                    <img alt="Folder" src="/img/folder.png" class="iconleftmenu">
+                </div>
             </div>
-            <div>
-                test2
+            <div class="select">
+                <div class="menuheadoff">
+                    <span name="1" onclick="" class="noselect">1/4 </span>
+                    <span>theproszef</span>
+                    <span class="menuoff" name="thepros" onclick=""></span>
+                </div>
+                <div class="menuunderhead">
+                    <span class="menufolder">F:/filyi(-e/gile.jar</span>
+                    <img alt="Folder" src="/img/folder.png" class="iconleftmenu">
+                </div>
             </div>
-            <div>
-                test3
+            <div class="select">
+                <div class="menuheadon">
+                    <span name="1" onclick="" class="noselect">1/4 </span>
+                    <span>theprkllos</span>
+                    <span class="menuoff" name="thepros" onclick=""></span>
+                </div>
+                <div class="menuunderhead">
+                    <span class="menufolder">F:/filppoe/gile.jar</span>
+                    <img alt="Folder" src="/img/folder.png" class="iconleftmenu">
+                </div>
             </div>
         </nav>
         <span id="update">Mettre à jour !</span>
     </body>
     <script>
-        //onMenu();
+        /*let menuopen = <targ=menuopen></targ>;
+        if (menuopen) {
+            onMenu();
+        }*/
     </script>
 </html>

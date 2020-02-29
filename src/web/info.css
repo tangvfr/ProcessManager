@@ -3,7 +3,7 @@ body {
     background-image: url(/img/fond.png);
     background-repeat: no-repeat;
     background-size: cover;
-    /*opacity: 95%;*/
+    opacity: 95%;
 }
 
 body, html{
@@ -128,6 +128,23 @@ header {
     float: right;
 }
 
+.iconleftmenu,.iconrightmenu {
+    padding: 0px;
+    margin: 0px;
+    width: 20px;
+    height: 20px;
+}
+
+.iconleftmenu {
+    margin-left: 3px;
+    float: left;
+}
+
+.iconrightmenu {
+    margin-right: 3px;
+    float: right;
+}
+
 .folder,.cmd,.stopcmd {
     padding: 0px;
     margin: 0px;
@@ -147,6 +164,13 @@ header {
 
 .stopcmd {
     color: #D44;
+}
+
+.menufolder {
+    color: #DD4;
+    font-size: 16px;
+    word-wrap: break-word;
+    margin-left: 3px;
 }
 
 .boxglobal,.boxglobalhidden {
@@ -177,22 +201,75 @@ header {
     word-wrap: break-word;
 }
 
+.menuheadon,.menuheadoff,.menuheadfolder {
+    width: calc(100% - 12px);
+    word-wrap: break-word;
+    padding: 2px;
+}
+
+.menuheadon {
+    background: #3b3;
+    border: 2px #3D3 outset;
+}
+
+.menuheadoff {
+    background: #b33;
+    border: 2px #D33 outset;
+}
+
+.menuheadfolder {
+    background: #bb3;
+    border: 2px #DD3 outset;
+}
+
+.menuunderhead {
+    width: calc(100% - 24px);
+    margin: 6px;
+    margin-top: 0px;
+    word-wrap: break-word;
+    padding: 2px;
+    background: #555;
+    border: 2px #333 solid;
+    border-top: none;
+}
+
+.noselect {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -ms-touch-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.headon,.headoff,.headfolder {
+    width: calc(100% - 4px);
+    word-wrap: break-word;
+}
+
 .headon {
     background: #3b3;
     border: 2px #3D3 outset;
-    width: calc(100% - 4px);
 }
 
 .headoff {
     background: #b33;
     border: 2px #D33 outset;
-    width: calc(100% - 4px);
 }
 
 .headfolder {
     background: #bb3;
     border: 2px #DD3 outset;
-    width: calc(100% - 4px);
+}
+
+.menuoff,.menuon {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    float: right;
 }
 
 .off,.on {
@@ -206,11 +283,11 @@ header {
     float: right;
 }
 
-.on {
+.on,.menuon {
     background: #3b3;
 }
 
-.off {
+.off,.menuoff {
     background: #b33;
 }
 
@@ -227,6 +304,14 @@ header {
     height: content-box;
     word-wrap: break-word;
     overflow: auto;
+}
+
+.select {
+    opacity: 100%;
+}
+
+.select:hover {
+    opacity: 80%;
 }
 
 @media (max-width: 1024px) {
