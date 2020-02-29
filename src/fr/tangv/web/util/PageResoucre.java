@@ -30,12 +30,13 @@ public class PageResoucre {
 	}
 	
 	public String remplaceText(Map<String, String> remplaceValue) {
-		Pattern pattern = Pattern.compile("<"+nameBalise+"=(.*)>(.*)</"+nameBalise+">", Pattern.UNICODE_CASE);
+		Pattern pattern = Pattern.compile("<"+nameBalise+"=([^>]*)>(.*)</"+nameBalise+">", Pattern.UNICODE_CASE);
 		Matcher matcher = pattern.matcher(this.text);
 		String text = this.text;
 		while (matcher.find()) {
 			String value = matcher.group(1);
 			String balise = "<"+nameBalise+"="+value+">"+matcher.group(2)+"</"+nameBalise+">";
+			System.out.println("Balise value: "+value);
 			if (remplaceValue != null && remplaceValue.containsKey(value)) {
 				text = text.replace(balise, remplaceValue.get(value));
 			} else {

@@ -42,4 +42,10 @@ public class PageData extends HashMap<String, String> {
 		return text;
 	}
 	
+	@Override
+	public String get(Object key) {
+		Object ob = super.get(key);
+		return ob != null ? (String) ob : "";
+	}
+	
 }

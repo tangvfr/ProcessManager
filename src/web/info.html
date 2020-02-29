@@ -31,6 +31,11 @@
             function onInfo() {
 
             }
+
+            function goPage(page) {
+                document.getElementById("page").setAttribute("value", page);
+                document.getElementById("searchbtn").click();
+            }
         </script>
     </head>
     <body>
@@ -40,11 +45,11 @@
             <span id="title">ProcessManager <targ=version></targ></span>
             <img alt="Add" src="/img/add.png" class="headiconright" onclick="onAdd();">
             <img alt="Info" src="/img/info.png" class="headiconright" onclick="onInfo();">
-            <!--Add change page-->
             <form>
                 <input type="hidden" name="token" value="<targ=token></targ>">
                 <input type="hidden" name="menu" id="menuopen" value="false">
-                <input type="submit" value="" id="searchbtn">
+                <input type="hidden" name="page" id="page" value="<targ=page></targ>">
+                <input type="submit" name="button" value="none" id="searchbtn">
                 <input type="search" name="search" placeholder="Rechercher" value="<targ=search></targ>" id="search">
                 <select name="sort" id="sort">
                     <option value="name" <targ=sortname></targ>>Trier par nom</option>
@@ -53,148 +58,61 @@
                     <option value="started" <targ=sortstarted></targ>>Trier par démaré</option>
                     <option value="launch" <targ=sortlaunch></targ>>Trier par démarent</option>
                 </select>
+                <input type="submit" name="button" value="next" id="next">
+                <span id="page"><targ=page></targ>/<targ=maxpage></targ></span>
+                <input type="submit" name="button" value="previous" id="previous">
             </form>
         </header>
         <section class="boxglobal">
-            <!--<targ=processbox>-->
-                <div class="boxprocess select">
-                    <div class="headprocess headoff">
-                        <span class="title">Name</span>
-                        <span class="on" name="thepros" onclick=""></span>
-                        <img alt="Rename" src="/img/rename.png" class="iconright">
+            <targ=processbox>
+                <div class="boxprocess">
+                    <div class="headprocess <targ=page>headon,headoff</targ>">
+                        <span class="title"><targ=name></targ></span>
+                        <span class="<targ=page>on,off</targ> noselect" name="<targ=name></targ>" onclick=""></span>
+                        <img alt="Rename" src="/img/rename.png" name="<targ=name></targ>" class="iconright noselect">
                     </div>
                     <div class="contprocess">
-                        <img alt="Cmd" src="/img/cmd.png" class="iconleft">
-                        <span class="cmd">java mon.jar</span>
-                        <img alt="Stop" src="/img/stop.png" class="iconright">
-                        <img alt="Restart" src="/img/restart.png" class="iconright">
-                        <img alt="Start" src="/img/start.png" class="iconright">
+                        <img alt="Cmd" src="/img/cmd.png" name="<targ=name></targ>" class="iconleft noselect">
+                        <span class="cmd"><targ=cmd></targ></span>
+                        <img alt="Stop" src="/img/stop.png" name="<targ=name></targ>" class="iconright noselect">
+                        <img alt="Restart" src="/img/restart.png" name="<targ=name></targ>" class="iconright noselect">
+                        <img alt="Start" src="/img/start.png" name="<targ=name></targ>" class="iconright noselect">
                         <br><br>
-                        <img alt="CmdDown" src="/img/cmddown.png" class="iconleft">
-                        <span class="stopcmd">stop</span>
-                        <img alt="StopCmd" src="/img/stopcmd.png" class="iconright">
-                        <img alt="RestartCmd" src="/img/restartcmd.png" class="iconright">
+                        <img alt="CmdDown" src="/img/cmddown.png" name="<targ=name></targ>" class="iconleft noselect">
+                        <span class="stopcmd"><targ=stopcmd></targ></span>
+                        <img alt="StopCmd" src="/img/stopcmd.png" name="<targ=name></targ>" class="iconright noselect">
+                        <img alt="RestartCmd" src="/img/restartcmd.png" name="<targ=name></targ>" class="iconright noselect">
                         <br><br>
-                        <img alt="Folder" src="/img/folder.png" class="iconleft">
-                        <span class="folder">C:/folder</span>
-                        <img alt="Remove" src="/img/remove.png" class="iconright">
+                        <img alt="Folder" src="/img/folder.png" name="<targ=name></targ>" class="iconleft noselect">
+                        <span class="folder"><targ=folder></targ></span>
+                        <img alt="Remove" src="/img/remove.png" name="<targ=name></targ>" class="iconright noselect">
                     </div>
                 </div>
-            <!--</targ>-->
-            <div class="boxprocess select">
-                <div class="headprocess headon">
-                    <span class="title">Name</span>
-                    <a target="_self" href="/index.html" class="on"></a>
-                    <img alt="Rename" src="/img/rename.png" class="iconright">
-                </div>
-                <div class="contprocess">
-                    <img alt="Cmd" src="/img/cmd.png" class="iconleft">
-                    <span class="cmd">java mon.jar</span>
-                    <img alt="Stop" src="/img/stop.png" class="iconright">
-                    <img alt="Restart" src="/img/restart.png" class="iconright">
-                    <img alt="Start" src="/img/start.png" class="iconright">
-                    <br><br>
-                    <img alt="CmdDown" src="/img/cmddown.png" class="iconleft">
-                    <span class="stopcmd">stop</span>
-                    <img alt="StopCmd" src="/img/stopcmd.png" class="iconright">
-                    <img alt="RestartCmd" src="/img/restartcmd.png" class="iconright">
-                    <br><br>
-                    <img alt="Folder" src="/img/folder.png" class="iconleft">
-                    <span class="folder">C:/folder</span>
-                    <img alt="Remove" src="/img/remove.png" class="iconright">
-                    <!--javascript:history.go(-2); window.history.back();-->
-                </div>
-            </div>
-            <div class="boxprocess select">
-                <div class="headprocess headoff">
-                    <span class="title">Name</span>
-                    <a target="_self" href="/index.html" class="off"></a>
-                    <img alt="Rename" src="/img/rename.png" class="iconright">
-                </div>
-                <div class="contprocess">
-                    <img alt="Cmd" src="/img/cmd.png" class="iconleft">
-                    <span class="cmd">java mon.jar</span>
-                    <img alt="Stop" src="/img/stop.png" class="iconright">
-                    <img alt="Restart" src="/img/restart.png" class="iconright">
-                    <img alt="Start" src="/img/start.png" class="iconright">
-                    <br><br>
-                    <img alt="CmdDown" src="/img/cmddown.png" class="iconleft">
-                    <span class="stopcmd">stop</span>
-                    <img alt="StopCmd" src="/img/stopcmd.png" class="iconright">
-                    <img alt="RestartCmd" src="/img/restartcmd.png" class="iconright">
-                    <br><br>
-                    <img alt="Folder" src="/img/folder.png" class="iconleft">
-                    <span class="folder">C:/folder</span>
-                    <img alt="Remove" src="/img/remove.png" class="iconright">
-                    <!--javascript:history.go(-2); window.history.back();-->
-                </div>
-            </div>
-            <div class="boxprocess select">
-                <div class="headprocess headon">
-                    <span class="title">Name</span>
-                    <a target="_self" href="/index.html" class="off"></a>
-                    <img alt="Rename" src="/img/rename.png" class="iconright">
-                </div>
-                <div class="contprocess">
-                    <img alt="Cmd" src="/img/cmd.png" class="iconleft">
-                    <span class="cmd">java mon.jar</span>
-                    <img alt="Stop" src="/img/stop.png" class="iconright">
-                    <img alt="Restart" src="/img/restart.png" class="iconright">
-                    <img alt="Start" src="/img/start.png" class="iconright">
-                    <br><br>
-                    <img alt="CmdDown" src="/img/cmddown.png" class="iconleft">
-                    <span class="stopcmd">stop</span>
-                    <img alt="StopCmd" src="/img/stopcmd.png" class="iconright">
-                    <img alt="RestartCmd" src="/img/restartcmd.png" class="iconright">
-                    <br><br>
-                    <img alt="Folder" src="/img/folder.png" class="iconleft">
-                    <span class="folder">C:/folder</span>
-                    <img alt="Remove" src="/img/remove.png" class="iconright">
-                    <!--javascript:history.go(-2); window.history.back();-->
-                </div>
-            </div>
+            </targ>
         </section>
         <nav id="menu">
-            <div class="select">
-                <div class="menuheadon">
-                    <span name="1" onclick="" class="noselect">1/4 </span>
-                    <span>thepros</span>
-                    <span class="menuon" name="thepros" onclick=""></span>
+            <targ=processmenu>
+                <div ondblclick="goPage(<targ=page></targ>);">
+                    <div class="menuheadon">
+                        <span class="noselect"><targ=page></targ>/<targ=maxpage></targ> </span>
+                        <span><targ=name></targ></span>
+                        <span class="<targ=page>menuon,menuoff</targ>"></span>
+                    </div>
+                    <div class="menuunderhead">
+                        <img alt="Folder" src="/img/folder.png" class="iconleftmenu noselect">
+                        <span class="menufolder"><targ=folder></targ></span>
+                    </div>
                 </div>
-                <div class="menuunderhead">
-                    <span class="menufolder">F:/file/gile.jar</span>
-                    <img alt="Folder" src="/img/folder.png" class="iconleftmenu">
-                </div>
-            </div>
-            <div class="select">
-                <div class="menuheadoff">
-                    <span name="1" onclick="" class="noselect">1/4 </span>
-                    <span>theproszef</span>
-                    <span class="menuoff" name="thepros" onclick=""></span>
-                </div>
-                <div class="menuunderhead">
-                    <span class="menufolder">F:/filyi(-e/gile.jar</span>
-                    <img alt="Folder" src="/img/folder.png" class="iconleftmenu">
-                </div>
-            </div>
-            <div class="select">
-                <div class="menuheadon">
-                    <span name="1" onclick="" class="noselect">1/4 </span>
-                    <span>theprkllos</span>
-                    <span class="menuoff" name="thepros" onclick=""></span>
-                </div>
-                <div class="menuunderhead">
-                    <span class="menufolder">F:/filppoe/gile.jar</span>
-                    <img alt="Folder" src="/img/folder.png" class="iconleftmenu">
-                </div>
-            </div>
+            </targ>
         </nav>
-        <span id="update">Mettre à jour !</span>
+        <targ=update>
+            <span id="update"><targ=text></targ></span>
+        </targ>
     </body>
     <script>
-        /*let menuopen = <targ=menuopen></targ>;
-        if (menuopen) {
+        let menuopen = <targ=menuopen></targ>;
+        if (menuopen === "true") {
             onMenu();
-        }*/
+        }
     </script>
 </html>

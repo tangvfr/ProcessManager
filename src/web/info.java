@@ -18,34 +18,41 @@ public class info implements ClassPage {
 
 	@Override
 	public Page getPage(Web web, ReceiveHTTP receiveHTTP, PageResoucre pageResoucre) {
-		if (receiveHTTP.getMethodeRequet().equalsIgnoreCase("GET") || receiveHTTP.getMethodeRequet().equalsIgnoreCase("POST")) {
-			PageData data = null;
-			if (receiveHTTP.hasData()) {
-				data = new PageData(new String(receiveHTTP.getData()));
-			} else if (receiveHTTP.getPathRequet().hasData()) {
-				data = new PageData(receiveHTTP.getPathRequet().getData());
-			}
-			
-			PrintData.printData(receiveHTTP, data);
-			
-			if (data != null && data.containsKey("token")) {
-				Token token = auth.tokenValid(data.get("token"));
-				if (token != null) {
-					Map<String, String> remplaceValue = new HashMap<String, String>();
-					remplaceValue.put("version", Main.version);
-					remplaceValue.put("token", token.toString());
-					remplaceValue.put("menuopen", "false");
-					remplaceValue.put("search", "");
-					remplaceValue.put("sortname", "selected");
-					
-					System.out.println(pageResoucre.getContent("processbox"));
-					
-					return new Page(pageResoucre.remplaceText(null), PageType.HTML, CodeHTTP.CODE_200_OK);
+		try {
+			if (receiveHTTP.getMethodeRequet().equalsIgnoreCase("GET") || receiveHTTP.getMethodeRequet().equalsIgnoreCase("POST")) {
+				PageData data = null;
+				if (receiveHTTP.hasData()) {
+					data = new PageData(new String(receiveHTTP.getData()));
+				} else if (receiveHTTP.getPathRequet().hasData()) {
+					data = new PageData(receiveHTTP.getPathRequet().getData());
 				}
+				
+				PrintData.printData(receiveHTTP, data);
+				
+				if (data != null && data.containsKey("token")) {
+					Token token = auth.tokenValid(data.get("token"));
+					if (token != null) {
+						Map<String, String> remplaceValue = new HashMap<String, String>();
+						remplaceValue.put("version", new String(Main.version.getBytes("UTF8")));
+						remplaceValue.put("token", token.toString());
+						remplaceValue.put("menuopen", data.get("menu"));
+						remplaceValue.put("search", data.get("search"));
+						remplaceValue.put("sort"+data.get("sort"), "selected");
+						
+						remplaceValue.put("page", data.get("page"));
+						remplaceValue.put("maxpage", "2");
+						
+						System.out.println(pageResoucre.getContent("processbox"));
+						return new Page(pageResoucre.remplaceText(remplaceValue), PageType.HTML, CodeHTTP.CODE_200_OK);
+					}
+				}
+				return new PageRedirect("/invalide.html");
+			} else {
+				return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_405_METHOD_NOT_ALLOWED);
 			}
-			return new PageRedirect("/invalide.html");
-		} else {
-			return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_405_METHOD_NOT_ALLOWED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_500_INTERNAL_SERVER_ERROR);
 		}
 	}
 

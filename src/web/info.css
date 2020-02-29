@@ -54,6 +54,15 @@ header {
     float: left;
 }
 
+#page {
+    font-size: 20px;
+    padding: 0px;
+    margin-top: 5px;
+    margin-left: 6px;
+    margin-right: 6px;
+    float: right;
+}
+
 #update {
     position: fixed;
     display: block;
@@ -78,15 +87,27 @@ header {
 }
 
 #searchbtn {
+    background: url("/img/search.png");
+}
+
+#next {
+    background: url("/img/arrowright.png");
+}
+
+#previous {
+    background: url("/img/arrowleft.png");
+}
+
+#searchbtn,#next,#previous {
     border: none;
     border-radius: 0px;
-    background: url("/img/search.png");
-    background-size: cover;
     padding: 0px;
     margin-top: 8px;
     width: 24px;
     height: 24px;
     margin-right: 8px;
+    color: transparent;
+    background-size: cover;
     float: right;
 }
 
@@ -304,14 +325,6 @@ header {
     height: content-box;
     word-wrap: break-word;
     overflow: auto;
-}
-
-.select {
-    opacity: 100%;
-}
-
-.select:hover {
-    opacity: 80%;
 }
 
 @media (max-width: 1024px) {
