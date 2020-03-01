@@ -50,7 +50,7 @@ public class info implements ClassPage {
 						//general
 						remplaceValue.put("version", decodingUTF8(Main.version));
 						remplaceValue.put("token", token.toString());
-						remplaceValue.put("menuopen", data.get("menu"));
+						remplaceValue.put("menuopen", data.get("menu").isEmpty() ? "false" : data.get("menu"));
 						remplaceValue.put("search", data.get("search"));
 						remplaceValue.put("sort"+data.get("sort"), "selected");
 						int page = data.get("page").isEmpty() ? 1 : Integer.parseInt(data.get("page"));
@@ -69,6 +69,7 @@ public class info implements ClassPage {
 						String textProcessBox = "";
 						String textProcessMenu = "";
 						ProcessManager processManager = Main.processManagerServer.getProcessManager();
+						remplaceValue.put("processnumber", ""+processManager.getListProcess().size());
 						maxpage = (processManager.getListProcess().size()/4)+1;
 						
 						

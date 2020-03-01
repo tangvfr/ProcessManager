@@ -54,6 +54,14 @@ header {
     float: left;
 }
 
+#number {
+    display: block;
+    font-size: 18px;
+    padding: 0px;
+    margin: 0px;
+    float: left;
+}
+
 #page {
     font-size: 20px;
     padding: 0px;

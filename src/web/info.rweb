@@ -91,6 +91,7 @@
             </targ>
         </section>
         <nav id="menu">
+            <div id="number"><targ=processnumber></targ> process</div>
             <targ=processmenu>
                 <div ondblclick="goPage(<barg=page></barg>);">
                     <div class="<barg=started>menuheadon,menuheadoff</barg>">
