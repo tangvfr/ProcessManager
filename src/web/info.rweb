@@ -40,11 +40,11 @@
     </head>
     <body>
         <header>
-            <img alt="Menu" src="/img/menu.png" class="headiconleft" onclick="onMenu();">
-            <img alt="Refrech" src="/img/refrech.png" class="headiconleft" onclick="window.history.go(0);">
+            <img alt="Menu" src="/img/menu.png" class="headiconleft noselect" onclick="onMenu();">
+            <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
             <span id="title">ProcessManager <targ=version></targ></span>
-            <img alt="Add" src="/img/add.png" class="headiconright" onclick="onAdd();">
-            <img alt="Info" src="/img/info.png" class="headiconright" onclick="onInfo();">
+            <img alt="Add" src="/img/add.png" class="headiconright noselect" onclick="onAdd();">
+            <img alt="Info" src="/img/info.png" class="headiconright noselect" onclick="onInfo();">
             <form>
                 <input type="hidden" name="token" value="<targ=token></targ>">
                 <input type="hidden" name="menu" id="menuopen" value="false">
@@ -59,7 +59,7 @@
                     <option value="launch" <targ=sortlaunch></targ>>Trier par démarent</option>
                 </select>
                 <input type="submit" name="button" value="next" id="next">
-                <span id="page"><targ=page></targ>/<targ=maxpage></targ></span>
+                <span id="page" class="noselect"><targ=page></targ>/<targ=maxpage></targ></span>
                 <input type="submit" name="button" value="previous" id="previous">
             </form>
         </header>
@@ -91,7 +91,7 @@
             </targ>
         </section>
         <nav id="menu">
-            <div id="number"><targ=processnumber></targ> process</div>
+            <div id="number" class="noselect"><targ=processnumber></targ> process</div>
             <targ=processmenu>
                 <div ondblclick="goPage(<barg=page></barg>);">
                     <div class="<barg=started>menuheadon,menuheadoff</barg>">
