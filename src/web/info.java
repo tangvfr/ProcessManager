@@ -1,5 +1,6 @@
 package web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,10 @@ import fr.tangv.web.util.PageType;
 
 public class info implements ClassPage {
 
+	private String decodingUTF8(String text) throws UnsupportedEncodingException {
+		return new String(text.getBytes("UTF8"));
+	}
+	
 	@Override
 	public Page getPage(Web web, ReceiveHTTP receiveHTTP, PageResoucre pageResoucre) {
 		try {
@@ -38,12 +43,12 @@ public class info implements ClassPage {
 						Map<String, String> mapMaj = new HashMap<String, String>();
 						mapMaj.put("text", textMaj == "ProcessManager est à jour !" ? "" : textMaj);
 						textMaj = baliseMaj.remplaceText(mapMaj);
-						remplaceValue.put("update", textMaj);
+						remplaceValue.put("update", decodingUTF8(textMaj));
 						//process
 						PageResoucre baliseProcessBox = new PageResoucre(pageResoucre.getContent("processbox"), "barg", false);
 						PageResoucre baliseProcessMenu = new PageResoucre(pageResoucre.getContent("processmenu"), "barg", false);
 						//general
-						remplaceValue.put("version", new String(Main.version.getBytes("UTF8")));
+						remplaceValue.put("version", decodingUTF8(Main.version));
 						remplaceValue.put("token", token.toString());
 						remplaceValue.put("menuopen", data.get("menu"));
 						remplaceValue.put("search", data.get("search"));
@@ -65,6 +70,8 @@ public class info implements ClassPage {
 						String textProcessMenu = "";
 						ProcessManager processManager = Main.processManagerServer.getProcessManager();
 						maxpage = (processManager.getListProcess().size()/4)+1;
+						
+						
 						
 						remplaceValue.put("processbox", textProcessBox);
 						remplaceValue.put("processmenu", textProcessMenu);
