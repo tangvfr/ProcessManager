@@ -56,12 +56,10 @@ public class auth implements ClassPage {
 	
 	@Override
 	public Page getPage(Web web, ReceiveHTTP receiveHTTP, PageResoucre pageResoucre) {
-		if (receiveHTTP.getMethodeRequet().equalsIgnoreCase("GET") || receiveHTTP.getMethodeRequet().equalsIgnoreCase("POST")) {
+		if (receiveHTTP.getMethodeRequet().equalsIgnoreCase("POST")) {
 			PageData data = null;
 			if (receiveHTTP.hasData()) {
 				data = new PageData(new String(receiveHTTP.getData()));
-			} else if (receiveHTTP.getPathRequet().hasData()) {
-				data = new PageData(receiveHTTP.getPathRequet().getData());
 			}
 			
 			if (data != null && data.containsKey("user") && data.containsKey("pass")) {

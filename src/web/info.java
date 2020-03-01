@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.util.ProcessManager;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
 import fr.tangv.web.util.ClassPage;
@@ -19,11 +20,9 @@ public class info implements ClassPage {
 	@Override
 	public Page getPage(Web web, ReceiveHTTP receiveHTTP, PageResoucre pageResoucre) {
 		try {
-			if (receiveHTTP.getMethodeRequet().equalsIgnoreCase("GET") || receiveHTTP.getMethodeRequet().equalsIgnoreCase("POST")) {
+			if (receiveHTTP.getMethodeRequet().equalsIgnoreCase("GET")) {
 				PageData data = null;
-				if (receiveHTTP.hasData()) {
-					data = new PageData(new String(receiveHTTP.getData()));
-				} else if (receiveHTTP.getPathRequet().hasData()) {
+				if (receiveHTTP.getPathRequet().hasData()) {
 					data = new PageData(receiveHTTP.getPathRequet().getData());
 				}
 				
@@ -33,16 +32,51 @@ public class info implements ClassPage {
 					Token token = auth.tokenValid(data.get("token"));
 					if (token != null) {
 						Map<String, String> remplaceValue = new HashMap<String, String>();
+						//maj
+						String textMaj = Main.getUpdate(true);
+						PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
+						Map<String, String> mapMaj = new HashMap<String, String>();
+						mapMaj.put("text", textMaj == "ProcessManager est à jour !" ? "" : textMaj);
+						textMaj = baliseMaj.remplaceText(mapMaj);
+						remplaceValue.put("update", textMaj);
+						//process
+						PageResoucre baliseProcessBox = new PageResoucre(pageResoucre.getContent("processbox"), "barg", false);
+						PageResoucre baliseProcessMenu = new PageResoucre(pageResoucre.getContent("processmenu"), "barg", false);
+						//general
 						remplaceValue.put("version", new String(Main.version.getBytes("UTF8")));
 						remplaceValue.put("token", token.toString());
 						remplaceValue.put("menuopen", data.get("menu"));
 						remplaceValue.put("search", data.get("search"));
 						remplaceValue.put("sort"+data.get("sort"), "selected");
+						int page = data.get("page").isEmpty() ? 1 : Integer.parseInt(data.get("page"));
+						int maxpage = 0;
+						switch (data.get("button")) {
+							case "next":
+								page++;
+								break;
+							case "previous":
+								page--;
+								break;
+							default:
+								break;
+						}
+						//calc process
+						String textProcessBox = "";
+						String textProcessMenu = "";
+						ProcessManager processManager = Main.processManagerServer.getProcessManager();
+						maxpage = (processManager.getListProcess().size()/4)+1;
 						
-						remplaceValue.put("page", data.get("page"));
-						remplaceValue.put("maxpage", "2");
-						
-						System.out.println(pageResoucre.getContent("processbox"));
+						remplaceValue.put("processbox", textProcessBox);
+						remplaceValue.put("processmenu", textProcessMenu);
+						//end calc page
+						if (page < 1) {
+							page = maxpage;
+						} else if (page > maxpage) {
+							page = 1;
+						}
+						remplaceValue.put("page", ""+page);
+						remplaceValue.put("maxpage", ""+maxpage);
+						//return
 						return new Page(pageResoucre.remplaceText(remplaceValue), PageType.HTML, CodeHTTP.CODE_200_OK);
 					}
 				}

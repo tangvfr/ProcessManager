@@ -1,6 +1,6 @@
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8"> 
         <link href="/info.css" rel="stylesheet" type="text/css">
         <title>ProcessManager <targ=version></targ></title>
         <script>
@@ -66,50 +66,52 @@
         <section class="boxglobal">
             <targ=processbox>
                 <div class="boxprocess">
-                    <div class="headprocess <targ=page>headon,headoff</targ>">
-                        <span class="title"><targ=name></targ></span>
-                        <span class="<targ=page>on,off</targ> noselect" name="<targ=name></targ>" onclick=""></span>
-                        <img alt="Rename" src="/img/rename.png" name="<targ=name></targ>" class="iconright noselect">
+                    <div class="headprocess <barg=started>headon,headoff</barg>">
+                        <span class="title"><barg=name></barg></span>
+                        <span class="<barg=launch>on,off</barg> noselect" name="<barg=name></barg>" onclick=""></span>
+                        <img alt="Rename" src="/img/rename.png" name="<barg=name></barg>" class="iconright noselect">
                     </div>
                     <div class="contprocess">
-                        <img alt="Cmd" src="/img/cmd.png" name="<targ=name></targ>" class="iconleft noselect">
-                        <span class="cmd"><targ=cmd></targ></span>
-                        <img alt="Stop" src="/img/stop.png" name="<targ=name></targ>" class="iconright noselect">
-                        <img alt="Restart" src="/img/restart.png" name="<targ=name></targ>" class="iconright noselect">
-                        <img alt="Start" src="/img/start.png" name="<targ=name></targ>" class="iconright noselect">
+                        <img alt="Cmd" src="/img/cmd.png" name="<barg=name></barg>" class="iconleft noselect">
+                        <span class="cmd"><barg=cmd></barg></span>
+                        <img alt="Stop" src="/img/stop.png" name="<barg=name></barg>" class="iconright noselect">
+                        <img alt="Restart" src="/img/restart.png" name="<barg=name></barg>" class="iconright noselect">
+                        <img alt="Start" src="/img/start.png" name="<barg=name></barg>" class="iconright noselect">
                         <br><br>
-                        <img alt="CmdDown" src="/img/cmddown.png" name="<targ=name></targ>" class="iconleft noselect">
-                        <span class="stopcmd"><targ=stopcmd></targ></span>
-                        <img alt="StopCmd" src="/img/stopcmd.png" name="<targ=name></targ>" class="iconright noselect">
-                        <img alt="RestartCmd" src="/img/restartcmd.png" name="<targ=name></targ>" class="iconright noselect">
+                        <img alt="CmdDown" src="/img/cmddown.png" name="<barg=name></barg>" class="iconleft noselect">
+                        <span class="stopcmd"><barg=stopcmd></barg></span>
+                        <img alt="StopCmd" src="/img/stopcmd.png" name="<barg=name></barg>" class="iconright noselect">
+                        <img alt="RestartCmd" src="/img/restartcmd.png" name="<barg=name></barg>" class="iconright noselect">
                         <br><br>
-                        <img alt="Folder" src="/img/folder.png" name="<targ=name></targ>" class="iconleft noselect">
-                        <span class="folder"><targ=folder></targ></span>
-                        <img alt="Remove" src="/img/remove.png" name="<targ=name></targ>" class="iconright noselect">
+                        <img alt="Folder" src="/img/folder.png" name="<barg=name></barg>" class="iconleft noselect">
+                        <span class="folder"><barg=folder></barg></span>
+                        <img alt="Remove" src="/img/remove.png" name="<barg=name></barg>" class="iconright noselect">
                     </div>
                 </div>
             </targ>
         </section>
         <nav id="menu">
             <targ=processmenu>
-                <div ondblclick="goPage(<targ=page></targ>);">
-                    <div class="menuheadon">
-                        <span class="noselect"><targ=page></targ>/<targ=maxpage></targ> </span>
-                        <span><targ=name></targ></span>
-                        <span class="<targ=page>menuon,menuoff</targ>"></span>
+                <div ondblclick="goPage(<barg=page></barg>);">
+                    <div class="<barg=started>menuheadon,menuheadoff</barg>">
+                        <span class="noselect"><barg=page></barg>/<barg=maxpage></barg> </span>
+                        <span><barg=name></barg></span>
+                        <span class="<barg=launch>menuon,menuoff</barg>"></span>
                     </div>
                     <div class="menuunderhead">
                         <img alt="Folder" src="/img/folder.png" class="iconleftmenu noselect">
-                        <span class="menufolder"><targ=folder></targ></span>
+                        <span class="menufolder"><barg=folder></barg></span>
                     </div>
                 </div>
             </targ>
         </nav>
-        <span id="update">Mettre à jour !</span>
+        <targ=update>
+            <span id="update"><barg=text></barg></span>
+        </targ>
     </body>
     <script>
         let menuopen = <targ=menuopen></targ>;
-        if (menuopen) {
+        if (menuopen === "true") {
             onMenu();
         }
     </script>

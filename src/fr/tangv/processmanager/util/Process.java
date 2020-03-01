@@ -9,8 +9,8 @@ import com.sun.istack.internal.NotNull;
 
 public class Process {
 
-	private ProcessBuilder processBuilder;
-	private java.lang.Process process;
+	private volatile ProcessBuilder processBuilder;
+	private volatile java.lang.Process process;
 	private String encoding;
 	
 	public Process(@NotNull String cmd, String rep, @NotNull String encoding) {

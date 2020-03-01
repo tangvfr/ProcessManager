@@ -11,7 +11,7 @@ import fr.tangv.processmanager.ProcessManagerServer;
 
 public class ProcessManager {
 
-	private Vector<ProcessPlus> listProcess;
+	private volatile Vector<ProcessPlus> listProcess;
 	private File folder;
 	
 	public Vector<ProcessPlus> getListProcess() {

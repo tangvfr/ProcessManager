@@ -27,18 +27,18 @@ import fr.tangv.processmanager.util.ProcessPlus;
 
 public class ProcessManagerServer {
 	
-	public static Logger logger;
+	public static volatile Logger logger;
 	
 	private static String getLogTime() {
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 		return format.format(new Date());
 	}
 	
-	private File fileParameter;
+	private volatile File fileParameter;
 	private Map<String, String> userAndMdp;
 	private CommandManager cmdManager;
-	private ProcessManager processManager;
-	private boolean stopNoForce;
+	private volatile ProcessManager processManager;
+	private volatile boolean stopNoForce;
 	
 	public ProcessManager getProcessManager() {
 		return processManager;
