@@ -1,11 +1,14 @@
 package web;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import fr.tangv.processmanager.Main;
 import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.util.ProcessPlus;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
 import fr.tangv.web.util.ClassPage;
@@ -20,6 +23,23 @@ public class info implements ClassPage {
 
 	private String decodingUTF8(String text) throws UnsupportedEncodingException {
 		return new String(text.getBytes("UTF8"));
+	}
+	
+	private void sortListProcess(Vector<ProcessPlus> listProcess, String nameSort) {
+		listProcess.sort(new Comparator<ProcessPlus>() {
+			@Override
+			public int compare(ProcessPlus p1, ProcessPlus p2) {
+				return p1.getName().compareTo(p2.getName());
+			}
+		});
+		switch (nameSort) {
+			case "":
+				//implement other sort
+				break;
+	
+			default:
+				break;
+		}
 	}
 	
 	@Override
@@ -65,17 +85,13 @@ public class info implements ClassPage {
 							default:
 								break;
 						}
-						//calc process
+						//list process
 						String textProcessBox = "";
 						String textProcessMenu = "";
 						ProcessManager processManager = Main.processManagerServer.getProcessManager();
 						remplaceValue.put("processnumber", ""+processManager.getListProcess().size());
-						maxpage = (processManager.getListProcess().size()/4)+1;
-						
-						
-						
-						remplaceValue.put("processbox", textProcessBox);
-						remplaceValue.put("processmenu", textProcessMenu);
+						int processByPage = 4;
+						maxpage = (processManager.getListProcess().size()/processByPage)+1;
 						//end calc page
 						if (page < 1) {
 							page = maxpage;
@@ -84,6 +100,35 @@ public class info implements ClassPage {
 						}
 						remplaceValue.put("page", ""+page);
 						remplaceValue.put("maxpage", ""+maxpage);
+						//filtre
+						@SuppressWarnings("unchecked")
+						Vector<ProcessPlus> listProcess = (Vector<ProcessPlus>) processManager.getListProcess().clone();
+						sortListProcess(listProcess, data.get("sort"));
+						//implement folder sort
+						//calc process
+						for (int i = 0; i < listProcess.size(); i++) {
+							ProcessPlus process = listProcess.get(i);
+							Map<String, String> value = new HashMap<String, String>();
+							String[] startedBalise = baliseProcessMenu.getContent("started").split(",");
+							value.put("started", process.getProcess().isStart() ? startedBalise[0] : startedBalise[1]);
+							String[] launchBalise = baliseProcessMenu.getContent("launch").split(",");
+							value.put("launch", process.isActiveOnStart() ? launchBalise[0] : launchBalise[1]);
+							value.put("name", process.getName());
+							value.put("cmd", process.getCmd());
+							value.put("stopcmd", process.getCmdStop());
+							value.put("folder", process.getRep());
+							textProcessMenu += baliseProcessMenu.remplaceText(value);
+							if ((i/processByPage)+1 == page) {
+								startedBalise = baliseProcessBox.getContent("started").split(",");
+								value.replace("started", process.getProcess().isStart() ? startedBalise[0] : startedBalise[1]);
+								launchBalise = baliseProcessBox.getContent("launch").split(",");
+								value.replace("launch", process.isActiveOnStart() ? launchBalise[0] : launchBalise[1]);
+								textProcessBox += baliseProcessBox.remplaceText(value);
+								//add this page and maxpage
+							}
+						}
+						remplaceValue.put("processbox", textProcessBox);
+						remplaceValue.put("processmenu", textProcessMenu);
 						//return
 						return new Page(pageResoucre.remplaceText(remplaceValue), PageType.HTML, CodeHTTP.CODE_200_OK);
 					}
