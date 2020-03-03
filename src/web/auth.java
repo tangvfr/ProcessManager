@@ -12,7 +12,8 @@ import fr.tangv.web.util.ClassPage;
 import fr.tangv.web.util.CodeHTTP;
 import fr.tangv.web.util.Page;
 import fr.tangv.web.util.PageData;
-import fr.tangv.web.util.PageRedirect;
+import fr.tangv.web.util.PageRedirectFound;
+import fr.tangv.web.util.PageRedirectSeeOther;
 import fr.tangv.web.util.PageResoucre;
 import fr.tangv.web.util.PageType;
 
@@ -68,12 +69,12 @@ public class auth implements ClassPage {
 				Map<String, String> auth = Main.processManagerServer.getUserAndMdp();
 				if (auth.containsKey(user) && auth.get(user).equals(pass)) {
 					Token token = newToken(user);
-					return new PageRedirect("/info.tweb?token="+token.getUUID());
+					return new PageRedirectSeeOther("/info.tweb?token="+token.getUUID());
 				} else {
-					return new PageRedirect("/invalide.html");
+					return new PageRedirectSeeOther("/invalide.html");
 				}
 			} else {
-				return new PageRedirect("/");
+				return new PageRedirectSeeOther("/");
 			}
 		} else {
 			return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_405_METHOD_NOT_ALLOWED);
