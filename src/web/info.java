@@ -117,14 +117,16 @@ public class info implements ClassPage {
 							value.put("cmd", process.getCmd());
 							value.put("stopcmd", process.getCmdStop());
 							value.put("folder", process.getRep());
+							value.put("maxpage", ""+maxpage);
+							int thisPage = (i/processByPage)+1;
+							value.put("page", ""+thisPage);
 							textProcessMenu += baliseProcessMenu.remplaceText(value);
-							if ((i/processByPage)+1 == page) {
+							if (thisPage == page) {
 								startedBalise = baliseProcessBox.getContent("started").split(",");
 								value.replace("started", process.getProcess().isStart() ? startedBalise[0] : startedBalise[1]);
 								launchBalise = baliseProcessBox.getContent("launch").split(",");
 								value.replace("launch", process.isActiveOnStart() ? launchBalise[0] : launchBalise[1]);
 								textProcessBox += baliseProcessBox.remplaceText(value);
-								//add this page and maxpage
 							}
 						}
 						remplaceValue.put("processbox", textProcessBox);
