@@ -9,6 +9,7 @@ import fr.tangv.web.util.PageData;
 import fr.tangv.web.util.PageRedirectSeeOther;
 import fr.tangv.web.util.PageResoucre;
 import fr.tangv.web.util.PageType;
+import web.commands.CommandAdd;
 
 public class command implements ClassPage {
 
@@ -17,8 +18,8 @@ public class command implements ClassPage {
 		try {
 			if(receiveHTTP.getMethodeRequet().equalsIgnoreCase("POST")) {
 				PageData data = null;
-				if (receiveHTTP.getPathRequet().hasData()) {
-					data = new PageData(receiveHTTP.getPathRequet().getData());
+				if (receiveHTTP.hasData()) {
+					data = new PageData(new String(receiveHTTP.getData()));
 				}
 				
 				PrintData.printData(receiveHTTP, data);
@@ -26,8 +27,20 @@ public class command implements ClassPage {
 				if (data != null && data.containsKey("token")) {
 					Token token = auth.tokenValid(data.get("token"));
 					if (token != null) {
-						// add redirect to link in data
-						return new PageRedirectSeeOther("");
+						if (data.get("namecmd") != null) {
+							switch (data.get("namecmd")) {
+								case "add":
+									new CommandAdd(data.get("name"), data.get("cmd"), data.get("folder"), data.get("launch"), data.get("cmdstop"));
+									break;
+	
+								default:
+									break;
+							}
+						}
+						if (data.containsKey("link"))
+							return new PageRedirectSeeOther(data.get("link"));
+						else
+							return new PageRedirectSeeOther("/info.tweb?token="+token.getUUID());
 					}
 				}
 				return new PageRedirectSeeOther("/invalide.html");

@@ -15,7 +15,6 @@ import fr.tangv.web.util.ClassPage;
 import fr.tangv.web.util.CodeHTTP;
 import fr.tangv.web.util.Page;
 import fr.tangv.web.util.PageData;
-import fr.tangv.web.util.PageRedirectFound;
 import fr.tangv.web.util.PageRedirectSeeOther;
 import fr.tangv.web.util.PageResoucre;
 import fr.tangv.web.util.PageType;
@@ -34,8 +33,43 @@ public class info implements ClassPage {
 			}
 		});
 		switch (nameSort) {
-			case "":
-				//implement other sort
+			case "name":
+				break;
+	
+			case "foldername":
+				listProcess.sort(new Comparator<ProcessPlus>() {
+					@Override
+					public int compare(ProcessPlus p1, ProcessPlus p2) {
+						return p1.getRep().compareTo(p2.getRep());
+					}
+				});
+				break;
+	
+			case "folder":
+				listProcess.sort(new Comparator<ProcessPlus>() {
+					@Override
+					public int compare(ProcessPlus p1, ProcessPlus p2) {
+						return p1.getRep().compareTo(p2.getRep());
+					}
+				});
+				break;
+	
+			case "started":
+				listProcess.sort(new Comparator<ProcessPlus>() {
+					@Override
+					public int compare(ProcessPlus p1, ProcessPlus p2) {
+						return ((Boolean) p1.getProcess().isStart()).compareTo(p2.getProcess().isStart());
+					}
+				});
+				break;
+	
+			case "launch":
+				listProcess.sort(new Comparator<ProcessPlus>() {
+					@Override
+					public int compare(ProcessPlus p1, ProcessPlus p2) {
+						return ((Boolean) p1.isActiveOnStart()).compareTo(p2.isActiveOnStart());
+					}
+				});
 				break;
 	
 			default:

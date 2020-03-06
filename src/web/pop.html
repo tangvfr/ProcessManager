@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <style>
+            body {
+                background: #222222;
+                background-image: url(/img/fond.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                opacity: 95%;
+            }
+
+            body, html{
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+            }
+
+            .fontpopmenu {
+                color: #FFF;
+                font-weight: normal;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 2rem;
+                word-wrap: none;
+            }
+
+            .formpopmenu {
+                background-color: dimgray;
+            }
+
+            .titlepopmenu {
+                color: #FFF;
+                font-weight: normal;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 2rem;
+                word-wrap: break-word;
+            }
+
+            .contentpopmenu {
+
+            }
+
+            .okpopmenu {
+
+            }
+
+            .cancelpopmenu {
+
+            }
+
+            .validpopmenu {
+
+            }
+
+            .inputpopmenu {
+
+            }
+
+            .spanpopmenu {
+
+            }
+
+            .brpopmenu {
+
+            }
+
+            .divnamepopmenu {
+
+            }
+
+            .divinputpopmenu {
+
+            }
+        </style>
+        <script href="/popmenu.js"></script>
+    </head>
+    <body>
+        <script>
+            newPopMenu();
+        </script>
+        <div>
+            <form method="POST" name="/command.tweb" class="formpopmenu">
+                <div class="titlepopmenu  fontpopmenu">Title</div>
+                <div class="contentpopmenu">
+                    <div class="divnamepopmenu">
+                        <span class="spanpopmenu fontpopmenu">Name: </span>
+                        <br class="brpopmenu">
+                    <div>
+                    <div class="divinputpopmenu">
+                        <input name="name" type="text" value="value" class="inputpopmenu fontpopmenu">
+                        <br class="brpopmenu">
+                    </div>
+                    <span class="okpopmenu fontpopmenu">Ok</div>
+                    <span class="cancelpopmenu fontpopmenu">Cancel</div>
+                    <span class="validpopmenu fontpopmenu">Valid</div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

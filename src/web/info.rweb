@@ -25,7 +25,7 @@
             }
 
             function onAdd() {
-
+                
             }
 
             function onInfo() {
@@ -45,7 +45,7 @@
             <span id="title">ProcessManager <targ=version></targ></span>
             <img alt="Add" src="/img/add.png" class="headiconright noselect" onclick="onAdd();">
             <img alt="Info" src="/img/info.png" class="headiconright noselect" onclick="onInfo();">
-            <form>
+            <form method="GET">
                 <input type="hidden" name="token" value="<targ=token></targ>">
                 <input type="hidden" name="menu" id="menuopen" value="false">
                 <input type="hidden" name="page" id="page" value="<targ=page></targ>">
