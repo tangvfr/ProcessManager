@@ -1,0 +1,107 @@
+.fontpopmenu {
+    color: #FFF;
+    font-weight: normal;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    word-wrap: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-touch-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.formpopmenu {
+    position: fixed;
+    left: calc(50% - 300px);
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+    background-color: #666;
+    border: 2px #999 outset;
+    margin: 0px;
+    padding: 0px;
+    width: 600px;
+    height: auto;
+}
+
+.titlepopmenu {
+    display: block;
+    color: #FFF;
+    font-weight: normal;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    word-wrap: break-word;
+    border-bottom: 2px #999 outset;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: center;
+}
+
+.okpopmenu, .cancelpopmenu, .validpopmenu {
+    display: inline-block;
+    padding: 3px;
+    margin: 3px;
+    margin-top: 0px;
+    background: #777777;
+    border: none;
+    border-bottom: 2px #333 solid;
+}
+
+.okpopmenu {
+    float: right;
+    background: #007700;
+    border: none;
+    border-bottom: 2px #030 solid;
+}
+
+.cancelpopmenu {
+    float: right;
+    background: #770000;
+    border: none;
+    border-bottom: 2px #300 solid;
+}
+
+.validpopmenu {
+    float: left;
+    background: #770077;
+    border: none;
+    border-bottom: 2px #303 solid;
+}
+
+.cancelvalidpopmenu {
+    float: left;
+}
+
+.inputpopmenu ::placeholder {
+    background: #777;
+    border: 2px #474747 solid;
+}
+
+.inputpopmenu {
+    display: inline-block;
+    background: #777;
+    border: 1px #474747 solid;
+    height: 24px;
+    width: 390px;
+    padding-left: 3px;
+    padding-right: 3px;
+    box-sizing: border-box;
+}
+
+.labelpopmenu {
+    display: inline-block;
+    width: 200px;
+    text-align: right;
+}
+
+.divpopmenu {
+    display: block;
+    margin-top: 5px;
+}
+
+@media (max-width: 1024px) {
+    
+}
