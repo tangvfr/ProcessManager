@@ -150,7 +150,14 @@
             </targ>
         </nav>
         <targ=update>
-            <span id="update"><span style="margin-right: 6px;" onclick="document.getElementById('update').remove();">x</span><span style="text-decoration: underline;"></span><barg=text></barg></span></span>
+            <span id="update">
+                <span style="margin-right: 4px; margin-left: 4px;" onclick="document.getElementById('update').remove();">
+                    x
+                </span>
+                <span style="text-decoration: underline;">
+                    <barg=text></barg>
+                </span>
+            </span>
         </targ>
     </body>
     <script>
