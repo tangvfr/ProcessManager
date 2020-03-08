@@ -2,6 +2,8 @@
     <head>
         <meta charset="UTF-8"> 
         <link href="/info.css" rel="stylesheet" type="text/css">
+        <link href="/popmenu.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="/popmenu.js"></script>
         <title>ProcessManager <targ=version></targ></title>
         <script>
             function onMenu() {
@@ -25,7 +27,44 @@
             }
 
             function onAdd() {
-                
+                let list = [
+                    {
+                        "name": "name",
+                        "label": "Name",
+                        "type": "text",
+                        "value": "",
+                        "required": true
+                    },
+                    {
+                        "name": "cmd",
+                        "label": "Command",
+                        "type": "text",
+                        "value": "",
+                        "required": false
+                    },
+                    {
+                        "name": "folder",
+                        "label": "Folder",
+                        "type": "text",
+                        "value": "",
+                        "required": false
+                    },
+                    {
+                        "name": "launch",
+                        "label": "Launch",
+                        "type": "checkbox",
+                        "value": "false",
+                        "required": true
+                    },
+                    {
+                        "name": "cmdstop",
+                        "label": "CommandStop",
+                        "type": "text",
+                        "value": "",
+                        "required": false
+                    }
+                ];
+                newPopMenu("Add New Process", list, "<targ=token></targ>", "add", "POST", "/command.tweb");
             }
 
             function onInfo() {
@@ -115,5 +154,6 @@
         if (menuopen === "true") {
             onMenu();
         }
+        initPopMenu();
     </script>
 </html>

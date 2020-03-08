@@ -12,7 +12,6 @@ import fr.tangv.web.util.ClassPage;
 import fr.tangv.web.util.CodeHTTP;
 import fr.tangv.web.util.Page;
 import fr.tangv.web.util.PageData;
-import fr.tangv.web.util.PageRedirectFound;
 import fr.tangv.web.util.PageRedirectSeeOther;
 import fr.tangv.web.util.PageResoucre;
 import fr.tangv.web.util.PageType;

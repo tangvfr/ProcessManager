@@ -1,7 +1,7 @@
 .fontpopmenu {
     color: #FFF;
     font-weight: normal;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 16px;
     word-wrap: none;
     user-select: none;
@@ -29,7 +29,7 @@
     display: block;
     color: #FFF;
     font-weight: normal;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 24px;
     word-wrap: break-word;
     border-bottom: 2px #999 outset;
@@ -40,7 +40,7 @@
     text-align: center;
 }
 
-.okpopmenu, .cancelpopmenu, .validpopmenu {
+.okpopmenu, .cancelpopmenu {
     display: inline-block;
     padding: 3px;
     margin: 3px;
@@ -58,21 +58,10 @@
 }
 
 .cancelpopmenu {
-    float: right;
+    float: left;
     background: #770000;
     border: none;
     border-bottom: 2px #300 solid;
-}
-
-.validpopmenu {
-    float: left;
-    background: #770077;
-    border: none;
-    border-bottom: 2px #303 solid;
-}
-
-.cancelvalidpopmenu {
-    float: left;
 }
 
 .inputpopmenu ::placeholder {
