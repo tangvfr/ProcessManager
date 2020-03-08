@@ -138,7 +138,7 @@ public class info implements ClassPage {
 						@SuppressWarnings("unchecked")
 						Vector<ProcessPlus> listProcess = (Vector<ProcessPlus>) processManager.getListProcess().clone();
 						sortListProcess(listProcess, data.get("sort"));
-						//implement folder sort and by content searh bar
+						//implement folder sort and by content searh bar // add char secrure in page data
 						//calc process
 						for (int i = 0; i < listProcess.size(); i++) {
 							ProcessPlus process = listProcess.get(i);
