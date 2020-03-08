@@ -120,6 +120,33 @@ header {
     float: right;
 }
 
+.removeicon {
+    color: #000;
+    position: absolute;
+    margin-left: 3px;
+    margin-top: 10px;
+}
+  
+.removeicon:before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 1px;
+    background-color: currentColor;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+}
+  
+.removeicon:after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 1px;
+    background-color: currentColor;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+}
+
 .title {
     font-size: 20px;
 }
@@ -334,6 +361,13 @@ header {
     height: content-box;
     word-wrap: break-word;
     overflow: auto;
+}
+
+.divprocess {
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 5px;
 }
 
 @media (max-width: 1024px) {

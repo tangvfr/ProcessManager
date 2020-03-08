@@ -111,26 +111,30 @@
                         <img alt="Rename" src="/img/rename.png" name="<barg=name></barg>" class="iconright noselect">
                     </div>
                     <div class="contprocess">
-                        <img alt="Cmd" src="/img/cmd.png" name="<barg=name></barg>" class="iconleft noselect">
-                        <span class="cmd"><barg=cmd></barg></span>
-                        <img alt="Stop" src="/img/stop.png" name="<barg=name></barg>" class="iconright noselect">
-                        <img alt="Restart" src="/img/restart.png" name="<barg=name></barg>" class="iconright noselect">
-                        <img alt="Start" src="/img/start.png" name="<barg=name></barg>" class="iconright noselect">
-                        <br><br>
-                        <img alt="CmdDown" src="/img/cmddown.png" name="<barg=name></barg>" class="iconleft noselect">
-                        <span class="stopcmd"><barg=stopcmd></barg></span>
-                        <img alt="StopCmd" src="/img/stopcmd.png" name="<barg=name></barg>" class="iconright noselect">
-                        <img alt="RestartCmd" src="/img/restartcmd.png" name="<barg=name></barg>" class="iconright noselect">
-                        <br><br>
-                        <img alt="Folder" src="/img/folder.png" name="<barg=name></barg>" class="iconleft noselect">
-                        <span class="folder"><barg=folder></barg></span>
-                        <img alt="Remove" src="/img/remove.png" name="<barg=name></barg>" class="iconright noselect">
+                        <div class="divprocess">
+                            <img alt="Cmd" src="/img/cmd.png" name="<barg=name></barg>" class="iconleft noselect">
+                            <span class="cmd"><barg=cmd></barg></span>
+                            <img alt="Stop" src="/img/stop.png" name="<barg=name></barg>" class="iconright noselect">
+                            <img alt="Restart" src="/img/restart.png" name="<barg=name></barg>" class="iconright noselect">
+                            <img alt="Start" src="/img/start.png" name="<barg=name></barg>" class="iconright noselect">
+                        </div>
+                        <div class="divprocess">
+                            <img alt="CmdDown" src="/img/cmddown.png" name="<barg=name></barg>" class="iconleft noselect">
+                            <span class="stopcmd"><barg=stopcmd></barg></span>
+                            <img alt="StopCmd" src="/img/stopcmd.png" name="<barg=name></barg>" class="iconright noselect">
+                            <img alt="RestartCmd" src="/img/restartcmd.png" name="<barg=name></barg>" class="iconright noselect">
+                        </div>
+                        <div class="divprocess">
+                            <img alt="Folder" src="/img/folder.png" name="<barg=name></barg>" class="iconleft noselect">
+                            <span class="folder"><barg=folder></barg></span>
+                            <img alt="Remove" src="/img/remove.png" name="<barg=name></barg>" class="iconright noselect">
+                        </div>
                     </div>
                 </div>
             </targ>
         </section>
         <nav id="menu">
-            <div id="number" class="noselect"><targ=processnumber></targ> process</div>
+            <div id="number" class="noselect"><targ=processnumber></targ> process<br></div>
             <targ=processmenu>
                 <div ondblclick="goPage(<barg=page></barg>);">
                     <div class="<barg=started>menuheadon,menuheadoff</barg>">
@@ -146,7 +150,7 @@
             </targ>
         </nav>
         <targ=update>
-            <span id="update"><barg=text></barg></span>
+            <span id="update"><span class="removeicon noselect" onclick="document.getElementById('update').remove();"></span><barg=text></barg></span>
         </targ>
     </body>
     <script>
