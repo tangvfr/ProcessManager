@@ -166,7 +166,7 @@ public class info implements ClassPage {
 						}
 						remplaceValue.put("processbox", textProcessBox);
 						remplaceValue.put("processmenu", textProcessMenu);
-						//return
+						//return page
 						return new Page(pageResoucre.remplaceText(remplaceValue), PageType.HTML, CodeHTTP.CODE_200_OK);
 					}
 				}

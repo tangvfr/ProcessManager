@@ -119,31 +119,17 @@ header {
     float: right;
 }
 
-.removeicon {
-    color: #000;
-    position: absolute;
+.btnclose {
+    font-weight: normal;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    padding: 1px;
+    margin-right: 3px;
     margin-left: 3px;
-    margin-top: 10px;
-}
-  
-.removeicon:before {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 1px;
-    background-color: currentColor;
-    -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
-}
-  
-.removeicon:after {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 1px;
-    background-color: currentColor;
-    -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
+    border: 1px #FFF solid;
+    background: transparent;
+    width: 12px;
+    height: 12px;
 }
 
 .title {
@@ -257,7 +243,7 @@ header {
     word-wrap: break-word;
 }
 
-.menuheadon,.menuheadoff,.menuheadfolder {
+.menuheadon,.menuheadoff,.menuheadfolder,.menuheadnumber {
     width: calc(100% - 12px);
     word-wrap: break-word;
     padding: 2px;
@@ -276,6 +262,12 @@ header {
 .menuheadfolder {
     background: #bb3;
     border: 2px #DD3 outset;
+}
+
+.menuheadnumber {
+    background: #bbb;
+    border: 2px #DDD outset;
+    color: #333;
 }
 
 .menuunderhead {

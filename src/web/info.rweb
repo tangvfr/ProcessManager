@@ -105,9 +105,9 @@
         <section class="boxglobal">
             <targ=processbox>
                 <div class="boxprocess">
-                    <div class="headprocess <barg=started>headon,headoff</barg>">
+                    <div class="headprocess <barg=started>headon,headoff,headfolder</barg>">
                         <span class="title"><barg=name></barg></span>
-                        <span class="<barg=launch>on,off</barg> noselect" name="<barg=name></barg>" onclick=""></span>
+                        <span class="<barg=launch>on,off,</barg> noselect" name="<barg=name></barg>" onclick=""></span>
                         <img alt="Rename" src="/img/rename.png" name="<barg=name></barg>" class="iconright noselect">
                     </div>
                     <div class="contprocess">
@@ -134,13 +134,15 @@
             </targ>
         </section>
         <nav id="menu">
-            <div id="number" class="noselect"><targ=processnumber></targ> process<br></div>
+            <div class="menuheadnumber">
+                <span><targ=processnumber></targ> process</span>
+            </div>
             <targ=processmenu>
                 <div ondblclick="goPage(<barg=page></barg>);">
-                    <div class="<barg=started>menuheadon,menuheadoff</barg>">
+                    <div class="<barg=started>menuheadon,menuheadoff,menuheadfolder</barg>">
                         <span class="noselect"><barg=page></barg>/<barg=maxpage></barg> </span>
                         <span><barg=name></barg></span>
-                        <span class="<barg=launch>menuon,menuoff</barg>"></span>
+                        <span class="<barg=launch>menuon,menuoff,</barg>"></span>
                     </div>
                     <div class="menuunderhead">
                         <img alt="Folder" src="/img/folder.png" class="iconleftmenu noselect">
@@ -151,9 +153,9 @@
         </nav>
         <targ=update>
             <span id="update">
-                <span style="margin-right: 4px; margin-left: 4px;" onclick="document.getElementById('update').remove();">
+                <button class="btnclose noselect" onclick="document.getElementById('update').remove();">
                     x
-                </span>
+                </button>
                 <span style="text-decoration: underline;">
                     <barg=text></barg>
                 </span>
