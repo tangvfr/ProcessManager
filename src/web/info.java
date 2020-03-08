@@ -105,7 +105,6 @@ public class info implements ClassPage {
 						//general
 						remplaceValue.put("version", decodingUTF8(Main.version));
 						remplaceValue.put("token", token.toString());
-						remplaceValue.put("menuopen", data.get("menu").isEmpty() ? "false" : data.get("menu"));
 						remplaceValue.put("search", data.get("search"));
 						remplaceValue.put("sort"+data.get("sort"), "selected");
 						int page = data.get("page").isEmpty() ? 1 : Integer.parseInt(data.get("page"));

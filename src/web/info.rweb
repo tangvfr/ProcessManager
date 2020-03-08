@@ -8,21 +8,18 @@
         <script>
             function onMenu() {
                 let menu = document.getElementById("menu");
-                let menuopen = document.getElementById("menuopen");
                 if (menu.style.display === "block") {
                     menu.style.display = "none";
                     let box = document.getElementsByClassName("boxglobalhidden");
                     for (i = 0; i < box.length; i++) {
                         box[i].setAttribute("class", "boxglobal");
                     }
-                    menuopen.setAttribute("value", "false");
                 } else {
                     menu.style.display = "block";
                     let box = document.getElementsByClassName("boxglobal");
                     for (i = 0; i < box.length; i++) {
                         box[i].setAttribute("class", "boxglobalhidden");
                     }
-                    menuopen.setAttribute("value", "true");
                 }
             }
 
@@ -86,7 +83,6 @@
             <img alt="Info" src="/img/info.png" class="headiconright noselect" onclick="onInfo();">
             <form method="GET">
                 <input type="hidden" name="token" value="<targ=token></targ>">
-                <input type="hidden" name="menu" id="menuopen" value="false">
                 <input type="hidden" name="page" id="page" value="<targ=page></targ>">
                 <input type="submit" name="button" value="none" id="searchbtn">
                 <input type="search" name="search" placeholder="Rechercher" value="<targ=search></targ>" id="search">
@@ -163,10 +159,6 @@
         </targ>
     </body>
     <script>
-        let menuopen = <targ=menuopen></targ>;
-        if (menuopen === "true") {
-            onMenu();
-        }
         initPopMenu();
     </script>
 </html>
