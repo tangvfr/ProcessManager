@@ -54,7 +54,7 @@
                         "label": "Launch",
                         "type": "checkbox",
                         "value": "false",
-                        "required": true
+                        "required": false
                     },
                     {
                         "name": "cmdstop",

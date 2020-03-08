@@ -126,7 +126,7 @@ public class info implements ClassPage {
 						ProcessManager processManager = Main.processManagerServer.getProcessManager();
 						remplaceValue.put("processnumber", ""+processManager.getListProcess().size());
 						int processByPage = 4;
-						maxpage = (processManager.getListProcess().size()/processByPage)+1;
+						maxpage = (processManager.getListProcess().size()+1)/processByPage;
 						//end calc page
 						if (page < 1) {
 							page = maxpage;
