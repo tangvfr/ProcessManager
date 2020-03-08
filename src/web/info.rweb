@@ -109,21 +109,23 @@
                     <div class="contprocess">
                         <div class="divprocess">
                             <img alt="Cmd" src="/img/cmd.png" name="<barg=name></barg>" class="iconleft noselect">
-                            <span class="cmd"><barg=cmd></barg></span>
                             <img alt="Stop" src="/img/stop.png" name="<barg=name></barg>" class="iconright noselect">
                             <img alt="Restart" src="/img/restart.png" name="<barg=name></barg>" class="iconright noselect">
                             <img alt="Start" src="/img/start.png" name="<barg=name></barg>" class="iconright noselect">
+                            <span class="cmd"><barg=cmd></barg></span>
                         </div>
+                        <br>
                         <div class="divprocess">
                             <img alt="CmdDown" src="/img/cmddown.png" name="<barg=name></barg>" class="iconleft noselect">
-                            <span class="stopcmd"><barg=stopcmd></barg></span>
                             <img alt="StopCmd" src="/img/stopcmd.png" name="<barg=name></barg>" class="iconright noselect">
                             <img alt="RestartCmd" src="/img/restartcmd.png" name="<barg=name></barg>" class="iconright noselect">
+                            <span class="stopcmd"><barg=stopcmd></barg></span>
                         </div>
+                        <br>
                         <div class="divprocess">
                             <img alt="Folder" src="/img/folder.png" name="<barg=name></barg>" class="iconleft noselect">
-                            <span class="folder"><barg=folder></barg></span>
                             <img alt="Remove" src="/img/remove.png" name="<barg=name></barg>" class="iconright noselect">
+                            <span class="folder"><barg=folder></barg></span>
                         </div>
                     </div>
                 </div>
@@ -149,9 +151,7 @@
         </nav>
         <targ=update>
             <span id="update">
-                <button class="btnclose noselect" onclick="document.getElementById('update').remove();">
-                    x
-                </button>
+                <button class="btnclose noselect" onclick="document.getElementById('update').remove();"></button>
                 <span style="text-decoration: underline;">
                     <barg=text></barg>
                 </span>
