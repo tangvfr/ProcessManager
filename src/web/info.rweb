@@ -64,6 +64,42 @@
                 newPopMenu("Add New Process", list, "<targ=token></targ>", "add", "POST", "/command.tweb");
             }
 
+            function onRemove(elem) {
+                let list = [
+                    {
+                        "name": "name",
+                        "label": "",
+                        "type": "hidden",
+                        "value": "",
+                        "required": true
+                    }
+                ];
+                list[0]["value"] = elem.name;
+                newPopMenu("Remove Process "+elem.name, list, "<targ=token></targ>", "remove", "POST", "/command.tweb");
+            }
+
+            function onRename(elem) {
+                let list = [
+                    {
+                        "name": "name",
+                        "label": "",
+                        "type": "hidden",
+                        "value": "",
+                        "required": true
+                    },
+                    {
+                        "name": "newname",
+                        "label": "New Name",
+                        "type": "text",
+                        "value": "",
+                        "required": true
+                    }
+                ];
+                list[0]["value"] = elem.name;
+                list[1]["value"] = elem.name;
+                newPopMenu("Rename Process "+elem.name, list, "<targ=token></targ>", "rename", "POST", "/command.tweb");
+            }
+
             function onInfo() {
 
             }
@@ -104,7 +140,7 @@
                     <div class="headprocess <barg=started>headon,headoff,headfolder</barg>">
                         <span class="title"><barg=name></barg></span>
                         <span class="<barg=launch>on,off,</barg> noselect" name="<barg=name></barg>" onclick=""></span>
-                        <img alt="Rename" src="/img/rename.png" name="<barg=name></barg>" class="iconright noselect">
+                        <img alt="Rename" src="/img/rename.png" name="<barg=name></barg>" onclick="onRename(this);" class="iconright noselect">
                     </div>
                     <div class="contprocess">
                         <div class="divprocess">
@@ -124,7 +160,7 @@
                         <br>
                         <div class="divprocess">
                             <img alt="Folder" src="/img/folder.png" name="<barg=name></barg>" class="iconleft noselect">
-                            <img alt="Remove" src="/img/remove.png" name="<barg=name></barg>" class="iconright noselect">
+                            <img alt="Remove" src="/img/remove.png" name="<barg=name></barg>" onclick="onRemove(this);" class="iconright noselect">
                             <span class="folder"><barg=folder></barg></span>
                         </div>
                     </div>

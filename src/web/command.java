@@ -10,6 +10,7 @@ import fr.tangv.web.util.PageRedirectSeeOther;
 import fr.tangv.web.util.PageResoucre;
 import fr.tangv.web.util.PageType;
 import web.commands.CommandAdd;
+import web.commands.CommandRemove;
 
 public class command implements ClassPage {
 
@@ -32,7 +33,15 @@ public class command implements ClassPage {
 								case "add":
 									new CommandAdd(data.get("name"), data.get("cmd"), data.get("folder"), data.get("launch"), data.get("cmdstop"));
 									break;
-	
+									
+								case "remove":
+									new CommandRemove(data.get("name"));
+									break;
+									
+								case "rename":
+									new CommandRename(data.get("name"), data.get("newname"));
+									break;
+									
 								default:
 									break;
 							}
