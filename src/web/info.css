@@ -75,7 +75,6 @@ header {
 #update {
     position: fixed;
     display: block;
-    text-decoration: underline;
     font-size: 16px;
     top: 40px;
     left: 100px;
@@ -364,6 +363,7 @@ header {
 }
 
 .divprocess {
+    position: relative;
     display: block;
     margin: 0px;
     padding: 0px;

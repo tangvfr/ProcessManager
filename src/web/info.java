@@ -58,7 +58,7 @@ public class info implements ClassPage {
 				listProcess.sort(new Comparator<ProcessPlus>() {
 					@Override
 					public int compare(ProcessPlus p1, ProcessPlus p2) {
-						return ((Boolean) p1.getProcess().isStart()).compareTo(p2.getProcess().isStart());
+						return ((Boolean) p2.getProcess().isStart()).compareTo(p1.getProcess().isStart());
 					}
 				});
 				break;
@@ -67,7 +67,7 @@ public class info implements ClassPage {
 				listProcess.sort(new Comparator<ProcessPlus>() {
 					@Override
 					public int compare(ProcessPlus p1, ProcessPlus p2) {
-						return ((Boolean) p1.isActiveOnStart()).compareTo(p2.isActiveOnStart());
+						return ((Boolean) p2.isActiveOnStart()).compareTo(p1.isActiveOnStart());
 					}
 				});
 				break;
