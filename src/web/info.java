@@ -77,6 +77,19 @@ public class info implements ClassPage {
 		}
 	}
 	
+	private void sortListName(Vector<ProcessPlus> listProcess, String name) {
+		if (!name.isEmpty()) {
+			@SuppressWarnings("unchecked")
+			Vector<ProcessPlus> list = (Vector<ProcessPlus>) listProcess.clone();
+			listProcess.clear();
+			for (ProcessPlus process : list) {
+				if (process.getName().toLowerCase().contains(name.toLowerCase())) {
+					listProcess.add(process);
+				}
+			}
+		}
+	}
+	
 	@Override
 	public Page getPage(Web web, ReceiveHTTP receiveHTTP, PageResoucre pageResoucre) {
 		try {
@@ -123,10 +136,15 @@ public class info implements ClassPage {
 						String textProcessBox = "";
 						String textProcessMenu = "";
 						ProcessManager processManager = Main.processManagerServer.getProcessManager();
-						remplaceValue.put("processnumber", ""+processManager.getListProcess().size());
+						//filtre
+						@SuppressWarnings("unchecked")
+						Vector<ProcessPlus> listProcess = (Vector<ProcessPlus>) processManager.getListProcess().clone();
+						sortListName(listProcess, data.get("search"));
+						sortListProcess(listProcess, data.get("sort"));
+						//---------------implement folder sort
+						//calc page
 						int processByPage = 4;
-						maxpage = (processManager.getListProcess().size()+1)/processByPage;
-						//end calc page
+						maxpage = (listProcess.size()+1)/processByPage;
 						if (page < 1) {
 							page = maxpage;
 						} else if (page > maxpage) {
@@ -134,11 +152,7 @@ public class info implements ClassPage {
 						}
 						remplaceValue.put("page", ""+page);
 						remplaceValue.put("maxpage", ""+maxpage);
-						//filtre
-						@SuppressWarnings("unchecked")
-						Vector<ProcessPlus> listProcess = (Vector<ProcessPlus>) processManager.getListProcess().clone();
-						sortListProcess(listProcess, data.get("sort"));
-						//implement folder sort and by content searh bar // add char secrure in page data
+						remplaceValue.put("processnumber", ""+listProcess.size());
 						//calc process
 						for (int i = 0; i < listProcess.size(); i++) {
 							ProcessPlus process = listProcess.get(i);
