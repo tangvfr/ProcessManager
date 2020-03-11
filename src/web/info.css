@@ -81,13 +81,14 @@ header {
 }
 
 #search,#sort {
+    display: block;
     position: relative;
     padding: 0px;
     margin-top: 8px;
     width: auto;
     height: 24px;
     margin-right: 8px;
-    text-align: right;
+    float: right;
 }
 
 #searchbtn {
@@ -103,6 +104,7 @@ header {
 }
 
 #searchbtn,#next,#previous {
+    display: block;
     position: relative;
     border: none;
     border-radius: 0px;
@@ -113,7 +115,7 @@ header {
     margin-right: 8px;
     color: transparent;
     background-size: cover;
-    text-align: right;
+    float: right;
 }
 
 .btnclose {
@@ -203,9 +205,9 @@ header {
     width: calc(100% - 152px);
     font-size: 20px;
     text-align: left;
-    overflow-y: hidden;
-    overflow-x: scroll;
-    overflow-wrap: initial;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
 }
 
 .folder {

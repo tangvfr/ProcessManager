@@ -177,14 +177,14 @@
         </section>
         <nav id="menu">
             <div class="menuheadnumber">
-                <span><targ=processnumber></targ> process</span>
+                <span>Total <targ=processnumber></targ> process</span>
             </div>
             <targ=processmenu>
                 <div ondblclick="goPage(<barg=page></barg>);">
                     <div class="<barg=started>menuheadon,menuheadoff,menuheadfolder</barg>">
                         <span class="noselect"><barg=page></barg>/<barg=maxpage></barg> </span>
-                        <span><barg=name></barg></span>
                         <span class="<barg=launch>menuon,menuoff,</barg>"></span>
+                        <span><barg=name></barg></span>
                     </div>
                     <div class="menuunderhead">
                         <img alt="Folder" src="/img/folder.png" class="iconleftmenu noselect">
