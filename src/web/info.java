@@ -77,7 +77,7 @@ public class info implements ClassPage {
 		}
 	}
 	
-	private void sortListName(Vector<ProcessPlus> listProcess, String name) {
+	private void sortListNameContent(Vector<ProcessPlus> listProcess, String name) {
 		if (!name.isEmpty()) {
 			@SuppressWarnings("unchecked")
 			Vector<ProcessPlus> list = (Vector<ProcessPlus>) listProcess.clone();
@@ -139,7 +139,7 @@ public class info implements ClassPage {
 						//filtre
 						@SuppressWarnings("unchecked")
 						Vector<ProcessPlus> listProcess = (Vector<ProcessPlus>) processManager.getListProcess().clone();
-						sortListName(listProcess, data.get("search"));
+						sortListNameContent(listProcess, data.get("search"));
 						sortListProcess(listProcess, data.get("sort"));
 						//---------------implement folder sort
 						//calc page
