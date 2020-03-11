@@ -25,6 +25,10 @@ div, span {
     font-size: 16px;
 }
 
+span {
+    display: inline-block;
+}
+
 header {
     margin: 0px;
     height: 40px;
@@ -48,11 +52,9 @@ header {
 }
 
 #title {
-    font-size: 24px;
     padding: 0px;
     margin-top: 3px;
     margin-left: 6px;
-    float: left;
 }
 
 #page {
@@ -112,7 +114,7 @@ header {
 }
 
 .btnclose {
-    display: inline;
+    display: inline-block;
     border: none;
     padding: auto;
     margin: 2px;
@@ -123,6 +125,15 @@ header {
 
 .title {
     font-size: 20px;
+    text-align: left;
+    margin: auto;
+    margin-left: 6px;
+}
+
+.spanprocess {
+    display: block;
+    position: relative;
+    float: right;
 }
 
 .headiconleft,.headiconright {
@@ -143,6 +154,7 @@ header {
 }
 
 .iconleft,.iconright {
+    display: inline-block;
     padding: 0px;
     margin: 0px;
     width: 32px;
@@ -183,6 +195,8 @@ header {
     height: 32px;
     font-size: 20px;
     float: left;
+    word-wrap: break-word;
+    text-align: left;
 }
 
 .folder {
@@ -226,6 +240,7 @@ header {
     position: relative;
     background: #222222;
     border: 2px #444 outset;
+    margin: 0px;
     padding: 5px;
     width: 100%;
     height: auto;
@@ -257,6 +272,7 @@ header {
     background: #666;
     border: 2px #888 outset;
     color: #333;
+    margin-bottom: 6px;
 }
 
 .menuunderhead {
@@ -300,8 +316,7 @@ header {
 
 .menuoff,.menuon {
     position: relative;
-    display: inline-block;
-    vertical-align: middle;
+    display: block;
     width: 18px;
     height: 18px;
     border: 1px solid #000;
@@ -311,8 +326,7 @@ header {
 
 .off,.on {
     position: relative;
-    display: inline-block;
-    vertical-align: middle;
+    display: block;
     width: 24px;
     height: 24px;
     border: 2px solid #000;
@@ -339,15 +353,16 @@ header {
     margin: 1%;
     margin-top: 0%;
     line-height: 32px;
-    overflow: auto;
+    overflow: none;
 }
 
 .divprocess {
     position: relative;
     display: block;
-    word-wrap: break-word;
+    word-wrap: normal;
     line-height: 32px;
     overflow: none;
+    margin: 0px;
 }
 
 @media (max-width: 1024px) {
