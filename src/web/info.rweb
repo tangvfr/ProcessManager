@@ -6,8 +6,9 @@
         <title>ProcessManager <targ=version></targ></title>
     </head>
     <body>
-        <script type="module" src="./PopMenu.js">
-            export var popMenuCommand = new PopMenu(false);
+        <script type="text/javascript" src="./PopMenu.js">
+            var popMenuCommand = new PopMenu(false);
+            
         </script>
         <script>
             function onMenu() {
@@ -101,7 +102,7 @@
                 ];
                 list[0]["value"] = elem.name;
                 list[1]["value"] = elem.name;
-                newPopMenu("Rename Process "+elem.name, list, "<targ=token></targ>", "rename", "POST", "/command.tweb");
+                popMenuCommand.show("Rename Process "+elem.name, list, "<targ=token></targ>", "rename", "POST", "/command.tweb");
             }
 
             function onInfo() {
