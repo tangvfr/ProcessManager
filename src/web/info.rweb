@@ -4,116 +4,15 @@
         <link href="/info.css" rel="stylesheet" type="text/css">
         <link href="/popmenu.css" rel="stylesheet" type="text/css">
         <title>ProcessManager <targ=version></targ></title>
+        <script src="./js/gopage.js"></script>
+        <script src="./js/onmenu.js"></script>
+        <script src="./js/oninfo.js"></script>
+        <script src="./js/popmenu.js"></script>
+        <script src="./js/onadd.js"></script>
+        <script src="./js/onremove.js"></script>
+        <script src="./js/onrename.js"></script>
     </head>
     <body>
-        <script type="text/javascript" src="./PopMenu.js">
-            var popMenuCommand = new PopMenu(false);
-            
-        </script>
-        <script>
-            function onMenu() {
-                let menu = document.getElementById("menu");
-                if (menu.style.display === "block") {
-                    menu.style.display = "none";
-                    let box = document.getElementsByClassName("boxglobalhidden");
-                    for (i = 0; i < box.length; i++) {
-                        box[i].setAttribute("class", "boxglobal");
-                    }
-                } else {
-                    menu.style.display = "block";
-                    let box = document.getElementsByClassName("boxglobal");
-                    for (i = 0; i < box.length; i++) {
-                        box[i].setAttribute("class", "boxglobalhidden");
-                    }
-                }
-            }
-
-            function onAdd() {
-                let list = [
-                    {
-                        "name": "name",
-                        "label": "Name",
-                        "type": "text",
-                        "value": "",
-                        "required": true
-                    },
-                    {
-                        "name": "cmd",
-                        "label": "Command",
-                        "type": "text",
-                        "value": "",
-                        "required": false
-                    },
-                    {
-                        "name": "folder",
-                        "label": "Folder",
-                        "type": "text",
-                        "value": "",
-                        "required": false
-                    },
-                    {
-                        "name": "launch",
-                        "label": "Launch",
-                        "type": "checkbox",
-                        "value": "false",
-                        "required": false
-                    },
-                    {
-                        "name": "cmdstop",
-                        "label": "CommandStop",
-                        "type": "text",
-                        "value": "",
-                        "required": false
-                    }
-                ];
-                popMenuCommand.show("Add New Process", list, "<targ=token></targ>", "add", "POST", "/command.tweb");
-            }
-
-            function onRemove(elem) {
-                let list = [
-                    {
-                        "name": "name",
-                        "label": "",
-                        "type": "hidden",
-                        "value": "",
-                        "required": true
-                    }
-                ];
-                list[0]["value"] = elem.name;
-                popMenuCommand.show("Remove Process "+elem.name, list, "<targ=token></targ>", "remove", "POST", "/command.tweb");
-            }
-
-            function onRename(elem) {
-                let list = [
-                    {
-                        "name": "name",
-                        "label": "",
-                        "type": "hidden",
-                        "value": "",
-                        "required": true
-                    },
-                    {
-                        "name": "newname",
-                        "label": "New Name",
-                        "type": "text",
-                        "value": "",
-                        "required": true
-                    }
-                ];
-                list[0]["value"] = elem.name;
-                list[1]["value"] = elem.name;
-                popMenuCommand.show("Rename Process "+elem.name, list, "<targ=token></targ>", "rename", "POST", "/command.tweb");
-            }
-
-            function onInfo() {
-
-            }
-
-            function goPage(page) {
-                document.getElementById("page").setAttribute("value", page);
-                document.getElementById("searchbtn").click();
-            }
-        </script>
         <header>
             <img alt="Menu" src="/img/menu.png" class="headiconleft noselect" onclick="onMenu();">
             <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
@@ -202,5 +101,6 @@
                 </span>
             </span>
         </targ>
+        <script>var popMenuCommand = new PopMenu();</script>
     </body>
 </html>

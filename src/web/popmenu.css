@@ -86,9 +86,19 @@
     text-align: right;
 }
 
+.textpopmenu {
+    display: block;
+    width: 590px;
+    text-align: justify;
+    overflow: hidden;
+    word-wrap: break-word;
+    margin: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 .divpopmenu {
     display: block;
-    margin-top: 5px;
 }
 
 @media (max-width: 1024px) {
