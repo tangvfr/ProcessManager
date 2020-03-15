@@ -25,7 +25,7 @@ function onAdd() {
             "name": "launch",
             "label": "Launch",
             "type": "checkbox",
-            "value": "false",
+            "value": "true",
             "required": false
         },
         {
