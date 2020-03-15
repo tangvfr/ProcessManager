@@ -10,7 +10,7 @@ public class CommandRestartWC {
 		if (!name.isEmpty()) {
 			ProcessManager pm = Main.processManagerServer.getProcessManager();
 			if (pm.hasProcess(name)) {
-				if (Main.processManagerServer.isStopNoForce()) {
+				if (!Main.processManagerServer.isStopNoForce()) {
 					ProcessPlus process = pm.getProcess(name);
 					if (!process.getCmdStop().isEmpty()) {
 						process.getProcess().send(process.getCmdStop());

@@ -10,7 +10,7 @@ public class CommandStart {
 		if (!name.isEmpty()) {
 			ProcessManager pm = Main.processManagerServer.getProcessManager();
 			if (pm.hasProcess(name)) {
-				if (Main.processManagerServer.isStopNoForce()) {
+				if (!Main.processManagerServer.isStopNoForce()) {
 					ProcessPlus process = pm.getProcess(name);
 					process.reload();
 					process.getProcess().start();
