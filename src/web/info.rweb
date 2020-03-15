@@ -50,7 +50,7 @@
                 <div class="boxprocess">
                     <div class="headprocess <barg=started>headon,headoff,headfolder</barg>">
                         <span class="spanprocess">
-                            <span class="<barg=launch>on,off,</barg> noselect" name="<barg=name></barg>" onclick="onLaunch(this);"></span>
+                            <div class="<barg=launch>on,off,</barg> noselect" onclick="onLaunch(this);"></div>
                             <img alt="Rename" src="/img/rename.png" name="<barg=name></barg>" onclick="onRename(this);" class="iconright noselect">
                         </span>
                         <span class="title"><barg=name></barg></span>
