@@ -48,7 +48,7 @@ header {
     border-right: 2px #666 solid;
     background: #444;
     width: 600px;
-    height: 100%;
+    height: calc(100% - 42px);
 }
 
 #title {

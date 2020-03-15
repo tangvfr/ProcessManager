@@ -101,6 +101,7 @@
                     </div>
                 </div>
             </targ>
+            <div style="height: 6px;" class="noselect"></div>
         </nav>
         <targ=update>
             <span id="update">
