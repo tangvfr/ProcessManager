@@ -295,6 +295,7 @@ header {
     background: #555;
     border: 2px #333 solid;
     border-top: none;
+    min-height: 20px;
 }
 
 .noselect {

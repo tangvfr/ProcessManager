@@ -13,11 +13,11 @@ public class Process {
 	private volatile java.lang.Process process;
 	private String encoding;
 	
-	public Process(@NotNull String cmd, String rep, @NotNull String encoding) {
+	public Process(@NotNull String cmd, String folder, @NotNull String encoding) {
 		this.processBuilder = new ProcessBuilder(cmd.split(" "));
 		this.encoding = encoding;
-		if (rep != null && !rep.isEmpty())
-			this.processBuilder.directory(new File(rep));
+		if (folder != null && !folder.isEmpty())
+			this.processBuilder.directory(new File(folder));
 		this.process = null;
 	}
 	
@@ -29,11 +29,11 @@ public class Process {
 		this(cmd, null, "UTF8");
 	}
 	
-	public Process(@NotNull String[] cmd, String rep, @NotNull String encoding) {
+	public Process(@NotNull String[] cmd, String folder, @NotNull String encoding) {
 		this.processBuilder = new ProcessBuilder(cmd);
 		this.encoding = encoding;
-		if (rep != null && !rep.isEmpty())
-			this.processBuilder.directory(new File(rep));
+		if (folder != null && !folder.isEmpty())
+			this.processBuilder.directory(new File(folder));
 		this.process = null;
 	}
 	

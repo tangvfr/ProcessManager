@@ -36,5 +36,6 @@ function onAdd() {
             "required": false
         }
     ];
-    popMenuCommand.show(false, "Add New Process", list, "<targ=token></targ>", "add", "POST", "/command.tweb");
+    popMenuCommand.show(false, "Add New Process", list, token, "add", "POST", "/command.tweb"
+    , () => {this.sumbit();}, () => {popMenuCommand.hide();});
 }

@@ -5,13 +5,19 @@ class PopMenu {
         document.body.append(this.popMenu);
     }
 
-    show(info, title, list, token, nameCmd, method, action) {
+    show(noarg, title, list, token, nameCmd, method, action, functionok, functioncancel) {
         this.popMenu.className = "formpopmenu";
         let code = "";
-        if (info) {
-            this.popMenu.method = "";
-            this.popMenu.action = "";
-            code = `<div class="divpopmenu"><div class="fontpopmenu textpopmenu">`+list+`</div></div>`;
+        if (noarg) {
+            this.popMenu.method = method;
+            this.popMenu.action = action;
+            code = `
+                <input type="hidden" name="token" value="`+token+`">
+                <input type="hidden" name="link" value="`+document.URL+`">
+                <input type="hidden" name="namecmd" value="`+nameCmd+`">
+                <input type="hidden" name="name" value="`+list[0]+`">
+                <div class="titlepopmenu fontpopmenu">`+title+`</div>
+                <div class="divpopmenu"><div class="fontpopmenu textpopmenu">`+list[1]+`</div></div>`;
         }  else {
             this.popMenu.method = method;
             this.popMenu.action = action;
@@ -26,6 +32,9 @@ class PopMenu {
                     code += `<div class="divpopmenu"><label for="`+list[i]["name"]+`" class="fontpopmenu labelpopmenu">`+list[i]["label"]+`: </label>`;
                 }
                 code += `<input name="`+list[i]["name"]+`" type="`+list[i]["type"]+`" value="`+list[i]["value"]+`" class="inputpopmenu fontpopmenu"`;
+                if (list[i]["checked"] != undefined) {
+                    code += list[i]["checked"] ? " checked" : "";
+                }
                 if (list[i]["required"]) {
                     code += ` required>`;
                 } else {
@@ -46,21 +55,13 @@ class PopMenu {
         btnok.type = "submit";
         btnok.value = "Ok";
         div.append(btnok);
-        btnok.onclick = this.buttonOk;
+        btnok.onclick = functionok;
         let btnca = document.createElement("input");
         btnca.className = "cancelpopmenu fontpopmenu";
         btnca.type = "button";
         btnca.value = "Cancel";
         div.append(btnca);
-        btnca.onclick = this.buttonCancel;
-    }
-
-    buttonOk(obj, event) {
-        alert("Button OK pressed !");
-    }
-
-    buttonCancel(obj, event) {
-        alert("Button Cancel pressed !");
+        btnca.onclick = functioncancel;
     }
 
     hide() {
@@ -70,8 +71,8 @@ class PopMenu {
         this.popMenu.action = "";
     }
 
-    delete() {
-        this.popMenu.removeChild();
+    remove() {
+        this.popMenu.remove();
     }
 
 }

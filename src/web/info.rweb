@@ -11,6 +11,15 @@
         <script src="./js/onadd.js"></script>
         <script src="./js/onremove.js"></script>
         <script src="./js/onrename.js"></script>
+        <script src="./js/onlaunch.js"></script>
+        <script src="./js/onfolder.js"></script>
+        <script src="./js/oncmd.js"></script>
+        <script src="./js/onstopcmd.js"></script>
+        <script src="./js/onstop.js"></script>
+        <script src="./js/onrestart.js"></script>
+        <script src="./js/onstart.js"></script>
+        <script src="./js/onstopwc.js"></script>
+        <script src="./js/onrestartwc.js"></script>
     </head>
     <body>
         <header>
@@ -41,31 +50,31 @@
                 <div class="boxprocess">
                     <div class="headprocess <barg=started>headon,headoff,headfolder</barg>">
                         <span class="spanprocess">
-                            <span class="<barg=launch>on,off,</barg> noselect" name="<barg=name></barg>" onclick=""></span>
+                            <span class="<barg=launch>on,off,</barg> noselect" name="<barg=name></barg>" onclick="onLaunch(this);"></span>
                             <img alt="Rename" src="/img/rename.png" name="<barg=name></barg>" onclick="onRename(this);" class="iconright noselect">
                         </span>
                         <span class="title"><barg=name></barg></span>
                     </div>
                     <div class="contprocess">
                         <div class="divprocess">
-                            <img alt="Cmd" src="/img/cmd.png" name="<barg=name></barg>" class="iconleft noselect">
+                            <img alt="Cmd" src="/img/cmd.png" name="<barg=name></barg>" onclick="onCmd(this);" class="iconleft noselect">
                             <span class="spanprocess">
-                                <img alt="Stop" src="/img/stop.png" name="<barg=name></barg>" class="iconright noselect">
-                                <img alt="Restart" src="/img/restart.png" name="<barg=name></barg>" class="iconright noselect">
-                                <img alt="Start" src="/img/start.png" name="<barg=name></barg>" class="iconright noselect">
+                                <img alt="Stop" src="/img/stop.png" name="<barg=name></barg>" onclick="onStop(this);" class="iconright noselect">
+                                <img alt="Restart" src="/img/restart.png" name="<barg=name></barg>" onclick="onRestart(this);"  class="iconright noselect">
+                                <img alt="Start" src="/img/start.png" name="<barg=name></barg>" onclick="onStart(this);" class="iconright noselect">
                             </span>
                             <span class="cmd"><barg=cmd></barg></span>
                         </div>
                         <div class="divprocess">
-                            <img alt="CmdDown" src="/img/cmddown.png" name="<barg=name></barg>" class="iconleft noselect">
+                            <img alt="CmdDown" src="/img/cmddown.png" name="<barg=name></barg>" onclick="onStopCmd(this);" class="iconleft noselect">
                             <span class="spanprocess">
-                                <img alt="StopCmd" src="/img/stopcmd.png" name="<barg=name></barg>" class="iconright noselect">
-                                <img alt="RestartCmd" src="/img/restartcmd.png" name="<barg=name></barg>" class="iconright noselect">
+                                <img alt="StopCmd" src="/img/stopcmd.png" name="<barg=name></barg>" onclick="onStopWC(this);" class="iconright noselect">
+                                <img alt="RestartCmd" src="/img/restartcmd.png" name="<barg=name></barg>" onclick="onRestartWC(this);" class="iconright noselect">
                             </span>
                             <span class="stopcmd"><barg=stopcmd></barg></span>
                         </div>
                         <div class="divprocess">
-                            <img alt="Folder" src="/img/folder.png" name="<barg=name></barg>" class="iconleft noselect">
+                            <img alt="Folder" src="/img/folder.png" name="<barg=name></barg>" onclick="onFolder(this);" class="iconleft noselect">
                             <span class="spanprocess">
                                 <img alt="Remove" src="/img/remove.png" name="<barg=name></barg>" onclick="onRemove(this);" class="iconright noselect">
                             </span>
@@ -77,7 +86,7 @@
         </section>
         <nav id="menu">
             <div class="menuheadnumber">
-                <span>Total <targ=processnumber></targ> process</span>
+                <span>Process trouvé <targ=processfind></targ> sur un total de <targ=processnumber></targ> process</span>
             </div>
             <targ=processmenu>
                 <div ondblclick="goPage(<barg=page></barg>);">
@@ -101,6 +110,9 @@
                 </span>
             </span>
         </targ>
-        <script>var popMenuCommand = new PopMenu();</script>
+        <script>
+            var token = "<targ=token></targ>";
+            var popMenuCommand = new PopMenu();
+        </script>
     </body>
 </html>

@@ -40,7 +40,7 @@ public class info implements ClassPage {
 				listProcess.sort(new Comparator<ProcessPlus>() {
 					@Override
 					public int compare(ProcessPlus p1, ProcessPlus p2) {
-						return p1.getRep().compareTo(p2.getRep());
+						return p1.getFolder().compareTo(p2.getFolder());
 					}
 				});
 				break;
@@ -49,7 +49,7 @@ public class info implements ClassPage {
 				listProcess.sort(new Comparator<ProcessPlus>() {
 					@Override
 					public int compare(ProcessPlus p1, ProcessPlus p2) {
-						return p1.getRep().compareTo(p2.getRep());
+						return p1.getFolder().compareTo(p2.getFolder());
 					}
 				});
 				break;
@@ -136,12 +136,13 @@ public class info implements ClassPage {
 						String textProcessBox = "";
 						String textProcessMenu = "";
 						ProcessManager processManager = Main.processManagerServer.getProcessManager();
+						remplaceValue.put("processnumber", ""+processManager.getListProcess().size());
 						//filtre
 						@SuppressWarnings("unchecked")
 						Vector<ProcessPlus> listProcess = (Vector<ProcessPlus>) processManager.getListProcess().clone();
 						sortListNameContent(listProcess, data.get("search"));
 						sortListProcess(listProcess, data.get("sort"));
-						//---------------implement folder sort
+						//---------------implement folder sort---------------------------------------
 						//calc page
 						int processByPage = 4;
 						maxpage = (listProcess.size()+1)/processByPage;
@@ -152,7 +153,7 @@ public class info implements ClassPage {
 						}
 						remplaceValue.put("page", ""+page);
 						remplaceValue.put("maxpage", ""+maxpage);
-						remplaceValue.put("processnumber", ""+listProcess.size());
+						remplaceValue.put("processfind", ""+listProcess.size());
 						//calc process
 						for (int i = 0; i < listProcess.size(); i++) {
 							ProcessPlus process = listProcess.get(i);
@@ -164,7 +165,7 @@ public class info implements ClassPage {
 							value.put("name", process.getName());
 							value.put("cmd", process.getCmd());
 							value.put("stopcmd", process.getCmdStop());
-							value.put("folder", process.getRep());
+							value.put("folder", process.getFolder());
 							value.put("maxpage", ""+maxpage);
 							int thisPage = (i/processByPage)+1;
 							value.put("page", ""+thisPage);

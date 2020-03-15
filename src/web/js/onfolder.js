@@ -6,15 +6,17 @@ function onFolder(elem) {
             "type": "hidden",
             "value": "",
             "required": true
-        }, {
-            "name": "folder",
-            "label": "",
+        }, 
+        {
+            "name": "newfolder",
+            "label": "New Folder",
             "type": "text",
             "value": "",
             "required": false
         }
     ];
     list[0]["value"] = elem.name;
-    //get set folder actual
-    popMenuCommand.show(false, "Change Folder Process "+elem.name, list, "<targ=token></targ>", "folder", "POST", "/command.tweb");
+    list[1]["value"] = elem.nextElementSibling.nextElementSibling.innerText;
+    popMenuCommand.show(false, "Change Folder Process "+elem.name, list, token, "folder", "POST", "/command.tweb"
+    , () => {this.sumbit();}, () => {popMenuCommand.hide();});
 }

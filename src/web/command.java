@@ -10,7 +10,17 @@ import fr.tangv.web.util.PageRedirectSeeOther;
 import fr.tangv.web.util.PageResoucre;
 import fr.tangv.web.util.PageType;
 import web.commands.CommandAdd;
+import web.commands.CommandCmd;
+import web.commands.CommandFolder;
+import web.commands.CommandLaunch;
 import web.commands.CommandRemove;
+import web.commands.CommandRename;
+import web.commands.CommandRestart;
+import web.commands.CommandRestartWC;
+import web.commands.CommandStart;
+import web.commands.CommandStop;
+import web.commands.CommandStopCmd;
+import web.commands.CommandStopWC;
 
 public class command implements ClassPage {
 
@@ -42,6 +52,42 @@ public class command implements ClassPage {
 									new CommandRename(data.get("name"), data.get("newname"));
 									break;
 									
+								case "launch":
+									new CommandLaunch(data.get("name"), data.get("launch"));
+									break;
+
+								case "folder":
+									new CommandFolder(data.get("name"), data.get("newfolder"));
+									break;
+
+								case "cmd":
+									new CommandCmd(data.get("name"), data.get("newcmd"));
+									break;
+
+								case "stopcmd":
+									new CommandStopCmd(data.get("name"), data.get("newstopcmd"));
+									break;
+
+								case "stop":
+									new CommandStop(data.get("name"));
+									break;
+
+								case "restart":
+									new CommandRestart(data.get("name"));
+									break;
+
+								case "start":
+									new CommandStart(data.get("name"));
+									break;
+
+								case "stopwc":
+									new CommandStopWC(data.get("name"));
+									break;
+
+								case "restartwc":
+									new CommandRestartWC(data.get("name"));
+									break;
+									
 								default:
 									break;
 							}
@@ -57,7 +103,7 @@ public class command implements ClassPage {
 				return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_405_METHOD_NOT_ALLOWED);
 			}
 		} catch (Exception e) {
-			return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_500_INTERNAL_SERVER_ERROR);
+			return new Page(e.getMessage().getBytes(), PageType.OTHER, CodeHTTP.CODE_500_INTERNAL_SERVER_ERROR);
 		}
 	}
 

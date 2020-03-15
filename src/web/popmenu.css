@@ -19,6 +19,7 @@
     display: inline-block;
     background-color: #666;
     border: 2px #999 outset;
+    border-radius: 6px;
     margin: 0px;
     padding: 0px;
     width: 600px;
@@ -99,6 +100,7 @@
 
 .divpopmenu {
     display: block;
+    margin-top: 5px;
 }
 
 @media (max-width: 1024px) {

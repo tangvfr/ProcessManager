@@ -1,4 +1,4 @@
-function onRename(elem) {
+function onStopCmd(elem) {
     let list = [
         {
             "name": "name",
@@ -6,17 +6,17 @@ function onRename(elem) {
             "type": "hidden",
             "value": "",
             "required": true
-        },
+        }, 
         {
-            "name": "newname",
-            "label": "New Name",
+            "name": "newstopcmd",
+            "label": "New Stop Command",
             "type": "text",
             "value": "",
-            "required": true
+            "required": false
         }
     ];
     list[0]["value"] = elem.name;
-    list[1]["value"] = elem.name;
-    popMenuCommand.show(false, "Rename Process "+elem.name, list, token, "rename", "POST", "/command.tweb"
+    list[1]["value"] = elem.nextElementSibling.nextElementSibling.innerText;
+    popMenuCommand.show(false, "Change Stop Command Process "+elem.name, list, token, "stopcmd", "POST", "/command.tweb"
     , () => {this.sumbit();}, () => {popMenuCommand.hide();});
 }

@@ -7,21 +7,21 @@ public class ProcessPlus {
 	private volatile Process process;
 	private volatile boolean activeOnStart;
 	private volatile String encoding;
-	private volatile String rep;
+	private volatile String folder;
 	private volatile String cmd;
 	private volatile String name;
 	private volatile String consoleInput;
 	private volatile String consoleError;
 	private volatile String cmdStop;
 	
-	public ProcessPlus(String name, String cmd, String rep, String encoding, boolean activeOnStart, String cmdStop) throws IOException {
+	public ProcessPlus(String name, String cmd, String folder, String encoding, boolean activeOnStart, String cmdStop) throws IOException {
 		this.activeOnStart = activeOnStart;
 		this.name = name;
 		this.cmd = cmd;
-		this.rep = rep;
+		this.folder = folder;
 		this.encoding = encoding;
 		this.cmdStop = cmdStop;
-		this.process = new Process(cmd, rep, encoding);
+		this.process = new Process(cmd, folder, encoding);
 		this.consoleInput = "";
 		this.consoleError = "";
 	}
@@ -38,8 +38,8 @@ public class ProcessPlus {
 		return encoding;
 	}
 	
-	public String getRep() {
-		return rep;
+	public String getFolder() {
+		return folder;
 	}
 	
 	public String getCmd() {
@@ -62,8 +62,8 @@ public class ProcessPlus {
 		this.encoding = encoding;
 	}
 	
-	public void setRep(String rep) {
-		this.rep = rep;
+	public void setFolder(String folder) {
+		this.folder = folder;
 	}
 	
 	public void setCmd(String cmd) {
@@ -80,7 +80,7 @@ public class ProcessPlus {
 	
 	public void reload() {
 		process.stop();
-		process = new Process(cmd, rep, encoding);
+		process = new Process(cmd, folder, encoding);
 	}
 	
 	public void send(String msg) throws IOException {

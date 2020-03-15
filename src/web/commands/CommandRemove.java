@@ -10,6 +10,8 @@ public class CommandRemove {
 			ProcessManager pm = Main.processManagerServer.getProcessManager();
 			if (pm.hasProcess(name)) {
 				pm.removeProcess(name);
+			} else {
+				throw new Exception("CommandRemove: process "+name+" not exist");
 			}
 		} else {
 			throw new Exception("CommandRemove: name is empty");

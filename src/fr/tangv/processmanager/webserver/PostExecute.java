@@ -95,7 +95,7 @@ public class PostExecute implements RequetExecute {
 										cmd = args[1].split(" ", 2);
 										if (cmd.length == 2 && pmg.hasProcess(cmd[0])) {
 											ProcessPlus process = pmg.getProcess(cmd[0]);
-											process.setRep(cmd[1]);
+											process.setFolder(cmd[1]);
 											pmg.saveProcces(process.getName());
 										}
 										break;
