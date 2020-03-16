@@ -74,6 +74,7 @@ header {
     text-align: left;
     vertical-align: middle;
     overflow: hidden;
+    margin: 5px;
 }
 
 .spanprocess {
@@ -175,10 +176,15 @@ header {
     background: #222222;
     border: 2px #444 outset;
     margin: 0px;
-    padding: 5px;
+    padding: 0px;
+    padding-right: 5px;
     width: 100%;
     height: auto;
     overflow: visible;
+}
+
+.inheadprocess {
+    margin-top: 3px;
 }
 
 .noselect {

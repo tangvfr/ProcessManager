@@ -35,6 +35,9 @@ class PopMenu {
                 if (list[i]["checked"] != undefined) {
                     code += list[i]["checked"] ? " checked" : "";
                 }
+                if (list[i]["pattern"] != undefined) {
+                    code += " pattern=\""+list[i]["pattern"]+"\"";
+                }
                 if (list[i]["required"]) {
                     code += ` required>`;
                 } else {
@@ -62,6 +65,8 @@ class PopMenu {
         btnca.value = "Cancel";
         div.append(btnca);
         btnca.onclick = functioncancel;
+        let top = (document.body.clientHeight/2)-(this.popMenu.clientHeight/2);
+        this.popMenu.style = "top: "+Math.round(top)+";";
     }
 
     hide() {

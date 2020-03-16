@@ -88,6 +88,14 @@ public class command implements ClassPage {
 									new CommandRestartWC(data.get("name"));
 									break;
 									
+								case "cmdend":
+									new CommandCmdEnd(data.get("newcmdend"));
+									break;
+									
+								case "timerestart":
+									new CommandTimeRestart(data.get("time"), data.get("horaire"));
+									break;
+									
 								default:
 									break;
 							}

@@ -14,8 +14,6 @@
 .formpopmenu {
     position: fixed;
     left: calc(50% - 300px);
-    top: 50%;
-    transform: translateY(-50%);
     display: inline-block;
     background-color: #666;
     border: 2px #999 outset;

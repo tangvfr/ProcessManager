@@ -1,4 +1,4 @@
-function convertText(number, normal) {
+function convertText(number, normal, notsecond) {
     if (number == 0) return "∞";
     if (normal) {
         let date = new Date(number);
@@ -10,6 +10,9 @@ function convertText(number, normal) {
         let minutesI = Math.floor(time%3600);
         let minutes = Math.floor(minutesI/60);
         let secondes = Math.floor(minutesI%60);
-        return heures+":"+minutes+":"+secondes;
+        let h = heures <= 9 ? "0"+heures : heures;
+        let m = minutes <= 9 ? "0"+minutes : minutes;
+        let s = secondes <= 9 ? "0"+secondes : secondes;
+        return notsecond ? h+":"+m : h+":"+m+":"+s;
     }
 }

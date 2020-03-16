@@ -31,8 +31,6 @@ public class infoall implements ClassPage {
 					data = new PageData(receiveHTTP.getPathRequet().getData());
 				}
 				
-				PrintData.printData(receiveHTTP, data);
-				
 				if (data != null && data.containsKey("token")) {
 					Token token = auth.tokenValid(data.get("token"));
 					if (token != null) {
@@ -53,7 +51,6 @@ public class infoall implements ClassPage {
 			            remplaceValue.put("timestart", Main.timeStart+"");
 			            remplaceValue.put("timeisstart", Main.timeIsStart+"");
 			            remplaceValue.put("timerestart", Main.timeRestart+"");
-			            remplaceValue.put("daterestart", Main.dateRestart+"");
 			            remplaceValue.put("isstop", Main.processManagerServer.isStopNoForce()+"");
 			            //process number
 			            int processnumber = Main.processManagerServer.getProcessManager().getListProcess().size();

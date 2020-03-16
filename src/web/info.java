@@ -99,8 +99,6 @@ public class info implements ClassPage {
 					data = new PageData(receiveHTTP.getPathRequet().getData());
 				}
 				
-				PrintData.printData(receiveHTTP, data);
-				
 				if (data != null && data.containsKey("token")) {
 					Token token = auth.tokenValid(data.get("token"));
 					if (token != null) {

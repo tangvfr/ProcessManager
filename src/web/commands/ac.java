@@ -3,11 +3,6 @@ package web.commands;
 public class ac {
 		
 	public ac() {
-		case "timestopnoforce":
-			Main.timeStopNoForce = Long.parseLong(args[1]);
-			Main.dateRestart = Main.dateRestart(-Main.timeStopNoForce).getTime();
-			Main.saveData();
-			break;
 		case "stopnoforceserver":
 			webServer.getProcessManagerServer().stopNoForce(true);
 			break;
@@ -19,10 +14,6 @@ public class ac {
 			break;
 		case "stopserver":
 			webServer.getProcessManagerServer().stop();
-			break;
-		case "cmdend":
-			Main.cmdEnd = args[1];
-			Main.saveData();
 			break;
 		case "send":
 			cmd = args[1].split(" ", 2);
