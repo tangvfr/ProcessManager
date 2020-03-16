@@ -5,16 +5,14 @@
         <title>Echec Connect ProcessManager</title>
     </head>
     <body>
-        <div id="borderback" class="borderback">
-            <div class="titleindex">Echec Connect ProcessManager</div>
-            <div class="titleindex">Invalid password or user !</div>
-            <br>
-            <button class="textinputback" onclick="window.location = '/'">Back</button>
+        <div id="border" class="borderindex">
+            <div class="titleindex">Your token has expired</div>
+            <input class="textinputindex" type="submit" value="Back" style="background: #777;" accesskey=13>
         </div>
-
         <script>
-            let borderback = document.getElementById("borderback");
-            borderback.style = "left: calc(50% - "+(borderback.offsetWidth/2)+"px); top: calc(50% - "+(borderback.offsetHeight/2)+"px);";
+            let border = document.getElementById("border");
+            border.style = "left: calc(50% - "+(border.offsetWidth/2)+"px); top: calc(50% - "+(border.offsetHeight/2)+"px);";
         </script>
     </body>
+</html>
 </html>
