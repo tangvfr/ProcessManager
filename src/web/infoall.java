@@ -45,6 +45,7 @@ public class infoall implements ClassPage {
 						//general
 						remplaceValue.put("version", decodingUTF8(Main.version));
 						remplaceValue.put("token", token.toString());
+						remplaceValue.put("link", data.get("link"));
 						//data
 						remplaceValue.put("cmdend", Main.cmdEnd);
 						remplaceValue.put("timestopnoforce", Main.timeStopNoForce+"");

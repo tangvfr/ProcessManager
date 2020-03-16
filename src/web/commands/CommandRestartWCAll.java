@@ -12,11 +12,14 @@ public class CommandRestartWCAll {
 				Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-						try {
 							ProcessManager pm = Main.processManagerServer.getProcessManager();
 							for (ProcessPlus process : pm.getListProcess()) {
 								if (!process.getCmdStop().isEmpty()) {
-									process.getProcess().send(process.getCmdStop());
+									try {
+										process.getProcess().send(process.getCmdStop());
+									} catch (Exception e) {
+										ProcessManagerServer.logger.warning(e.getMessage());
+									}
 								} else {
 									process.getProcess().stop();
 								}		
@@ -24,7 +27,11 @@ public class CommandRestartWCAll {
 							boolean boucle = false;
 							do {
 								boucle = false;
-								Thread.sleep(100);
+								try {
+									Thread.sleep(100);
+								} catch (Exception e) {
+									ProcessManagerServer.logger.warning(e.getMessage());
+								}
 								for (ProcessPlus process : pm.getListProcess()) {
 									if (process.getProcess().isStart()) {
 										boucle = true;
@@ -33,14 +40,19 @@ public class CommandRestartWCAll {
 								}
 							} while(boucle);
 							for (ProcessPlus process : pm.getListProcess()) {
-								process.reload();			
+								try {
+									process.reload();	
+								} catch (Exception e) {
+									ProcessManagerServer.logger.warning(e.getMessage());
+								}
 							}
 							for (ProcessPlus process : pm.getListProcess()) {
-								process.getProcess().start();
+								try {
+									process.getProcess().start();
+								} catch (Exception e) {
+									ProcessManagerServer.logger.warning(e.getMessage());
+								}
 							}
-						} catch (Exception e) {
-							ProcessManagerServer.logger.warning(e.getMessage());
-						}
 					}
 				});
 				thread.start();

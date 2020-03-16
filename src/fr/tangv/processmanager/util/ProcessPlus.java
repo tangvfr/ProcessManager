@@ -78,9 +78,12 @@ public class ProcessPlus {
 		this.name = name;
 	}
 	
-	public void reload() {
-		process.stop();
-		process = new Process(cmd, folder, encoding);
+	public void reload() throws Exception {
+		if (!process.isStart()) {
+			process = new Process(cmd, folder, encoding);
+		} else {
+			throw new Exception("reload impossible process "+name);
+		}
 	}
 	
 	public void send(String msg) throws IOException {

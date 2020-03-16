@@ -22,7 +22,7 @@
     </head>
     <body>
         <header>
-            <img alt="Back" src="/img/back.png" class="headiconleft noselect" onclick="window.history.go(-1);">
+            <img alt="Back" src="/img/back.png" class="headiconleft noselect" onclick="window.location = `<targ=link></targ>`;">
             <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
             <span id="title">Info ProcessManager <targ=version></targ></span>
             <img alt="RestartTime" src="/img/time.png" onclick="onChangeTimeRestart(this);" class="headiconright noselect">
