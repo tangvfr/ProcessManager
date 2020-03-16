@@ -70,7 +70,7 @@ public class auth implements ClassPage {
 					Token token = newToken(user);
 					return new PageRedirectSeeOther("/info.tweb?token="+token.getUUID());
 				} else {
-					return new PageRedirectSeeOther("/invalide.html");
+					return new PageRedirectSeeOther("/invalidepwd.html");
 				}
 			} else {
 				return new PageRedirectSeeOther("/");
