@@ -5,6 +5,7 @@ pause>nul
 echo Fichiers entrain d'etre copier !
 XCOPY /S /Y ".\src\web\*.rweb" ".\bin\web\"
 XCOPY /S /Y ".\src\web\*.html" ".\bin\web\"
+XCOPY /S /Y ".\src\web\*.png" ".\bin\web\"
 XCOPY /S /Y ".\src\web\*.css" ".\bin\web\"
 XCOPY /S /Y ".\src\web\*.js" ".\bin\web\"
 echo Fichiers copier !

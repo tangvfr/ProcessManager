@@ -51,13 +51,13 @@ class PopMenu {
         div.className = "divpopmenu";
         this.popMenu.append(div);
         let btnok = document.createElement("input");
-        btnok.className = "okpopmenu fontpopmenu";
+        btnok.className = "btnpmright btnpmcolorgreen fontpopmenu";
         btnok.type = "submit";
         btnok.value = "Ok";
         div.append(btnok);
         btnok.onclick = functionok;
         let btnca = document.createElement("input");
-        btnca.className = "cancelpopmenu fontpopmenu";
+        btnca.className = "btnpmleft btnpmcolorred fontpopmenu";
         btnca.type = "button";
         btnca.value = "Cancel";
         div.append(btnca);

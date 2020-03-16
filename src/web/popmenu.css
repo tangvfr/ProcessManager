@@ -41,7 +41,7 @@
     text-align: center;
 }
 
-.okpopmenu, .cancelpopmenu {
+.btnpmright, .btnpmleft, .btnpmnone {
     display: inline-block;
     padding: 3px;
     margin: 3px;
@@ -51,15 +51,25 @@
     border-bottom: 2px #333 solid;
 }
 
-.okpopmenu {
+.btnpmright {
     float: right;
+}
+
+.btnpmleft {
+    float: left;
+}
+
+.btnpmnone {
+    float: none;
+}
+
+.btnpmcolorgreen {
     background: #007700;
     border: none;
     border-bottom: 2px #030 solid;
 }
 
-.cancelpopmenu {
-    float: left;
+.btnpmcolorred {
     background: #770000;
     border: none;
     border-bottom: 2px #300 solid;

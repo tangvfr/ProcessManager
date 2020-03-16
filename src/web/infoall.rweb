@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="UTF-8"> 
+        <link href="/infoall.css" rel="stylesheet" type="text/css">
+        <link href="/popmenu.css" rel="stylesheet" type="text/css">
+        <title>Info ProcessManager <targ=version></targ></title>
+        <script src="./js/popmenu.js"></script>
+        <script src="./js/convertdate.js"></script>
+    </head>
+    <body>
+        <header>
+            <img alt="Back" src="/img/back.png" class="headiconleft noselect" onclick="window.history.go(-1);">
+            <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
+            <span id="title">Info ProcessManager <targ=version></targ></span>
+        </header>
+        <div id="contall">
+            <div class="boxprocess">
+                <div class="headprocess headinfo">
+                    <span class="title">Info</span>
+                </div>
+                <div class="contprocess" id="content"></div>
+            </div>
+            <div class="boxprocess">
+                <div class="headprocess headall">
+                    <span class="title">For All Process</span>
+                </div>
+                <div class="contprocess">
+                    <div class="divprocess">
+                        <img alt="Cmd" src="/img/cmd.png" name="<barg=name></barg>" onclick="onAllCmd(this);" class="iconleft noselect">
+                        <span class="spanprocess">
+                            <img alt="Stop" src="/img/stop.png" name="<barg=name></barg>" onclick="onAllStop(this);" class="iconright noselect">
+                            <img alt="Restart" src="/img/restart.png" name="<barg=name></barg>" onclick="onAllRestart(this);"  class="iconright noselect">
+                            <img alt="Start" src="/img/start.png" name="<barg=name></barg>" onclick="onAllStart(this);" class="iconright noselect">
+                        </span>
+                    </div>
+                    <div class="divprocess">
+                        <img alt="CmdDown" src="/img/cmddown.png" name="<barg=name></barg>" onclick="onAllStopCmd(this);" class="iconleft noselect">
+                        <span class="spanprocess">
+                            <img alt="StopCmd" src="/img/stopcmd.png" name="<barg=name></barg>" onclick="onAllStopWC(this);" class="iconright noselect">
+                            <img alt="RestartCmd" src="/img/restartcmd.png" name="<barg=name></barg>" onclick="onAllRestartWC(this);" class="iconright noselect">
+                        </span>
+                    </div>
+                    <div class="divprocess">
+                        <img alt="Folder" src="/img/folder.png" name="<barg=name></barg>" onclick="onAllFolder(this);" class="iconleft noselect">
+                        <span class="spanprocess">
+                            <img alt="Remove" src="/img/remove.png" name="<barg=name></barg>" onclick="onAllRemove(this);" class="iconright noselect">
+                            <div class="on iconright noselect" onclick="onAllLaunch(this);"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <targ=update>
+            <span id="update">
+                <button class="btnclose noselect" onclick="document.getElementById('update').remove();"></button>
+                <span style="text-decoration: underline;">
+                    <barg=text></barg>
+                </span>
+            </span>
+        </targ>
+        <script>
+            var token = "<targ=token></targ>";
+            var popMenuCommand = new PopMenu();
+
+            var timestop = <targ=timestopnoforce></targ>;
+            var timestopnoforce = (timestop < 0 ? "Horaire " : (timestop > 0 ? "Crono " : "Aucun "))+convertText(timestop, false)
+            var timestart = convertText(<targ=timestart></targ>, true);
+            var timeisstart = convertText(<targ=timeisstart></targ>, false);
+            var timerestar = convertText(<targ=timerestart></targ>, false);
+            var daterestart = convertText(<targ=daterestart></targ>, true);
+            var isstop = (<targ=isstop></targ> ? "Oui" : "Non");
+            var cmdend = "<targ=cmdend></targ>";
+            var processnb = <targ=processnumber></targ>;
+            var processon = <targ=processnumberon></targ>;
+            var processoff = <targ=processnumberoff></targ>;
+            var processdem = <targ=processnumberdem></targ>;
+            var processnodem = <targ=processnumbernodem></targ>;
+
+            let nameClass = "divprocesstext";
+            let styleDivText = "color: #dd2;";
+            let styleDivPoint = "color: #222;";
+            let styleDivValue = "color: #2d2;";
+            let content = document.getElementById("content");
+            
+            function addDivLigne(text, value) {
+                let div = document.createElement("div");
+                div.className = nameClass;
+                div.innerHTML = "<span style=\""+styleDivText+"\">"+text+" </span><span style=\""+styleDivPoint+"\">: </span><span style=\""+styleDivValue+"\">"+value+"</span>";
+                content.append(div);
+            }
+
+            addDivLigne("Date de démarage", timestart);
+            addDivLigne("Combien de temps qu'il est démaré", timeisstart);
+            addDivLigne("Temps avant redémarage", timerestar);
+            if (timerestar != "∞") {
+                addDivLigne("Date du prochain redémarage", daterestart);
+            }
+            addDivLigne("Temps du prochain rémarage", timestopnoforce);
+            addDivLigne("En cours d'arrêt", isstop);
+            addDivLigne("Commande de restart", cmdend);
+            addDivLigne("Nombre de process", processnb);
+            addDivLigne("Nombre de process actif", processon);
+            addDivLigne("Nombre de process inactif", processoff);
+            addDivLigne("Nombre de process au démarage", processdem);
+            addDivLigne("Nombre de process qui démare pas au démarage", processnodem);
+            
+            /*<div class="infomenubtnch" onclick="changeTime();">Change Time Restart</div>
+            <div class="infomenubtnchrs" onclick="changeCmdEnd();">Change Command Restart</div>*/
+        </script>
+    </body>
+</html>
+
+<!--
+
+openPopMenu("Time Restart", "Entrée le temps avant le redémarage automatique (0 = ∞)", 1, [
+            {
+                'label': 'Heures',
+                'name': 'heur',
+                'type': 'number'
+            },
+            {
+                'label': 'Minutes',
+                'name': 'min',
+                'type': 'number'
+            },
+            {
+                'label': 'Secondes',
+                'name': 'sec',
+                'type': 'number'
+            },
+            {
+                'label': 'Horaire',
+                'name': 'horaire',
+                'type': 'checkbox'
+            }
+        ], (result) => {
+        	if (result["heur"] != "" && result["min"] != "" && result["sec"] != "" && result["horaire"] != "") {
+        		let input = (parseInt(result["heur"])*3600+parseInt(result["min"])*60+parseInt(result["sec"]))*1000;
+        		if (result["horaire"] == "true") {
+        			input = -input;
+        		}
+        		btnRequet("timestopnoforce "+input, false);
+        	}
+        });
+
+/*
+            cmdend", Main.cmdEnd)
+            timestopnoforce", Main.timeStopNoForce+"")
+            timestart", Main.timeStart+"")
+            timeisstart", Main.timeIsStart+"")
+            timerestart", Main.timeRestart+"")
+            daterestart", Main.dateRestart+"")
+            isstop", web.getProcessManagerServer().isStopNoForce()+"")
+                
+*/-->

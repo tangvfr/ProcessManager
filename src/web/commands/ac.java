@@ -6,7 +6,7 @@ public class ac {
 		case "timestopnoforce":
 			Main.timeStopNoForce = Long.parseLong(args[1]);
 			Main.dateRestart = Main.dateRestart(-Main.timeStopNoForce).getTime();
-			Main.saveData();//remake auto restart
+			Main.saveData();
 			break;
 		case "stopnoforceserver":
 			webServer.getProcessManagerServer().stopNoForce(true);
