@@ -12,3 +12,9 @@ function onRemove(elem) {
     popMenuCommand.show(false, "Remove Process "+elem.name, list, token, "remove", "POST", "/command.tweb"
     , () => {this.sumbit();}, () => {popMenuCommand.hide();});
 }
+
+function onRemoveAll(elem) {
+    let list = ["", ""];
+    popMenuCommand.show(false, "Remove All Process", list, token, "removeall", "POST", "/command.tweb"
+    , () => {this.sumbit();}, () => {popMenuCommand.hide();});
+}

@@ -73,6 +73,18 @@
     border-bottom: 2px #300 solid;
 }
 
+.btnpmcolorlgreen {
+    background: #4C4;
+    border: none;
+    border-bottom: 2px #282 solid;
+}
+
+.btnpmcolorlred {
+    background: #C44;
+    border: none;
+    border-bottom: 2px #822 solid;
+}
+
 .inputpopmenu ::placeholder {
     background: #777;
     border: 2px #474747 solid;

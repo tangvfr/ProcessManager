@@ -20,3 +20,18 @@ function onStopCmd(elem) {
     popMenuCommand.show(false, "Change Stop Command Process "+elem.name, list, token, "stopcmd", "POST", "/command.tweb"
     , () => {this.sumbit();}, () => {popMenuCommand.hide();});
 }
+
+function onStopCmdAll(elem) {
+    let list = [
+        {
+            "name": "newstopcmd",
+            "label": "New Stop Command",
+            "type": "text",
+            "value": "",
+            "required": false
+        }
+    ];
+    popMenuCommand.show(false, "Change Stop Command All Process", list, token, "stopcmdall", "POST", "/command.tweb"
+    , () => {this.sumbit();}, () => {popMenuCommand.hide();});
+}
+

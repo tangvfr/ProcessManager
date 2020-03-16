@@ -20,3 +20,17 @@ function onCmd(elem) {
     popMenuCommand.show(false, "Change Command Process "+elem.name, list, token, "cmd", "POST", "/command.tweb"
     , () => {this.sumbit();}, () => {popMenuCommand.hide();});
 }
+
+function onCmdAll(elem) {
+    let list = [
+        {
+            "name": "newcmd",
+            "label": "New Command",
+            "type": "text",
+            "value": "",
+            "required": false
+        }
+    ];
+    popMenuCommand.show(false, "Change Command All Process", list, token, "cmdall", "POST", "/command.tweb"
+    , () => {this.sumbit();}, () => {popMenuCommand.hide();});
+}

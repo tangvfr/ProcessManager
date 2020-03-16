@@ -13,23 +13,25 @@ public class CommandRestartWC {
 			if (pm.hasProcess(name)) {
 				if (!Main.processManagerServer.isStopNoForce()) {
 					ProcessPlus process = pm.getProcess(name);
-					if (!process.getCmdStop().isEmpty()) {
-						Thread thread = new Thread(new Runnable() {
-							@Override
-							public void run() {
-								try {
+					Thread thread = new Thread(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								if (!process.getCmdStop().isEmpty()) {
 									process.getProcess().send(process.getCmdStop());
-									while (process.getProcess().isStart())
-										Thread.sleep(100);
-									process.reload();
-									process.getProcess().start();
-								} catch (Exception e) {
-									ProcessManagerServer.logger.warning(e.getMessage());
+								} else {
+									process.getProcess().stop();
 								}
+								while (process.getProcess().isStart())
+									Thread.sleep(100);
+								process.reload();
+								process.getProcess().start();
+							} catch (Exception e) {
+								ProcessManagerServer.logger.warning(e.getMessage());
 							}
-						});
-						thread.start();
-					}
+						}
+					});
+					thread.start();
 				} else {
 					throw new Exception("CommandRestartWC: the server is being stopped");
 				}

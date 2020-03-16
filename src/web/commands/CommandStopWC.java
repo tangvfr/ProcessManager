@@ -13,6 +13,8 @@ public class CommandStopWC {
 				ProcessPlus process = pm.getProcess(name);
 				if (!process.getCmdStop().isEmpty()) {
 					process.getProcess().send(process.getCmdStop());
+				} else {
+					process.getProcess().stop();
 				}
 			} else {
 				throw new Exception("CommandStopWC: process "+name+" not exist");

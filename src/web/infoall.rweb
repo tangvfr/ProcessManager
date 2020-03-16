@@ -8,6 +8,17 @@
         <script src="./js/convertdate.js"></script>
         <script src="./js/oncmdend.js"></script>
         <script src="./js/onchangetimerestart.js"></script>
+        <script src="./js/onremove.js"></script>
+        <script src="./js/onlaunch.js"></script>
+        <script src="./js/onfolder.js"></script>
+        <script src="./js/oncmd.js"></script>
+        <script src="./js/onstopcmd.js"></script>
+        <script src="./js/onstop.js"></script>
+        <script src="./js/onrestart.js"></script>
+        <script src="./js/onstart.js"></script>
+        <script src="./js/onstopwc.js"></script>
+        <script src="./js/onrestartwc.js"></script>
+        <script src="./js/onstopoptions.js"></script>
     </head>
     <body>
         <header>
@@ -30,26 +41,41 @@
                 </div>
                 <div class="contprocess">
                     <div class="divprocess">
-                        <img alt="Cmd" src="/img/cmd.png" onclick="onAllCmd(this);" class="iconleft noselect">
+                        <img alt="Cmd" src="/img/cmd.png" onclick="onCmdAll(this);" class="iconleft noselect">
                         <span class="spanprocess">
-                            <img alt="Stop" src="/img/stop.png" onclick="onAllStop(this);" class="iconright noselect">
-                            <img alt="Restart" src="/img/restart.png" onclick="onAllRestart(this);"  class="iconright noselect">
-                            <img alt="Start" src="/img/start.png" onclick="onAllStart(this);" class="iconright noselect">
+                            <img alt="Stop" src="/img/stop.png" onclick="onStopAll(this);" class="iconright noselect">
+                            <img alt="Restart" src="/img/restart.png" onclick="onRestartAll(this);"  class="iconright noselect">
+                            <img alt="Start" src="/img/start.png" onclick="onStartAll(this);" class="iconright noselect">
                         </span>
                     </div>
                     <div class="divprocess">
-                        <img alt="CmdDown" src="/img/cmddown.png" onclick="onAllStopCmd(this);" class="iconleft noselect">
+                        <img alt="CmdDown" src="/img/cmddown.png" onclick="onStopCmdAll(this);" class="iconleft noselect">
                         <span class="spanprocess">
-                            <img alt="StopCmd" src="/img/stopcmd.png" onclick="onAllStopWC(this);" class="iconright noselect">
-                            <img alt="RestartCmd" src="/img/restartcmd.png" onclick="onAllRestartWC(this);" class="iconright noselect">
+                            <img alt="StopCmd" src="/img/stopcmd.png" onclick="onStopWCAll(this);" class="iconright noselect">
+                            <img alt="RestartCmd" src="/img/restartcmd.png" onclick="onRestartWCAll(this);" class="iconright noselect">
                         </span>
                     </div>
                     <div class="divprocess">
-                        <img alt="Folder" src="/img/folder.png" onclick="onAllFolder(this);" class="iconleft noselect">
+                        <img alt="Folder" src="/img/folder.png" onclick="onFolderAll(this);" class="iconleft noselect">
                         <span class="spanprocess">
-                            <img alt="Remove" src="/img/remove.png" onclick="onAllRemove(this);" class="iconright noselect">
-                            <div class="on iconright noselect" onclick="onAllLaunch(this);"></div>
+                            <img alt="Remove" src="/img/remove.png" onclick="onRemoveAll(this);" class="iconright noselect">
+                            <div class="on iconright noselect" onclick="onLaunchAll(this);"></div>
                         </span>
+                    </div>
+                </div>
+            </div>
+            <div class="boxprocess">
+                <div class="headprocess headstop">
+                    <span class="title">Stop Options</span>
+                </div>
+                <div class="contprocess" id="content">
+                    <div class="divprocess">
+                        <button class="btnpmleft btnpmcolorlred fontpopmenu" onclick="onStopForceNoScript();">StopForceNoScript</button>
+                        <button class="btnpmleft btnpmcolorlred fontpopmenu" onclick="onStopForceWithScript();">StopForceWithScript</button>
+                    </div>
+                    <div class="divprocess">
+                        <button class="btnpmleft btnpmcolorlred fontpopmenu" onclick="onStopNoForceNoScript();">StopNoForceNoScript</button>
+                        <button class="btnpmright btnpmcolorlgreen fontpopmenu" onclick="onStopNoForceWithScript();">StopNoForceWithScript</button>
                     </div>
                 </div>
             </div>
@@ -107,47 +133,3 @@
         </script>
     </body>
 </html>
-
-<!--
-
-openPopMenu("Time Restart", "Entrée le temps avant le redémarage automatique (0 = ∞)", 1, [
-            {
-                'label': 'Heures',
-                'name': 'heur',
-                'type': 'number'
-            },
-            {
-                'label': 'Minutes',
-                'name': 'min',
-                'type': 'number'
-            },
-            {
-                'label': 'Secondes',
-                'name': 'sec',
-                'type': 'number'
-            },
-            {
-                'label': 'Horaire',
-                'name': 'horaire',
-                'type': 'checkbox'
-            }
-        ], (result) => {
-        	if (result["heur"] != "" && result["min"] != "" && result["sec"] != "" && result["horaire"] != "") {
-        		let input = (parseInt(result["heur"])*3600+parseInt(result["min"])*60+parseInt(result["sec"]))*1000;
-        		if (result["horaire"] == "true") {
-        			input = -input;
-        		}
-        		btnRequet("timestopnoforce "+input, false);
-        	}
-        });
-
-/*
-            cmdend", Main.cmdEnd)
-            timestopnoforce", Main.timeStopNoForce+"")
-            timestart", Main.timeStart+"")
-            timeisstart", Main.timeIsStart+"")
-            timerestart", Main.timeRestart+"")
-            daterestart", Main.dateRestart+"")
-            isstop", web.getProcessManagerServer().isStopNoForce()+"")
-                
-*/-->

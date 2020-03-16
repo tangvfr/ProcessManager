@@ -3,19 +3,7 @@ package web.commands;
 public class ac {
 		
 	public ac() {
-		case "stopnoforceserver":
-			webServer.getProcessManagerServer().stopNoForce(true);
-			break;
-		case "stopnoforcenoscriptserver":
-			webServer.getProcessManagerServer().stopNoForce(false);
-			break;
-		case "stopscriptserver":
-			webServer.getProcessManagerServer().stopScript();
-			break;
-		case "stopserver":
-			webServer.getProcessManagerServer().stop();
-			break;
-		case "send":
+		//case "send":
 			cmd = args[1].split(" ", 2);
 			if (cmd.length == 2 && pmg.hasProcess(cmd[0])) {
 				ProcessPlus process = pmg.getProcess(cmd[0]);
@@ -24,7 +12,7 @@ public class ac {
 			} else {
 				return;
 			}
-		case "read":
+		//case "read":
 			if (pmg.hasProcess(args[1])) {
 				ProcessPlus process = pmg.getProcess(args[1]);
 				String console = '@'+process.readInput(100);
@@ -34,5 +22,5 @@ public class ac {
 				return;
 			}
 	}
-	
+			
 }

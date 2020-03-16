@@ -20,3 +20,17 @@ function onFolder(elem) {
     popMenuCommand.show(false, "Change Folder Process "+elem.name, list, token, "folder", "POST", "/command.tweb"
     , () => {this.sumbit();}, () => {popMenuCommand.hide();});
 }
+
+function onFolderAll(elem) {
+    let list = [
+        {
+            "name": "newfolder",
+            "label": "New Folder",
+            "type": "text",
+            "value": "",
+            "required": false
+        }
+    ];
+    popMenuCommand.show(false, "Change Folder All Process", list, token, "folderall", "POST", "/command.tweb"
+    , () => {this.sumbit();}, () => {popMenuCommand.hide();});
+}

@@ -1,5 +1,6 @@
 package web;
 
+import fr.tangv.processmanager.Main;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
 import fr.tangv.web.util.ClassPage;
@@ -11,16 +12,26 @@ import fr.tangv.web.util.PageResoucre;
 import fr.tangv.web.util.PageType;
 import web.commands.CommandAdd;
 import web.commands.CommandCmd;
+import web.commands.CommandCmdAll;
 import web.commands.CommandFolder;
+import web.commands.CommandFolderAll;
 import web.commands.CommandLaunch;
+import web.commands.CommandLaunchAll;
 import web.commands.CommandRemove;
+import web.commands.CommandRemoveAll;
 import web.commands.CommandRename;
 import web.commands.CommandRestart;
+import web.commands.CommandRestartAll;
 import web.commands.CommandRestartWC;
+import web.commands.CommandRestartWCAll;
 import web.commands.CommandStart;
+import web.commands.CommandStartAll;
 import web.commands.CommandStop;
+import web.commands.CommandStopAll;
 import web.commands.CommandStopCmd;
+import web.commands.CommandStopCmdAll;
 import web.commands.CommandStopWC;
+import web.commands.CommandStopWCAll;
 
 public class command implements ClassPage {
 
@@ -94,6 +105,62 @@ public class command implements ClassPage {
 									
 								case "timerestart":
 									new CommandTimeRestart(data.get("time"), data.get("horaire"));
+									break;
+									
+								case "stopforcenoscript":
+									Main.processManagerServer.stop();
+									break;
+										
+								case "stopforcewithscript":
+									Main.processManagerServer.stopScript();
+									break;
+									
+								case "stopnoforcenoscript":
+									Main.processManagerServer.stopNoForce(false);
+									break;
+									
+								case "stopnoforcewithscript":
+									Main.processManagerServer.stopNoForce(true);
+									break;
+									
+								case "removeall":
+									new CommandRemoveAll();
+									break;
+									
+								case "launchall":
+									new CommandLaunchAll(data.get("launch"));
+									break;
+
+								case "folderall":
+									new CommandFolderAll(data.get("newfolder"));
+									break;
+
+								case "cmdall":
+									new CommandCmdAll(data.get("newcmd"));
+									break;
+
+								case "stopcmdall":
+									new CommandStopCmdAll(data.get("newstopcmd"));
+									break;
+
+								case "stopall":
+									new CommandStopAll();
+									break;
+
+								case "restartall":
+									new CommandRestartAll();
+									break;
+
+								case "startall":
+									new CommandStartAll();
+									break;
+
+								case "stopwcall":
+									new CommandStopWCAll();
+									break;
+
+								case "restartwcall":
+									new CommandRestartWCAll();
 									break;
 									
 								default:

@@ -225,6 +225,11 @@ header {
     border: 2px #33D outset;
 }
 
+.headstop {
+    background: #3bb;
+    border: 2px #3DD outset;
+}
+
 .off,.on {
     position: relative;
     display: block;
