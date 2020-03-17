@@ -64,7 +64,7 @@ public class Process {
 	
 	public boolean send(String string) throws IOException {
 		if (isStart()) {
-			process.getOutputStream().write((string+'\n').getBytes(encoding));
+			process.getOutputStream().write((string+"\r\n").getBytes(encoding));
 			process.getOutputStream().flush();
 			return true;
 		}
