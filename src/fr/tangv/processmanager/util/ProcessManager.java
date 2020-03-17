@@ -11,7 +11,7 @@ import fr.tangv.processmanager.ProcessManagerServer;
 
 public class ProcessManager {
 
-	private Vector<ProcessPlus> listProcess;
+	private volatile Vector<ProcessPlus> listProcess;
 	private File folder;
 	
 	public Vector<ProcessPlus> getListProcess() {
@@ -79,7 +79,7 @@ public class ProcessManager {
 				DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
 				out.writeUTF(process.getName());
 				out.writeUTF(process.getCmd());
-				out.writeUTF(process.getRep());
+				out.writeUTF(process.getFolder());
 				out.writeUTF(process.getEncoding());
 				out.writeUTF(""+process.isActiveOnStart());
 				out.writeUTF(process.getCmdStop());
@@ -107,7 +107,7 @@ public class ProcessManager {
 				} else {
 					ProcessPlus process = getProcess(name);
 					process.setCmd(cmd);
-					process.setRep(rep);
+					process.setFolder(rep);
 					process.setEncoding(encoding);
 					process.setActiveOnStart(active);
 				}
@@ -135,7 +135,7 @@ public class ProcessManager {
 				} else {
 					ProcessPlus process = getProcess(name);
 					process.setCmd(cmd);
-					process.setRep(rep);
+					process.setFolder(rep);
 					process.setEncoding(encoding);
 					process.setActiveOnStart(active);
 				}

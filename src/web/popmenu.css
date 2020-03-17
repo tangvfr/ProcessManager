@@ -1,0 +1,128 @@
+.fontpopmenu {
+    color: #FFF;
+    font-weight: normal;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    word-wrap: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-touch-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.formpopmenu {
+    position: fixed;
+    left: calc(50% - 300px);
+    display: inline-block;
+    background-color: #666;
+    border: 2px #999 outset;
+    border-radius: 6px;
+    margin: 0px;
+    padding: 0px;
+    width: 600px;
+    height: auto;
+}
+
+.titlepopmenu {
+    display: block;
+    color: #FFF;
+    font-weight: normal;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    word-wrap: break-word;
+    border-bottom: 2px #999 outset;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: center;
+}
+
+.btnpmright, .btnpmleft, .btnpmnone {
+    display: inline-block;
+    padding: 3px;
+    margin: 3px;
+    margin-top: 0px;
+    background: #777777;
+    border: none;
+    border-bottom: 2px #333 solid;
+}
+
+.btnpmright {
+    float: right;
+}
+
+.btnpmleft {
+    float: left;
+}
+
+.btnpmnone {
+    float: none;
+}
+
+.btnpmcolorgreen {
+    background: #007700;
+    border: none;
+    border-bottom: 2px #030 solid;
+}
+
+.btnpmcolorred {
+    background: #770000;
+    border: none;
+    border-bottom: 2px #300 solid;
+}
+
+.btnpmcolorlgreen {
+    background: #4C4;
+    border: none;
+    border-bottom: 2px #282 solid;
+}
+
+.btnpmcolorlred {
+    background: #C44;
+    border: none;
+    border-bottom: 2px #822 solid;
+}
+
+.inputpopmenu ::placeholder {
+    background: #777;
+    border: 2px #474747 solid;
+}
+
+.inputpopmenu {
+    display: inline-block;
+    background: #777;
+    border: 1px #474747 solid;
+    height: 24px;
+    width: 390px;
+    padding-left: 3px;
+    padding-right: 3px;
+    box-sizing: border-box;
+}
+
+.labelpopmenu {
+    display: inline-block;
+    width: 200px;
+    text-align: right;
+}
+
+.textpopmenu {
+    display: block;
+    width: 590px;
+    text-align: justify;
+    overflow: hidden;
+    word-wrap: break-word;
+    margin: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.divpopmenu {
+    display: block;
+    margin-top: 5px;
+}
+
+@media (max-width: 1024px) {
+    
+}

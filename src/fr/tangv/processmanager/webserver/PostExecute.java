@@ -95,7 +95,7 @@ public class PostExecute implements RequetExecute {
 										cmd = args[1].split(" ", 2);
 										if (cmd.length == 2 && pmg.hasProcess(cmd[0])) {
 											ProcessPlus process = pmg.getProcess(cmd[0]);
-											process.setRep(cmd[1]);
+											process.setFolder(cmd[1]);
 											pmg.saveProcces(process.getName());
 										}
 										break;
@@ -122,7 +122,7 @@ public class PostExecute implements RequetExecute {
 									case "read":
 										if (pmg.hasProcess(args[1])) {
 											ProcessPlus process = pmg.getProcess(args[1]);
-											String console = '@'+process.read(100);
+											String console = '@'+process.readInput(100);
 											webServer.sendRequet(out, console.getBytes("UTF8"), "console");
 											return;
 										} else {

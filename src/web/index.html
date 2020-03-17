@@ -6,7 +6,7 @@
     </head>
     <body>
 
-    <form method="get" action="/index.tweb" id="border" class="borderindex">
+    <form method="post" action="/auth.tweb" id="border" class="borderindex">
         <div class="titleindex">Connect ProcessManager</div>
         <input class="textinputindex" type="text" name="user" placeholder="User">
         <br>
@@ -18,7 +18,6 @@
     <script>
         let border = document.getElementById("border");
         border.style = "left: calc(50% - "+(border.offsetWidth/2)+"px); top: calc(50% - "+(border.offsetHeight/2)+"px);";
-        document.getElementById("user").focus();
     </script>
 
     </body>

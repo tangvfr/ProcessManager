@@ -11,8 +11,8 @@ public class PageData extends HashMap<String, String> {
 		try {
 			String[] inputs = data.split("&");
 			for (String input : inputs) {
-				String name = replaceChars(input.substring(0, input.indexOf("=")));
-				String value = replaceChars(input.substring(input.indexOf("=")+1, input.length()));
+				String name = replaceSecureChars(replaceChars(input.substring(0, input.indexOf("="))));
+				String value = replaceSecureChars(replaceChars(input.substring(input.indexOf("=")+1, input.length())));
 				if (!this.containsKey(name)) {
 					this.put(name, value);
 				} else {
@@ -22,6 +22,10 @@ public class PageData extends HashMap<String, String> {
 		} catch (Exception e) {
 			return;
 		}
+	}
+	
+	public static String replaceSecureChars(String string) {
+		return string;
 	}
 	
 	public static String replaceChars(String string) {
@@ -40,6 +44,12 @@ public class PageData extends HashMap<String, String> {
 			}
 		}
 		return text;
+	}
+	
+	@Override
+	public String get(Object key) {
+		Object ob = super.get(key);
+		return ob != null ? (String) ob : "";
 	}
 	
 }

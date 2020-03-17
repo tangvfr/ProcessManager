@@ -6,6 +6,7 @@ public enum CodeHTTP {
 	CODE_300_MULTIPLE_CHOICES(300, "Multiple Choices"),
 	CODE_301_MOVED_PERMANENTLY(301, "Moved Permanently"),
 	CODE_302_FOUND(302, "Found"),
+	CODE_303_SEE_OTHER(303, "See Other"),
 	CODE_400_BAD_REQUEST(400, "Bad Request"),
 	CODE_401_UNAUTHORIZED(401, "Unauthorized"),
 	CODE_402_PAYMENT_REQUIRED(402, "Payment Required"),

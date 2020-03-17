@@ -1,0 +1,135 @@
+<html>
+    <head>
+        <meta charset="UTF-8"> 
+        <link href="/infoall.css" rel="stylesheet" type="text/css">
+        <link href="/popmenu.css" rel="stylesheet" type="text/css">
+        <title>Info ProcessManager <targ=version></targ></title>
+        <script src="./js/popmenu.js"></script>
+        <script src="./js/convertdate.js"></script>
+        <script src="./js/oncmdend.js"></script>
+        <script src="./js/onchangetimerestart.js"></script>
+        <script src="./js/onremove.js"></script>
+        <script src="./js/onlaunch.js"></script>
+        <script src="./js/onfolder.js"></script>
+        <script src="./js/oncmd.js"></script>
+        <script src="./js/onstopcmd.js"></script>
+        <script src="./js/onstop.js"></script>
+        <script src="./js/onrestart.js"></script>
+        <script src="./js/onstart.js"></script>
+        <script src="./js/onstopwc.js"></script>
+        <script src="./js/onrestartwc.js"></script>
+        <script src="./js/onstopoptions.js"></script>
+    </head>
+    <body>
+        <header>
+            <img alt="Back" src="/img/back.png" class="headiconleft noselect" onclick="window.location = `<targ=link></targ>`;">
+            <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
+            <span id="title">Info ProcessManager <targ=version></targ></span>
+            <img alt="RestartTime" src="/img/time.png" onclick="onChangeTimeRestart(this);" class="headiconright noselect">
+            <img alt="EndCmd" src="/img/endcmd.png" onclick="onCmdEnd(this);" class="headiconright noselect">
+        </header>
+        <div id="contall">
+            <div class="boxprocess">
+                <div class="headprocess headinfo">
+                    <span class="title">Info</span>
+                </div>
+                <div class="contprocess" id="content"></div>
+            </div>
+            <div class="boxprocess">
+                <div class="headprocess headall">
+                    <span class="title">For All Process</span>
+                </div>
+                <div class="contprocess">
+                    <div class="divprocess">
+                        <img alt="Cmd" src="/img/cmd.png" onclick="onCmdAll(this);" class="iconleft noselect">
+                        <span class="spanprocess">
+                            <img alt="Stop" src="/img/stop.png" onclick="onStopAll(this);" class="iconright noselect">
+                            <img alt="Restart" src="/img/restart.png" onclick="onRestartAll(this);"  class="iconright noselect">
+                            <img alt="Start" src="/img/start.png" onclick="onStartAll(this);" class="iconright noselect">
+                        </span>
+                    </div>
+                    <div class="divprocess">
+                        <img alt="CmdDown" src="/img/cmddown.png" onclick="onStopCmdAll(this);" class="iconleft noselect">
+                        <span class="spanprocess">
+                            <img alt="StopCmd" src="/img/stopcmd.png" onclick="onStopWCAll(this);" class="iconright noselect">
+                            <img alt="RestartCmd" src="/img/restartcmd.png" onclick="onRestartWCAll(this);" class="iconright noselect">
+                        </span>
+                    </div>
+                    <div class="divprocess">
+                        <img alt="Folder" src="/img/folder.png" onclick="onFolderAll(this);" class="iconleft noselect">
+                        <span class="spanprocess">
+                            <img alt="Remove" src="/img/remove.png" onclick="onRemoveAll(this);" class="iconright noselect">
+                            <div class="on iconright noselect" onclick="onLaunchAll(this);"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="boxprocess">
+                <div class="headprocess headstop">
+                    <span class="title">Stop Options</span>
+                </div>
+                <div class="contprocess" id="content">
+                    <div class="divprocess">
+                        <button class="btnpmleft btnpmcolorlred fontpopmenu" onclick="onStopForceNoScript();">StopForceNoScript</button>
+                        <button class="btnpmleft btnpmcolorlred fontpopmenu" onclick="onStopForceWithScript();">StopForceWithScript</button>
+                    </div>
+                    <div class="divprocess">
+                        <button class="btnpmleft btnpmcolorlred fontpopmenu" onclick="onStopNoForceNoScript();">StopNoForceNoScript</button>
+                        <button class="btnpmright btnpmcolorlgreen fontpopmenu" onclick="onStopNoForceWithScript();">StopNoForceWithScript</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <targ=update>
+            <span id="update">
+                <button class="btnclose noselect" onclick="document.getElementById('update').remove();"></button>
+                <span style="text-decoration: underline;">
+                    <barg=text></barg>
+                </span>
+            </span>
+        </targ>
+        <script>
+            var token = "<targ=token></targ>";
+            var cmdend = "<targ=cmdend></targ>";
+            var popMenuCommand = new PopMenu();
+
+            var timestop = <targ=timestopnoforce></targ>;
+            var timenoforce = convertText(timestop, false, true);
+            var timestopnoforce = (timestop < 0 ? "Horaire " : (timestop > 0 ? "Crono " : "Aucun "))+timenoforce;
+            var timestart = convertText(<targ=timestart></targ>, true);
+            var timeisstart = convertText(<targ=timeisstart></targ>, false);
+            var timerestart = convertText(<targ=timerestart></targ>, false);
+            var isstop = (<targ=isstop></targ> ? "Oui" : "Non");
+            var processnb = <targ=processnumber></targ>;
+            var processon = <targ=processnumberon></targ>;
+            var processoff = <targ=processnumberoff></targ>;
+            var processdem = <targ=processnumberdem></targ>;
+            var processnodem = <targ=processnumbernodem></targ>;
+
+            let nameClass = "divprocesstext";
+            let styleDivText = "color: #dd2;";
+            let styleDivPoint = "color: #222;";
+            let styleDivValue = "color: #2d2;";
+            let content = document.getElementById("content");
+            
+            function addDivLigne(text, value) {
+                let div = document.createElement("div");
+                div.className = nameClass;
+                div.innerHTML = "<span style=\""+styleDivText+"\">"+text+" </span><span style=\""+styleDivPoint+"\">: </span><span style=\""+styleDivValue+"\">"+value+"</span>";
+                content.append(div);
+            }
+
+            addDivLigne("Date de démarage", timestart);
+            addDivLigne("Combien de temps qu'il est démaré", timeisstart);
+            addDivLigne("Temps redémarage", timestopnoforce);
+            addDivLigne("Temps avant prochain redémarage", timerestart);
+            addDivLigne("En cours d'arrêt", isstop);
+            addDivLigne("Commande de restart", cmdend);
+            addDivLigne("Nombre de process", processnb);
+            addDivLigne("Nombre de process actif", processon);
+            addDivLigne("Nombre de process inactif", processoff);
+            addDivLigne("Nombre de process au démarage", processdem);
+            addDivLigne("Nombre de process qui démare pas au démarage", processnodem);
+        </script>
+    </body>
+</html>
