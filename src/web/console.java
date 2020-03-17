@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.tangv.processmanager.Main;
-import fr.tangv.processmanager.ProcessManagerServer;
 import fr.tangv.processmanager.util.ProcessManager;
 import fr.tangv.processmanager.util.ProcessPlus;
 import fr.tangv.web.main.ReceiveHTTP;

@@ -18,6 +18,8 @@ import web.commands.CommandFolder;
 import web.commands.CommandFolderAll;
 import web.commands.CommandLaunch;
 import web.commands.CommandLaunchAll;
+import web.commands.CommandReadConsole;
+import web.commands.CommandReadError;
 import web.commands.CommandRemove;
 import web.commands.CommandRemoveAll;
 import web.commands.CommandRename;
@@ -25,6 +27,7 @@ import web.commands.CommandRestart;
 import web.commands.CommandRestartAll;
 import web.commands.CommandRestartWC;
 import web.commands.CommandRestartWCAll;
+import web.commands.CommandSendConsole;
 import web.commands.CommandStart;
 import web.commands.CommandStartAll;
 import web.commands.CommandStop;
@@ -165,7 +168,17 @@ public class command implements ClassPage {
 									new CommandRestartWCAll();
 									break;
 									
-								
+								case "readconsole":
+									CommandReadConsole commandReadConsole = new CommandReadConsole(data.get("name"), Integer.parseInt(data.get("lines")));
+									return new Page(commandReadConsole.console.getBytes("UTF8"), PageType.OTHER, CodeHTTP.CODE_200_OK);
+									
+								case "readerror":
+									CommandReadError commandReadError = new CommandReadError(data.get("name"), Integer.parseInt(data.get("lines")));
+									return new Page(commandReadError.error.getBytes("UTF8"), PageType.OTHER, CodeHTTP.CODE_200_OK);
+									
+								case "sendconsole":
+									new CommandSendConsole(data.get("name"), data.get("command"));
+									return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_200_OK);
 									
 								default:
 									break;

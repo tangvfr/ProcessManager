@@ -23,6 +23,8 @@
             <img alt="Back" src="/img/back.png" class="headiconleft noselect" onclick="window.location = `<targ=link></targ>`;">
             <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
             <span id="title">Console ProcessManager <targ=version></targ></span>
+            <div class="noselect" id="lines">200</div>
+            <div class="noselect" id="linestext">Lines: </div>
         </header>
         <div class="boxglobal">
             <div class="boxprocess">
@@ -30,10 +32,10 @@
                     <span class="title">Console</span>
                 </div>
                 <div class="contconsole" id="content">
-                    <textarea id="console" class="console" readonly></textarea>
+                    <div id="console" class="console" readonly></div>
                     <span class="noselect">
-                        <input id="commandsend" type="text"></input>
-                        <button id="btnsend">Send</button>
+                    <input id="commandsend" type="text" onkeydown="if (event.keyCode == 13) {sendCommand();}"></input>
+                    <button id="btnsend" onclick="sendCommand();">Send</button>
                     </span>
                 </div>
             </div>
@@ -42,7 +44,7 @@
                     <span class="title">Error</span>
                 </div>
                 <div class="contconsole" id="content">
-                    <textarea id="error" class="error" readonly></textarea>
+                    <div id="error" class="error" readonly></div>
                 </div>
             </div>
             <div class="boxprocess">
@@ -91,10 +93,68 @@
         </targ>
         <script>
             var token = "<targ=token></targ>";
-            var name = '<targ=name></targ>';
+            var name = "<targ=name></targ>";
             var popMenuCommand = new PopMenu();
+            var args = "token="+encodeURIComponent(token)+"&name="+encodeURIComponent(name);
 
-            
+            function sendCommand() {
+                let text = document.getElementById("commandsend");
+                let command = text.value;
+                let xhttpSend = new XMLHttpRequest();
+                xhttpSend.open("POST", "/command.tweb");
+                let cmd = "&namecmd=sendconsole"+"&command="+encodeURIComponent(command);
+                xhttpSend.send(args+cmd);
+                text.value = "";
+            }
+
+            var timeConsole;
+            var bottomConsole;
+            function readConsole() {
+                let console = document.getElementById("console");
+                bottomConsole = (console.scrollHeight-console.scrollTop) == console.clientHeight;
+                let lines = "&lines="+document.getElementById("lines").innerText;
+                let xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "/command.tweb");
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.status == 200) {
+                        document.getElementById("console").innerText = xhttp.responseText;
+                        if (bottomConsole) {
+                            let console = document.getElementById("console");
+                            console.scrollTop = console.scrollHeight-console.clientHeight;
+                        }
+                    }
+                    clearTimeout(timeConsole);
+                    timeConsole = setTimeout(readConsole, 1000);
+                };
+                let cmd = "&namecmd=readconsole";
+                xhttp.send(args+lines+cmd);
+            }
+
+            var timeError;
+            var bottomError;
+            function readError() {
+                let error = document.getElementById("error");
+                bottomError = (error.scrollHeight-error.scrollTop) == error.clientHeight;
+                let lines = "&lines="+document.getElementById("lines").innerText;
+                let xhttp1 = new XMLHttpRequest();
+                xhttp1.open("POST", "/command.tweb");
+                xhttp1.onreadystatechange = function() {
+                    if (xhttp1.status == 200) {
+                        document.getElementById("error").innerText = xhttp1.responseText;
+                        if (bottomError) {
+                            let error = document.getElementById("error");
+                            error.scrollTop = error.scrollHeight-error.clientHeight;
+                        }
+                    }
+                    clearTimeout(timeError);
+                    timeError = setTimeout(readError, 1000);
+                };
+                let cmd = "&namecmd=readerror";
+                xhttp1.send(args+lines+cmd);
+            }
+
+            readConsole();
+            readError();
         </script>
     </body>
 </html>
