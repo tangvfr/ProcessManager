@@ -4,6 +4,7 @@
         <link href="/info.css" rel="stylesheet" type="text/css">
         <link href="/popmenu.css" rel="stylesheet" type="text/css">
         <title>ProcessManager <targ=version></targ></title>
+        <script src="./js/onconsole.js"></script>
         <script src="./js/gopage.js"></script>
         <script src="./js/onmenu.js"></script>
         <script src="./js/oninfo.js"></script>
@@ -48,7 +49,7 @@
         <section class="boxglobal">
             <targ=processbox>
                 <div class="boxprocess">
-                    <div class="headprocess <barg=started>headon,headoff,headfolder</barg>">
+                    <div class="headprocess <barg=started>headon,headoff,headfolder</barg>" ondblclick="onConsole('<barg=name></barg>');">
                         <span class="spanprocess">
                             <div class="<barg=launch>on,off,</barg> noselect" onclick="onLaunch(this);"></div>
                             <img alt="Rename" src="/img/rename.png" name="<barg=name></barg>" onclick="onRename(this);" class="iconright noselect">

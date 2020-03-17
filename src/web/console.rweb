@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="/console.css" rel="stylesheet" type="text/css">
+        <link href="/popmenu.css" rel="stylesheet" type="text/css">
+        <title>Console ProcessManager <targ=version></targ></title>
+        <script src="./js/popmenu.js"></script>
+        <script src="./js/onrename.js"></script>
+        <script src="./js/oncmdend.js"></script>
+        <script src="./js/onremove.js"></script>
+        <script src="./js/onlaunch.js"></script>
+        <script src="./js/onfolder.js"></script>
+        <script src="./js/oncmd.js"></script>
+        <script src="./js/onstopcmd.js"></script>
+        <script src="./js/onstop.js"></script>
+        <script src="./js/onrestart.js"></script>
+        <script src="./js/onstart.js"></script>
+        <script src="./js/onstopwc.js"></script>
+        <script src="./js/onrestartwc.js"></script>
+    </head>
+    <body>
+        <header>
+            <img alt="Back" src="/img/back.png" class="headiconleft noselect" onclick="window.location = `<targ=link></targ>`;">
+            <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
+            <span id="title">Console ProcessManager <targ=version></targ></span>
+        </header>
+        <div class="boxglobal">
+            <div class="boxprocess">
+                <div class="headprocess headconsole">
+                    <span class="title">Console</span>
+                </div>
+                <div class="contconsole" id="content">
+                    <textarea id="console" class="console" readonly></textarea>
+                    <span class="noselect">
+                        <input id="commandsend" type="text"></input>
+                        <button id="btnsend">Send</button>
+                    </span>
+                </div>
+            </div>
+            <div class="boxprocess">
+                <div class="headprocess headerror">
+                    <span class="title">Error</span>
+                </div>
+                <div class="contconsole" id="content">
+                    <textarea id="error" class="error" readonly></textarea>
+                </div>
+            </div>
+            <div class="boxprocess">
+                <div class="headprocess <targ=started>headon,headoff,headfolder</targ>">
+                    <span class="spanprocess">
+                        <div class="<targ=launch>on,off,</targ> noselect" onclick="onLaunch(this);"></div>
+                        <img alt="Rename" src="/img/rename.png" name="<targ=name></targ>" onclick="onRename(this);" class="iconright noselect">
+                    </span>
+                    <span class="title"><targ=name></targ></span>
+                </div>
+                <div class="contprocess">
+                    <div class="divprocess">
+                        <img alt="Cmd" src="/img/cmd.png" name="<targ=name></targ>" onclick="onCmd(this);" class="iconleft noselect">
+                        <span class="spanprocess">
+                            <img alt="Stop" src="/img/stop.png" name="<targ=name></targ>" onclick="onStop(this);" class="iconright noselect">
+                            <img alt="Restart" src="/img/restart.png" name="<targ=name></targ>" onclick="onRestart(this);"  class="iconright noselect">
+                            <img alt="Start" src="/img/start.png" name="<targ=name></targ>" onclick="onStart(this);" class="iconright noselect">
+                        </span>
+                        <span class="cmd"><targ=cmd></targ></span>
+                    </div>
+                    <div class="divprocess">
+                        <img alt="CmdDown" src="/img/cmddown.png" name="<targ=name></targ>" onclick="onStopCmd(this);" class="iconleft noselect">
+                        <span class="spanprocess">
+                            <img alt="StopCmd" src="/img/stopcmd.png" name="<targ=name></targ>" onclick="onStopWC(this);" class="iconright noselect">
+                            <img alt="RestartCmd" src="/img/restartcmd.png" name="<targ=name></targ>" onclick="onRestartWC(this);" class="iconright noselect">
+                        </span>
+                        <span class="stopcmd"><targ=stopcmd></targ></span>
+                    </div>
+                    <div class="divprocess">
+                        <img alt="Folder" src="/img/folder.png" name="<targ=name></targ>" onclick="onFolder(this);" class="iconleft noselect">
+                        <span class="spanprocess">
+                            <img alt="Remove" src="/img/remove.png" name="<targ=name></targ>" onclick="onRemove(this);" class="iconright noselect">
+                        </span>
+                        <span class="folder"><targ=folder></targ></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <targ=update>
+            <span id="update">
+                <button class="btnclose noselect" onclick="document.getElementById('update').remove();"></button>
+                <span style="text-decoration: underline;">
+                    <barg=text></barg>
+                </span>
+            </span>
+        </targ>
+        <script>
+            var token = "<targ=token></targ>";
+            var name = '<targ=name></targ>';
+            var popMenuCommand = new PopMenu();
+
+            
+        </script>
+    </body>
+</html>

@@ -13,6 +13,7 @@ import fr.tangv.web.util.PageType;
 import web.commands.CommandAdd;
 import web.commands.CommandCmd;
 import web.commands.CommandCmdAll;
+import web.commands.CommandCmdEnd;
 import web.commands.CommandFolder;
 import web.commands.CommandFolderAll;
 import web.commands.CommandLaunch;
@@ -32,6 +33,7 @@ import web.commands.CommandStopCmd;
 import web.commands.CommandStopCmdAll;
 import web.commands.CommandStopWC;
 import web.commands.CommandStopWCAll;
+import web.commands.CommandTimeRestart;
 
 public class command implements ClassPage {
 
@@ -162,6 +164,8 @@ public class command implements ClassPage {
 								case "restartwcall":
 									new CommandRestartWCAll();
 									break;
+									
+								
 									
 								default:
 									break;

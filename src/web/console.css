@@ -80,44 +80,6 @@ header {
     padding-top: 0px;
 }
 
-#search,#sort {
-    display: block;
-    position: relative;
-    padding: 0px;
-    margin-top: 8px;
-    width: auto;
-    height: 24px;
-    margin-right: 8px;
-    float: right;
-}
-
-#searchbtn {
-    background: url("/img/search.png");
-}
-
-#next {
-    background: url("/img/arrowright.png");
-}
-
-#previous {
-    background: url("/img/arrowleft.png");
-}
-
-#searchbtn,#next,#previous {
-    display: block;
-    position: relative;
-    border: none;
-    border-radius: 0px;
-    padding: 0px;
-    margin-top: 8px;
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-    color: transparent;
-    background-size: cover;
-    float: right;
-}
-
 .btnclose {
     display: inline-block;
     border: none;
@@ -177,23 +139,6 @@ header {
     float: right;
 }
 
-.iconleftmenu,.iconrightmenu {
-    padding: 0px;
-    margin: 0px;
-    width: 20px;
-    height: 20px;
-}
-
-.iconleftmenu {
-    margin-left: 3px;
-    float: left;
-}
-
-.iconrightmenu {
-    margin-right: 3px;
-    float: right;
-}
-
 .folder,.cmd,.stopcmd {
     display: inline-block;
     padding: 0px;
@@ -220,13 +165,6 @@ header {
 
 .stopcmd {
     color: #D44;
-}
-
-.menufolder {
-    color: #DD4;
-    font-size: 16px;
-    word-wrap: break-word;
-    margin-left: 3px;
 }
 
 .boxglobal,.boxglobalhidden {
@@ -258,46 +196,6 @@ header {
     overflow: visible;
 }
 
-.menuheadon,.menuheadoff,.menuheadfolder,.menuheadnumber {
-    width: calc(100% - 12px);
-    word-wrap: break-word;
-    padding: 2px;
-}
-
-.menuheadon {
-    background: #3b3;
-    border: 2px #3D3 outset;
-}
-
-.menuheadoff {
-    background: #b33;
-    border: 2px #D33 outset;
-}
-
-.headfolder {
-    background: #bb3;
-    border: 2px #DD3 outset;
-}
-
-.menuheadnumber {
-    background: #666;
-    border: 2px #888 outset;
-    color: #333;
-    margin-bottom: 6px;
-}
-
-.menuunderhead {
-    width: calc(100% - 24px);
-    margin: 6px;
-    margin-top: 0px;
-    word-wrap: break-word;
-    padding: 2px;
-    background: #555;
-    border: 2px #333 solid;
-    border-top: none;
-    min-height: 20px;
-}
-
 .noselect {
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -319,6 +217,16 @@ header {
 .headoff {
     background: #b33;
     border: 2px #D33 outset;
+}
+
+.headconsole {
+    background: #5b5;
+    border: 2px #5D5 outset;
+}
+
+.headerror {
+    background: #b55;
+    border: 2px #D55 outset;
 }
 
 .headfolder {
@@ -354,7 +262,7 @@ header {
     background: #b33;
 }
 
-.contprocess {
+.contprocess, .contconsole {
     display: block;
     position: relative;
     background: rgb(100, 100, 100);
@@ -369,6 +277,14 @@ header {
     overflow: none;
 }
 
+.contconsole {
+    height: calc(100% - 56px);
+    width: 99%;
+    padding: 1px;
+    background: #444;
+    line-height: 0px;
+}
+
 .divprocess {
     position: relative;
     display: block;
@@ -378,6 +294,51 @@ header {
     width: 100%;
     margin: 0px;
     margin-top: 6px;
+}
+
+.console, .error {
+    display: block;
+    width: 100%;
+    background: #444;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: normal;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: left;
+    resize: none;
+    overflow: scroll;
+    margin: 0px;
+}
+
+.console {
+    color: #3F3;
+    height: calc(100% - 23px);
+}
+
+.error {
+    color: #F33;
+    height: 100%;
+}
+
+#btnsend, #commandsend {
+    height: 21px;
+    color: #FFF;
+    size: 13px;
+    margin: 0px;
+    margin-top: 2px;
+    background: #888;
+    border: 2px #666 solid;
+    padding: 1px;
+}
+
+#btnsend {
+    text-align: center;
+    width: 48px;
+}
+
+#commandsend {
+    text-align: start;
+    width: calc(100% - 54px);
 }
 
 @media (max-width: 1024px) {

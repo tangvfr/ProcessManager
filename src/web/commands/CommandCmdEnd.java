@@ -1,4 +1,4 @@
-package web;
+package web.commands;
 
 import fr.tangv.processmanager.Main;
 
