@@ -1,31 +1,30 @@
 package fr.tangv.web.util;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 
 public class ByteArray {
 
-	private ByteArrayOutputStream out;
+	private byte[] out;
 	
-	public ByteArray(InputStream in) throws IOException {
-		out = new ByteArrayOutputStream();
-		byte[] buf = new byte[1024];
-		int length;
-		while ((length = in.read(buf)) != -1) {
-			out.write(buf, 0, length);
-			if (length < 1024 || in.available() <= 0)
-				break;
-		}
-		out.close();
+	public ByteArray(InputStream in, int length) throws IOException {
+		out = new byte[length];
+		in.read(out, 0, length);
+	}
+	
+	public ByteArray(Reader in, int length) throws IOException {
+		char[] outChar = new char[length];
+		in.read(outChar, 0, length);
+		out = new String(outChar).getBytes();
 	}
 	
 	public byte[] bytes() {
-		return out.toByteArray();
+		return out;
 	}
 	
-	public int size() {
-		return out.size();
+	public int length() {
+		return out.length;
 	}
 	
 }
