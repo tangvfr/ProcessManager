@@ -10,6 +10,7 @@ public class ByteArray {
 	
 	public ByteArray(InputStream in, int length) throws IOException {
 		out = new byte[length];
+		while (in.available() >= length);
 		in.read(out, 0, length);
 	}
 	
