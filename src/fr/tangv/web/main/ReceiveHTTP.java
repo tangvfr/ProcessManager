@@ -51,9 +51,7 @@ public class ReceiveHTTP {
 		if (headRequet.containsKey(keyParam)) {
 			lengthData = Integer.parseInt(headRequet.get(keyParam));
 		}
-		System.out.println("DataLength> "+lengthData);
 		data = new ByteArray(read, lengthData).bytes();
-		System.out.println("Data> "+new String(data));
 		hasData = data.length > 0;
 	}
 	
