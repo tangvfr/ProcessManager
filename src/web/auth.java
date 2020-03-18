@@ -3,6 +3,7 @@ package web;
 import java.util.Map;
 import java.util.Vector;
 
+import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 
 import fr.tangv.processmanager.Main;
@@ -19,9 +20,23 @@ import fr.tangv.web.util.PageType;
 public class auth implements ClassPage {
 
 	private static volatile Vector<Token> tokens;
+	private static volatile Vector<Client> clients;
 	
 	static {
 		tokens = new Vector<Token>();
+		clients = new Vector<Client>();
+	}
+	
+	@NotNull
+	public Client getClient(String ip) {
+		for (Client client : clients) {
+			if (client.getIp().equals(ip)) {
+				return client;
+			}
+		}
+		Client client = new Client(ip);
+		clients.add(client);
+		return client;
 	}
 	
 	private static void clear() {
@@ -66,15 +81,19 @@ public class auth implements ClassPage {
 				String user = data.get("user");
 				String pass = data.get("pass");
 				Map<String, String> auth = Main.processManagerServer.getUserAndMdp();
-				if (auth.containsKey(user) && auth.get(user).equals(pass)) {
-					Token token = newToken(user);
-					return new PageRedirectSeeOther("/info.tweb?token="+token.getUUID());
-				} else {
-					return new PageRedirectSeeOther("/invalidepwd.html");
+				Client client = getClient(receiveHTTP.getIp());
+				if (client.itCan()) {
+					if (auth.containsKey(user) && auth.get(user).equals(pass)) {
+						client.resetTry();
+						Token token = newToken(user);
+						return new PageRedirectSeeOther("/info.tweb?token="+token.getUUID());
+					} else {
+						client.addTry();
+						return new PageRedirectSeeOther("/invalidepwd.html");
+					}
 				}
-			} else {
-				return new PageRedirectSeeOther("/");
 			}
+			return new PageRedirectSeeOther("/");
 		} else {
 			return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_405_METHOD_NOT_ALLOWED);
 		}
