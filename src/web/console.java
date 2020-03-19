@@ -38,14 +38,16 @@ public class console implements ClassPage {
 						Map<String, String> remplaceValue = new HashMap<String, String>();
 						//maj
 						String textMaj = Main.getUpdate(true);
-						PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
-						Map<String, String> mapMaj = new HashMap<String, String>();
-						mapMaj.put("text", textMaj == "ProcessManager est à jour !" ? "" : textMaj);
-						textMaj = baliseMaj.remplaceText(mapMaj);
-						remplaceValue.put("update", decodingUTF8(textMaj));
+						if (textMaj != "ProcessManager est à jour !") {
+							PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
+							Map<String, String> mapMaj = new HashMap<String, String>();
+							mapMaj.put("text", decodingUTF8(textMaj));
+							remplaceValue.put("update", baliseMaj.remplaceText(mapMaj));
+						}
 						//general
 						remplaceValue.put("version", decodingUTF8(Main.version));
 						remplaceValue.put("token", token.toString());
+						remplaceValue.put("username", token.getUser());
 						remplaceValue.put("link", data.get("link"));
 						//data
 						ProcessManager processManager = Main.processManagerServer.getProcessManager();

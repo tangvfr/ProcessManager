@@ -49,8 +49,6 @@ public class command implements ClassPage {
 					data = new PageData(new String(receiveHTTP.getData()));
 				}
 				
-				PrintData.printData(receiveHTTP, data);
-				
 				if (data != null && data.containsKey("token")) {
 					Token token = auth.tokenValid(data.get("token"));
 					if (token != null) {
@@ -179,6 +177,10 @@ public class command implements ClassPage {
 								case "sendconsole":
 									new CommandSendConsole(data.get("name"), data.get("command"));
 									return new Page(new byte[0], PageType.OTHER, CodeHTTP.CODE_200_OK);
+									
+								case "disconnect": 
+									auth.removeToken(token);
+									return new PageRedirectSeeOther("/");
 									
 								default:
 									break;

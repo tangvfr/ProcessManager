@@ -2,6 +2,8 @@ package fr.tangv.web.main;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.URL;
+import java.net.URLConnection;
 
 import fr.tangv.web.util.ByteArray;
 import fr.tangv.web.util.ClassPage;
@@ -76,8 +78,10 @@ public class HandleSocket {
 							new SendHTTP(socket, CodeHTTP.CODE_403_FORBIDDEN, new byte[0], PageType.OTHER);
 						} else {
 							String path = web.getPathResource()+pathStick;
-							if (ClassLoader.getSystemResource(path) != null) {
-								byte[] data = new ByteArray(ClassLoader.getSystemResourceAsStream(path)).bytes();
+							URL url = ClassLoader.getSystemResource(path);
+							if (url != null) {
+								URLConnection connection = url.openConnection();
+								byte[] data = new ByteArray(connection.getInputStream(), connection.getContentLength()).bytes();
 								new SendHTTP(socket, CodeHTTP.CODE_200_OK, data, getContentType(path));
 							} else {
 								sendHTTP404(socket);

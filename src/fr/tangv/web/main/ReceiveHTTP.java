@@ -1,15 +1,15 @@
 package fr.tangv.web.main;
 
-import java.io.ByteArrayInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import fr.tangv.web.util.ByteArray;
-import fr.tangv.web.util.ByteMark;
 import fr.tangv.web.util.PathHTTP;
 
 public class ReceiveHTTP {
@@ -24,36 +24,35 @@ public class ReceiveHTTP {
 	
 	public ReceiveHTTP(Socket socket) throws IOException {
 		ip = socket.getInetAddress().getHostAddress();
-		InputStream in = socket.getInputStream();
-		byte[] requet = new ByteArray(in).bytes();
-		byte[] mark = "\r\n\r\n".getBytes();
-		int lengthMark = new ByteMark(requet, mark).locMark()+1;
-		ByteArrayInputStream inb = new ByteArrayInputStream(requet);
-		byte[] head = new byte [lengthMark];
-		inb.read(head, 0, head.length);
-		data = new byte [requet.length-lengthMark];
-		inb.read(data, 0, data.length);
-		hasData = data.length > 0;
+		methodeRequet = null;
+		pathRequet = null;
+		versionHTTP = 0.0;
 		//traitement
-		String[] requetText = new String(head).split("\r\n");
-		if (!requetText[0].isEmpty()) {
-			methodeRequet = requetText[0].substring(0, requetText[0].indexOf(" "));
-			pathRequet = new PathHTTP(requetText[0].substring(requetText[0].indexOf(" ")+1, requetText[0].indexOf(" HTTP/")));
-			versionHTTP = Double.parseDouble(requetText[0].substring(requetText[0].indexOf(" HTTP/")+6, requetText[0].length()));
-		} else {
-			methodeRequet = null;
-			pathRequet = null;
-			versionHTTP = 0.0;
+		InputStream in = socket.getInputStream();
+		BufferedReader read = new BufferedReader(new InputStreamReader(in));
+		String requetHead = read.readLine();
+		if (!requetHead.isEmpty()) {
+			methodeRequet = requetHead.substring(0, requetHead.indexOf(" "));
+			pathRequet = new PathHTTP(requetHead.substring(requetHead.indexOf(" ")+1, requetHead.indexOf(" HTTP/")));
+			versionHTTP = Double.parseDouble(requetHead.substring(requetHead.indexOf(" HTTP/")+6, requetHead.length()));
 		}
 		headRequet = new HashMap<String, String>();
-		for (int i = 1; i < requetText.length; i++) {
-			String[] text = requetText[i].split(": ", 2);
+		String requetText;
+		while (!(requetText = read.readLine()).isEmpty()) {
+			String[] text = requetText.split(": ", 2);
 			if (text.length == 2) {
 				headRequet.put(text[0], text[1]);
 			} else {
 				headRequet.put(text[0], "");
 			}
 		}
+		int lengthData = 0;
+		String keyParam = "Content-Length";
+		if (headRequet.containsKey(keyParam)) {
+			lengthData = Integer.parseInt(headRequet.get(keyParam));
+		}
+		data = new ByteArray(read, lengthData).bytes();
+		hasData = data.length > 0;
 	}
 	
 	public String getMethodeRequet() {

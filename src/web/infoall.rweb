@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8"> 
-        <link href="/infoall.css" rel="stylesheet" type="text/css">
+        <link href="/info.css" rel="stylesheet" type="text/css">
         <link href="/popmenu.css" rel="stylesheet" type="text/css">
         <title>Info ProcessManager <targ=version></targ></title>
         <script src="./js/popmenu.js"></script>
@@ -19,25 +19,27 @@
         <script src="./js/onstopwc.js"></script>
         <script src="./js/onrestartwc.js"></script>
         <script src="./js/onstopoptions.js"></script>
+        <script src="./js/ondisconnect.js"></script>
     </head>
     <body>
         <header>
             <img alt="Back" src="/img/back.png" class="headiconleft noselect" onclick="window.location = `<targ=link></targ>`;">
             <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
             <span id="title">Info ProcessManager <targ=version></targ></span>
+            <img alt="Disconnect" src="/img/disconnect.png" class="headiconright noselect" onclick="onDisconnect('<targ=username></targ>');">
             <img alt="RestartTime" src="/img/time.png" onclick="onChangeTimeRestart(this);" class="headiconright noselect">
             <img alt="EndCmd" src="/img/endcmd.png" onclick="onCmdEnd(this);" class="headiconright noselect">
         </header>
         <div id="contall">
-            <div class="boxprocess">
-                <div class="headprocess headinfo">
-                    <span class="title">Info</span>
+            <div class="boxprocessinfo">
+                <div class="headpinfo headinfo">
+                    <span class="titleinfo">Info</span>
                 </div>
                 <div class="contprocess" id="content"></div>
             </div>
-            <div class="boxprocess">
-                <div class="headprocess headall">
-                    <span class="title">For All Process</span>
+            <div class="boxprocessinfo">
+                <div class="headpinfo headall">
+                    <span class="titleinfo">For All Process</span>
                 </div>
                 <div class="contprocess">
                     <div class="divprocess">
@@ -64,9 +66,9 @@
                     </div>
                 </div>
             </div>
-            <div class="boxprocess">
-                <div class="headprocess headstop">
-                    <span class="title">Stop Options</span>
+            <div class="boxprocessinfo">
+                <div class="headpinfo headstop">
+                    <span class="titleinfo">Stop Options</span>
                 </div>
                 <div class="contprocess" id="content">
                     <div class="divprocess">

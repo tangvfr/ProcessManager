@@ -1,6 +1,8 @@
 package fr.tangv.web.util;
 
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,8 +19,10 @@ public class PageResoucre {
 	public PageResoucre(String text, String nameBalise, boolean textIsPathFile) throws IOException {
 		this.nameBalise = nameBalise;
 		if (textIsPathFile) {
-			if (ClassLoader.getSystemResource(text) != null) {
-				this.text = new String(new ByteArray(ClassLoader.getSystemResourceAsStream(text)).bytes());
+			URL url = ClassLoader.getSystemResource(text);
+			if (url != null) {
+				URLConnection connection = url.openConnection();
+				this.text = new String(new ByteArray(connection.getInputStream(), connection.getContentLength()).bytes());
 			}
 		} else {
 			this.text = text;
