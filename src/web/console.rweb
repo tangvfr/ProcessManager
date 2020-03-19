@@ -17,12 +17,14 @@
         <script src="./js/onstart.js"></script>
         <script src="./js/onstopwc.js"></script>
         <script src="./js/onrestartwc.js"></script>
+        <script src="./js/ondisconnect.js"></script>
     </head>
     <body>
         <header>
             <img alt="Back" src="/img/back.png" class="headiconleft noselect" onclick="window.location = `<targ=link></targ>`;">
             <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
             <span id="title">Console ProcessManager <targ=version></targ></span>
+            <img alt="Disconnect" src="/img/disconnect.png" class="headiconright noselect" onclick="onDisconnect('<targ=username></targ>');">
             <div class="noselect" id="lines">1000</div>
             <div class="noselect" id="linestext">Lines: </div>
         </header>

@@ -2,6 +2,7 @@ package web;
 
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
@@ -20,29 +21,32 @@ import fr.tangv.web.util.PageType;
 public class auth implements ClassPage {
 
 	private static volatile Vector<Token> tokens;
-	private static volatile Vector<Client> clients;
+	private static volatile ConcurrentHashMap<String, Client> clients;
 	
 	static {
 		tokens = new Vector<Token>();
-		clients = new Vector<Client>();
+		clients = new ConcurrentHashMap<String, Client>();
 	}
 	
 	@NotNull
 	public Client getClient(String ip) {
-		for (Client client : clients) {
-			if (client.getIp().equals(ip)) {
-				return client;
-			}
+		if (clients.containsKey(ip)) {
+			return clients.get(ip);
+		} else {
+			Client client = new Client(ip);
+			clients.put(ip, client);
+			return client;
 		}
-		Client client = new Client(ip);
-		clients.add(client);
-		return client;
+	}
+	
+	public static void removeToken(Token token) {
+		tokens.remove(token);
 	}
 	
 	private static void clear() {
 		long timeCo = 5*60*1000;
 		long dateMax = System.currentTimeMillis()-timeCo;
-		for (int i = 0; i < tokens.size(); i++) {
+		for (int i = 0; i < tokens.size(); i++) {//---a optimisé
 			if (tokens.get(i).getDate() < dateMax) {
 				tokens.remove(tokens.get(i));
 				i--;

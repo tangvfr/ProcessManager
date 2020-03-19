@@ -21,12 +21,14 @@
         <script src="./js/onstart.js"></script>
         <script src="./js/onstopwc.js"></script>
         <script src="./js/onrestartwc.js"></script>
+        <script src="./js/ondisconnect.js"></script>
     </head>
     <body>
         <header>
             <img alt="Menu" src="/img/menu.png" class="headiconleft noselect" onclick="onMenu();">
             <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
             <span id="title">ProcessManager <targ=version></targ></span>
+            <img alt="Disconnect" src="/img/disconnect.png" class="headiconright noselect" onclick="onDisconnect('<targ=username></targ>');">
             <img alt="Add" src="/img/add.png" class="headiconright noselect" onclick="onAdd();">
             <img alt="Info" src="/img/info.png" class="headiconright noselect" onclick="onInfo();">
             <form method="GET" id="formsearch">

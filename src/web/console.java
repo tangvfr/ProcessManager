@@ -47,6 +47,7 @@ public class console implements ClassPage {
 						//general
 						remplaceValue.put("version", decodingUTF8(Main.version));
 						remplaceValue.put("token", token.toString());
+						remplaceValue.put("username", token.getUser());
 						remplaceValue.put("link", data.get("link"));
 						//data
 						ProcessManager processManager = Main.processManagerServer.getProcessManager();
