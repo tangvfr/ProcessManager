@@ -3,7 +3,7 @@ body {
     background-image: url(/img/fond.png);
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: 95%;
+    opacity: 90%;
 }
 
 body, html{
@@ -29,7 +29,7 @@ header {
     margin: 0px;
     height: 40px;
     width: 100%;
-    background: #444;
+    background: #333;
     border-bottom: 2px #666 solid;
 }
 
@@ -46,7 +46,7 @@ header {
     overflow: auto;
     word-wrap: break-word;
     border-right: 2px #666 solid;
-    background: #444;
+    background: #333;
     width: 600px;
     height: calc(100% - 42px);
 }
@@ -78,7 +78,7 @@ header {
     font-size: 16px;
     top: 40px;
     left: 100px;
-    background: #444;
+    background: #333;
     border: 2px #666 solid;
     border-top: none;
     padding: 2px;
@@ -108,7 +108,7 @@ header {
     background: url("/img/arrowleft.png");
 }
 
-#searchbtn,#next,#previous {
+#searchbtn, #next, #previous {
     display: block;
     position: relative;
     border: none;
@@ -122,6 +122,10 @@ header {
     color: transparent;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#previous {
+    margin-right: 0px;
 }
 
 .btnclose {
@@ -318,9 +322,8 @@ header {
 }
 
 .menuheadnumber {
-    background: #666;
-    border: 2px #888 outset;
-    color: #333;
+    background: #444;
+    border: 2px #757575 outset;
     margin-bottom: 6px;
 }
 
@@ -330,8 +333,8 @@ header {
     margin-top: 0px;
     word-wrap: break-word;
     padding: 2px;
-    background: #555;
-    border: 2px #333 solid;
+    background: #444;
+    border: 2px #222 solid;
     border-top: none;
     min-height: 20px;
 }
@@ -424,8 +427,8 @@ header {
 .contprocess, .contconsole {
     display: block;
     position: relative;
-    background: rgb(100, 100, 100);
-    border: 2px #444 solid;
+    background: #444;
+    border: 2px #333 solid;
     border-top: none;
     width: calc(98% - 4px);
     margin: 1%;
@@ -440,7 +443,7 @@ header {
     height: calc(100% - 56px);
     width: 99%;
     padding: 1px;
-    background: #444;
+    background: #333;
     line-height: 0px;
 }
 
@@ -458,7 +461,7 @@ header {
 .console, .error {
     display: block;
     width: 100%;
-    background: #444;
+    background: #333;
     font-size: 16px;
     line-height: 16px;
     font-weight: normal;
@@ -485,8 +488,8 @@ header {
     size: 13px;
     margin: 0px;
     margin-top: 2px;
-    background: #888;
-    border: 2px #666 solid;
+    background: #777;
+    border: 2px #555 solid;
     padding: 1px;
 }
 

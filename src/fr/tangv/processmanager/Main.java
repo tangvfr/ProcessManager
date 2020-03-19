@@ -15,7 +15,7 @@ import fr.tangv.web.main.Web;
 
 public class Main {
 
-	public static final String version = "Bêta_1.6.0";
+	public static final String version = "1.6.1";
 	public static volatile String cmdEnd = "";
 	public static volatile long timeStopNoForce = 0L;
 	public static volatile long timeStart;
