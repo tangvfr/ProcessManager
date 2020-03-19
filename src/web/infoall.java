@@ -40,8 +40,8 @@ public class infoall implements ClassPage {
 						if (textMaj != "ProcessManager est à jour !") {
 							PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
 							Map<String, String> mapMaj = new HashMap<String, String>();
-							textMaj = baliseMaj.remplaceText(mapMaj);
-							remplaceValue.put("update", decodingUTF8(textMaj));
+							mapMaj.put("text", decodingUTF8(textMaj));
+							remplaceValue.put("update", baliseMaj.remplaceText(mapMaj));
 						}
 						//general
 						remplaceValue.put("version", decodingUTF8(Main.version));
