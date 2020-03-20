@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.ProcessManager;
 import fr.tangv.processmanager.util.ProcessPlus;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
@@ -36,7 +36,7 @@ public class infoall implements ClassPage {
 					if (token != null) {
 						Map<String, String> remplaceValue = new HashMap<String, String>();
 						//maj
-						String textMaj = Main.getUpdate(true);
+						String textMaj = ProcessManager.getUpdate(true);
 						if (textMaj != "ProcessManager est à jour !") {
 							PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
 							Map<String, String> mapMaj = new HashMap<String, String>();
@@ -44,22 +44,22 @@ public class infoall implements ClassPage {
 							remplaceValue.put("update", baliseMaj.remplaceText(mapMaj));
 						}
 						//general
-						remplaceValue.put("version", decodingUTF8(Main.version));
+						remplaceValue.put("version", decodingUTF8(ProcessManager.version));
 						remplaceValue.put("token", token.toString());
 						remplaceValue.put("username", token.getUser());
 						remplaceValue.put("link", data.get("link"));
 						//data
-						remplaceValue.put("cmdend", Main.cmdEnd);
-						remplaceValue.put("timestopnoforce", Main.timeStopNoForce+"");
-			            remplaceValue.put("timestart", Main.timeStart+"");
-			            remplaceValue.put("timeisstart", Main.timeIsStart+"");
-			            remplaceValue.put("timerestart", Main.timeRestart+"");
-			            remplaceValue.put("isstop", Main.processManagerServer.isStopNoForce()+"");
+						remplaceValue.put("cmdend", ProcessManager.cmdEnd);
+						remplaceValue.put("timestopnoforce", ProcessManager.timeStopNoForce+"");
+			            remplaceValue.put("timestart", ProcessManager.timeStart+"");
+			            remplaceValue.put("timeisstart", ProcessManager.timeIsStart+"");
+			            remplaceValue.put("timerestart", ProcessManager.timeRestart+"");
+			            remplaceValue.put("isstop", ProcessManager.processManagerServer.isStopNoForce()+"");
 			            //process number
-			            int processnumber = Main.processManagerServer.getProcessManager().getListProcess().size();
+			            int processnumber = ProcessManager.processManagerServer.getProcessManager().getListProcess().size();
 			            int processnumberon = 0;
 			            int processnumberdem = 0;
-			            for (ProcessPlus process : Main.processManagerServer.getProcessManager().getListProcess()) {
+			            for (ProcessPlus process : ProcessManager.processManagerServer.getProcessManager().getListProcess()) {
 			            	if (process.getProcess().isStart())
 			            		processnumberon++;
 			            	if (process.isActiveOnStart())

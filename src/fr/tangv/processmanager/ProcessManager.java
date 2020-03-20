@@ -13,9 +13,9 @@ import java.util.Date;
 
 import fr.tangv.web.main.Web;
 
-public class Main {
+public class ProcessManager {
 
-	public static final String version = "1.6.1";
+	public static final String version = "1.6.2";
 	public static volatile String cmdEnd = "";
 	public static volatile long timeStopNoForce = 0L;
 	public static volatile long timeStart;

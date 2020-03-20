@@ -1,14 +1,14 @@
 package web.commands;
 
-import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.ProcessManager;
 import fr.tangv.processmanager.ProcessManagerServer;
-import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.util.ManagerProcess;
 import fr.tangv.processmanager.util.ProcessPlus;
 
 public class CommandCmdAll {
 
 	public CommandCmdAll(String newCmd) throws Exception {
-		ProcessManager pm = Main.processManagerServer.getProcessManager();
+		ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
 		for (ProcessPlus process : pm.getListProcess()) {
 			try {
 				process.setCmd(newCmd);

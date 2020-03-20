@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.sun.istack.internal.Nullable;
 
-import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.ProcessManager;
 import fr.tangv.web.util.CodeHTTP;
 import fr.tangv.web.util.PageType;
 
@@ -22,7 +22,7 @@ public class SendHTTP {
 		OutputStream out = socket.getOutputStream();
 		String head = "HTTP/1.1 "+codeHTTP+"\r\n"+
 				"Date: "+new Date()+"\r\n"+
-				"Server: ProcessManager_"+Main.version+"\r\n"+
+				"Server: ProcessManager_"+ProcessManager.version+"\r\n"+
 				"Content-Length: "+data.length+"\r\n"+
 				"Content-Type: "+type+"\r\n";
 		if (header != null)

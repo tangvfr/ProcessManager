@@ -1,12 +1,12 @@
 package web.commands;
 
-import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.ProcessManager;
 
 public class CommandCmdEnd {
 
 	public CommandCmdEnd(String newCmdEnd) throws Exception {
-		Main.cmdEnd = newCmdEnd;
-		Main.saveData();
+		ProcessManager.cmdEnd = newCmdEnd;
+		ProcessManager.saveData();
 	}
 	
 }

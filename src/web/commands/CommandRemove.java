@@ -1,13 +1,13 @@
 package web.commands;
 
-import fr.tangv.processmanager.Main;
-import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.ProcessManager;
+import fr.tangv.processmanager.util.ManagerProcess;
 
 public class CommandRemove {
 
 	public CommandRemove(String name) throws Exception {
 		if (!name.isEmpty()) {
-			ProcessManager pm = Main.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
 			if (pm.hasProcess(name)) {
 				pm.removeProcess(name);
 			} else {

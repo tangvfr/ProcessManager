@@ -1,18 +1,18 @@
 package web.commands;
 
-import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.ProcessManager;
 import fr.tangv.processmanager.ProcessManagerServer;
-import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.util.ManagerProcess;
 import fr.tangv.processmanager.util.ProcessPlus;
 
 public class CommandRestartWCAll {
 
 	public CommandRestartWCAll() throws Exception {
-		if (!Main.processManagerServer.isStopNoForce()) {
+		if (!ProcessManager.processManagerServer.isStopNoForce()) {
 				Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-							ProcessManager pm = Main.processManagerServer.getProcessManager();
+							ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
 							for (ProcessPlus process : pm.getListProcess()) {
 								if (!process.getCmdStop().isEmpty()) {
 									try {
