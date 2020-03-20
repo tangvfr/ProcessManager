@@ -1,13 +1,13 @@
 package web.commands;
 
-import fr.tangv.processmanager.Main;
-import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.ProcessManager;
+import fr.tangv.processmanager.util.ManagerProcess;
 
 public class CommandSendConsole {
 
 	public CommandSendConsole(String name, String command) throws Exception {
 		if (!name.isEmpty()) {
-			ProcessManager pm = Main.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
 			if (pm.hasProcess(name)) {
 				pm.getProcess(name).send(command);
 			} else {

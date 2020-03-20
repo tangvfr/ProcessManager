@@ -1,16 +1,16 @@
 package web.commands;
 
-import fr.tangv.processmanager.Main;
-import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.ProcessManager;
+import fr.tangv.processmanager.util.ManagerProcess;
 import fr.tangv.processmanager.util.ProcessPlus;
 
 public class CommandRestart {
 
 	public CommandRestart(String name) throws Exception {
 		if (!name.isEmpty()) {
-			ProcessManager pm = Main.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
 			if (pm.hasProcess(name)) {
-				if (!Main.processManagerServer.isStopNoForce()) {
+				if (!ProcessManager.processManagerServer.isStopNoForce()) {
 					ProcessPlus process = pm.getProcess(name);
 					process.getProcess().stop();
 					process.reload();

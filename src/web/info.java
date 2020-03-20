@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-import fr.tangv.processmanager.Main;
-import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.ProcessManager;
+import fr.tangv.processmanager.util.ManagerProcess;
 import fr.tangv.processmanager.util.ProcessPlus;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
@@ -104,7 +104,7 @@ public class info implements ClassPage {
 					if (token != null) {
 						Map<String, String> remplaceValue = new HashMap<String, String>();
 						//maj
-						String textMaj = Main.getUpdate(true);
+						String textMaj = ProcessManager.getUpdate(true);
 						if (textMaj != "ProcessManager est à jour !") {
 							PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
 							Map<String, String> mapMaj = new HashMap<String, String>();
@@ -115,7 +115,7 @@ public class info implements ClassPage {
 						PageResoucre baliseProcessBox = new PageResoucre(pageResoucre.getContent("processbox"), "barg", false);
 						PageResoucre baliseProcessMenu = new PageResoucre(pageResoucre.getContent("processmenu"), "barg", false);
 						//general
-						remplaceValue.put("version", decodingUTF8(Main.version));
+						remplaceValue.put("version", decodingUTF8(ProcessManager.version));
 						remplaceValue.put("token", token.toString());
 						remplaceValue.put("username", token.getUser());
 						remplaceValue.put("search", data.get("search"));
@@ -135,7 +135,7 @@ public class info implements ClassPage {
 						//list process
 						String textProcessBox = "";
 						String textProcessMenu = "";
-						ProcessManager processManager = Main.processManagerServer.getProcessManager();
+						ManagerProcess processManager = ProcessManager.processManagerServer.getProcessManager();
 						remplaceValue.put("processnumber", ""+processManager.getListProcess().size());
 						//filtre
 						@SuppressWarnings("unchecked")

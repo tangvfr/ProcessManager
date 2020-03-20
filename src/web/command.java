@@ -1,6 +1,6 @@
 package web;
 
-import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.ProcessManager;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
 import fr.tangv.web.util.ClassPage;
@@ -111,19 +111,19 @@ public class command implements ClassPage {
 									break;
 									
 								case "stopforcenoscript":
-									Main.processManagerServer.stop();
+									ProcessManager.processManagerServer.stop();
 									break;
 										
 								case "stopforcewithscript":
-									Main.processManagerServer.stopScript();
+									ProcessManager.processManagerServer.stopScript();
 									break;
 									
 								case "stopnoforcenoscript":
-									Main.processManagerServer.stopNoForce(false);
+									ProcessManager.processManagerServer.stopNoForce(false);
 									break;
 									
 								case "stopnoforcewithscript":
-									Main.processManagerServer.stopNoForce(true);
+									ProcessManager.processManagerServer.stopNoForce(true);
 									break;
 									
 								case "removeall":

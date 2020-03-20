@@ -1,14 +1,14 @@
 package web.commands;
 
-import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.ProcessManager;
 import fr.tangv.processmanager.ProcessManagerServer;
-import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.util.ManagerProcess;
 import fr.tangv.processmanager.util.ProcessPlus;
 
 public class CommandStopCmdAll {
 	
 	public CommandStopCmdAll(String newStopCmd) {
-		ProcessManager pm = Main.processManagerServer.getProcessManager();
+		ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
 		for (ProcessPlus process : pm.getListProcess()) {
 			try {
 				process.setCmdStop(newStopCmd);

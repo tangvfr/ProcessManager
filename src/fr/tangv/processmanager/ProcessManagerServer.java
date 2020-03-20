@@ -22,7 +22,7 @@ import fr.tangv.processmanager.commands.CommandStop;
 import fr.tangv.processmanager.commands.CommandStopNoForce;
 import fr.tangv.processmanager.commands.CommandStopNoForceNoScript;
 import fr.tangv.processmanager.commands.CommandStopScript;
-import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.util.ManagerProcess;
 import fr.tangv.processmanager.util.ProcessPlus;
 
 public class ProcessManagerServer {
@@ -37,10 +37,10 @@ public class ProcessManagerServer {
 	private volatile File fileParameter;
 	private Map<String, String> userAndMdp;
 	private CommandManager cmdManager;
-	private volatile ProcessManager processManager;
+	private volatile ManagerProcess processManager;
 	private volatile boolean stopNoForce;
 	
-	public ProcessManager getProcessManager() {
+	public ManagerProcess getProcessManager() {
 		return processManager;
 	}
 	
@@ -124,16 +124,16 @@ public class ProcessManagerServer {
 				" / ____/ /  / /_/ / /__/  __(__  |__  ) /  / / /_/ / / / / /_/ / /_/ /  __/ /    \r\n" + 
 				"/_/   /_/   \\____/\\___/\\___/____/____/_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n" + 
 				"                                                              /____/             \r\n" + 
-				"Version: "+Main.version+"\r\n"+Main.getUpdate(false)+"\r\n");
+				"Version: "+ProcessManager.version+"\r\n"+ProcessManager.getUpdate(false)+"\r\n");
 		//----------------------------------------
 		this.userAndMdp = new HashMap<String, String>();
 		this.userAndMdp.put("admin", "password");
 		fileParameter = new File("./users");
 		try {
-			Main.loadData();
+			ProcessManager.loadData();
 			loadUsers();
 			ProcessManagerServer.logger.info("Load Users, Number Users: "+userAndMdp.size());
-			processManager = new ProcessManager();
+			processManager = new ManagerProcess();
 			//----------------------------------------------
 			this.cmdManager = new CommandManager(System.in);
 			cmdManager.registreCommand("help", new CommandHelp(this));
@@ -147,32 +147,32 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("checkupdate", new CommandCheckUpdate());
 			cmdManager.start();
 			//----------------------------------------------
-			Main.timeStart = System.currentTimeMillis();
-			Main.dateRestart = Main.dateRestart(-Main.timeStopNoForce).getTime();
+			ProcessManager.timeStart = System.currentTimeMillis();
+			ProcessManager.dateRestart = ProcessManager.dateRestart(-ProcessManager.timeStopNoForce).getTime();
 			Thread thread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					while (true) {
 						long time = System.currentTimeMillis();
-						Main.timeIsStart = time-Main.timeStart;
-						if (Main.timeStopNoForce != 0) {
-							if (Main.timeStopNoForce > 0) {
-								Main.timeRestart = Main.timeStopNoForce-Main.timeIsStart;
-								if (Main.timeRestart <= 0) {
-									Main.timeRestart = 0;
+						ProcessManager.timeIsStart = time-ProcessManager.timeStart;
+						if (ProcessManager.timeStopNoForce != 0) {
+							if (ProcessManager.timeStopNoForce > 0) {
+								ProcessManager.timeRestart = ProcessManager.timeStopNoForce-ProcessManager.timeIsStart;
+								if (ProcessManager.timeRestart <= 0) {
+									ProcessManager.timeRestart = 0;
 									stopNoForce(true);
 									break;
 								}
 							} else {
-								Main.timeRestart = Main.dateRestart-time;
-								if (Main.timeRestart <= 0) { 
-									Main.timeRestart = 0;
+								ProcessManager.timeRestart = ProcessManager.dateRestart-time;
+								if (ProcessManager.timeRestart <= 0) { 
+									ProcessManager.timeRestart = 0;
 									stopNoForce(true);
 									break;
 								}
 							}
 						} else {
-							Main.timeRestart = 0;
+							ProcessManager.timeRestart = 0;
 						}
 						try {
 							Thread.sleep(1000);
@@ -229,7 +229,7 @@ public class ProcessManagerServer {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
-				String cmd = Main.cmdEnd;
+				String cmd = ProcessManager.cmdEnd;
 				if (cmd != null && !cmd.isEmpty() && !cmd.equals(" ")) {
 					try {
 			            String os = System.getProperty("os.name").toLowerCase();

@@ -1,6 +1,6 @@
 package web.commands;
 
-import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.ProcessManager;
 
 public class CommandTimeRestart {
 
@@ -9,9 +9,9 @@ public class CommandTimeRestart {
 		String[] tim = time.split(":");
 		int hour = Integer.parseInt(tim[0]);
 		int minute = Integer.parseInt(tim[1]);
-		Main.timeStopNoForce = ((hour*3_600_000)+(minute*60_000))*hor;
-		Main.dateRestart = Main.dateRestart(-Main.timeStopNoForce).getTime();
-		Main.saveData();
+		ProcessManager.timeStopNoForce = ((hour*3_600_000)+(minute*60_000))*hor;
+		ProcessManager.dateRestart = ProcessManager.dateRestart(-ProcessManager.timeStopNoForce).getTime();
+		ProcessManager.saveData();
 	}
 	
 }

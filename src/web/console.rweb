@@ -25,7 +25,7 @@
             <img alt="Refrech" src="/img/refrech.png" class="headiconleft noselect" onclick="window.history.go(0);">
             <span id="title">Console ProcessManager <targ=version></targ></span>
             <img alt="Disconnect" src="/img/disconnect.png" class="headiconright noselect" onclick="onDisconnect('<targ=username></targ>');">
-            <div class="noselect" id="lines">1000</div>
+            <div class="noselect" id="lines">50</div>
             <div class="noselect" id="linestext">Lines: </div>
         </header>
         <div class="boxglobal">

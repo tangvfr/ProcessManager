@@ -9,7 +9,7 @@ import java.util.Vector;
 
 import fr.tangv.processmanager.ProcessManagerServer;
 
-public class ProcessManager {
+public class ManagerProcess {
 
 	private volatile Vector<ProcessPlus> listProcess;
 	private File folder;
@@ -143,7 +143,7 @@ public class ProcessManager {
 		}
 	}
 	
-	public ProcessManager() throws IOException {
+	public ManagerProcess() throws IOException {
 		listProcess = new Vector<ProcessPlus>();
 		folder = new File("./process");
 		if (!folder.exists()) folder.mkdirs();

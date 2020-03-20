@@ -4,8 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.tangv.processmanager.Main;
-import fr.tangv.processmanager.util.ProcessManager;
+import fr.tangv.processmanager.ProcessManager;
+import fr.tangv.processmanager.util.ManagerProcess;
 import fr.tangv.processmanager.util.ProcessPlus;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
@@ -37,7 +37,7 @@ public class console implements ClassPage {
 					if (token != null) {
 						Map<String, String> remplaceValue = new HashMap<String, String>();
 						//maj
-						String textMaj = Main.getUpdate(true);
+						String textMaj = ProcessManager.getUpdate(true);
 						if (textMaj != "ProcessManager est à jour !") {
 							PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
 							Map<String, String> mapMaj = new HashMap<String, String>();
@@ -45,12 +45,12 @@ public class console implements ClassPage {
 							remplaceValue.put("update", baliseMaj.remplaceText(mapMaj));
 						}
 						//general
-						remplaceValue.put("version", decodingUTF8(Main.version));
+						remplaceValue.put("version", decodingUTF8(ProcessManager.version));
 						remplaceValue.put("token", token.toString());
 						remplaceValue.put("username", token.getUser());
 						remplaceValue.put("link", data.get("link"));
 						//data
-						ProcessManager processManager = Main.processManagerServer.getProcessManager();
+						ManagerProcess processManager = ProcessManager.processManagerServer.getProcessManager();
 						String name = data.get("name");
 						if (!name.isEmpty() && processManager.hasProcess(name)) {
 							ProcessPlus process = processManager.getProcess(name);

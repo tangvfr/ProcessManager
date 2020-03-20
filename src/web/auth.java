@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 
-import fr.tangv.processmanager.Main;
+import fr.tangv.processmanager.ProcessManager;
 import fr.tangv.web.main.ReceiveHTTP;
 import fr.tangv.web.main.Web;
 import fr.tangv.web.util.ClassPage;
@@ -84,7 +84,7 @@ public class auth implements ClassPage {
 			if (data != null && data.containsKey("user") && data.containsKey("pass")) {
 				String user = data.get("user");
 				String pass = data.get("pass");
-				Map<String, String> auth = Main.processManagerServer.getUserAndMdp();
+				Map<String, String> auth = ProcessManager.processManagerServer.getUserAndMdp();
 				Client client = getClient(receiveHTTP.getIp());
 				if (client.itCan()) {
 					if (auth.containsKey(user) && auth.get(user).equals(pass)) {
