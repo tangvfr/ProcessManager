@@ -458,34 +458,47 @@ header {
     margin-top: 6px;
 }
 
+#console, #error {
+    position: relative;
+    display: block;
+    height: 800px;
+    width: auto;
+    word-wrap: normal;
+}
+
 .console, .error {
+    position: relative;
     display: block;
     width: 100%;
+    height: calc(100% - 23px);
     background: #333;
     font-size: 16px;
     line-height: 16px;
     font-weight: normal;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: left;
-    resize: none;
     overflow: scroll;
     margin: 0px;
 }
 
 .console {
     color: #3F3;
-    height: calc(100% - 23px);
 }
 
 .error {
     color: #F33;
-    height: 100%;
 }
 
-#btnsend, #commandsend {
+#btnsend, #commandsend, #lastlabel, #lastsend {
+    font-weight: normal;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: left;
+    font-size: 13px;
+    line-height: 13px;
+    position: absolute;
+    display: inline-block;
     height: 21px;
-    color: #FFF;
-    size: 13px;
+    color: #EEE;
     margin: 0px;
     margin-top: 2px;
     background: #777;
@@ -496,12 +509,35 @@ header {
 #btnsend {
     text-align: center;
     width: 48px;
+    left: calc(100% - 50px);
 }
 
 #commandsend {
     text-align: start;
     width: calc(100% - 54px);
+    left: 0px;
 }
+
+#lastsend, #lastlabel {
+    color: #AAA;
+    background: #444;
+    border: 2px #555 solid;
+    height: 15px;
+}
+
+#lastsend {
+    left: 84px;
+    text-align: start;
+    width: calc(100% - 91px);
+}
+
+#lastlabel {
+    left: 0px;
+    text-align: center;
+    width: 74px;
+}
+
+
 
 .divprocesstext {
     position: relative;
