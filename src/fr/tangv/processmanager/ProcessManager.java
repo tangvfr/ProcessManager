@@ -7,8 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 
 import fr.tangv.web.main.Web;
@@ -27,27 +27,28 @@ public class ProcessManager {
 	
 	public static String getUpdate(boolean web) {
 		try {
-			URL url = new URL("https://tangv.fr/ProcessManager/version");
+			URLConnection urlCo = new URL("https://api.github.com/repos/tangvfr/ProcessManager/tags").openConnection();
+			InputStream in = urlCo.getInputStream();
+			byte[] buf = new byte[urlCo.getContentLength()];
+			in.read(buf);
+			in.close();
 			try {
-				InputStream in = url.openStream();
-				byte[] buf = new byte[in.available()];
-				in.read(buf);
-				in.close();
-				try {
-					String lastVersion = new String(buf, "UTF8");
-					if (!version.equals(lastVersion)) {
-						return "Process Manager is not update, the last version is "+lastVersion+(web ? " ! <a href=\"https://github.com/tangvfr/ProcessManager/releases\">Download</a>" : " ! Download: https://github.com/tangvfr/ProcessManager/releases");
-					} else {
-						return "ProcessManager is update !";
-					}
-				} catch (Exception e) {
-					return "Error read version";
+				String pageJson = new String(buf, "UTF8");
+				int debutVersion = pageJson.indexOf("\"name\": \"")+11;
+				String lastVersion = pageJson.substring(debutVersion, pageJson.indexOf("\","));
+				int resultComp = version.compareToIgnoreCase(lastVersion);
+				if (resultComp == -1) {
+					return "ProcessManager is not update, the last version is "+lastVersion+(web ? " ! <a href=\"https://github.com/tangvfr/ProcessManager/releases\">Download</a>" : " ! Download: https://github.com/tangvfr/ProcessManager/releases");
+				} else if (resultComp == 1) {
+					return "ProcessManager is in improve !";
+				} else {
+					return "ProcessManager is update !";
 				}
-			} catch (IOException e) {
-				return "Error internet";
+			} catch (Exception e) {
+				return "Error read version";
 			}
-		} catch (MalformedURLException e) {
-			return "Error url";
+		} catch (IOException e) {
+			return "Error internet";
 		}
 	}
 	
