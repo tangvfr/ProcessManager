@@ -34,8 +34,11 @@ public class ManagerProcess {
 	public boolean addProcess(ProcessPlus process) throws IOException {
 		if (!hasProcess(process.getName())) {
 			listProcess.add(process);
-			saveProcces(process.getName());
-			return true;
+			if (saveProcces(process.getName())) {
+				return true;
+			} else {
+				listProcess.remove(process);
+			}
 		}
 		return false;
 	}
@@ -46,8 +49,11 @@ public class ManagerProcess {
 				File file  = new File("./process/"+name);
 				if (!file.delete()) return false;
 				process.setName(newName);
-				saveProcces(newName);
-				return true;
+				if (saveProcces(newName)) {
+					return true;
+				} else {
+					process.setName(name);
+				}
 			}
 		}
 		return false;
