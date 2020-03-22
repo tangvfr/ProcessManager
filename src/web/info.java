@@ -77,7 +77,7 @@ public class info implements ClassPage {
 		}
 	}
 	
-	private void sortListNameContent(Vector<ProcessPlus> listProcess, String name) {
+	private void sortListSearch(Vector<ProcessPlus> listProcess, String name) {
 		if (!name.isEmpty()) {
 			@SuppressWarnings("unchecked")
 			Vector<ProcessPlus> list = (Vector<ProcessPlus>) listProcess.clone();
@@ -105,7 +105,7 @@ public class info implements ClassPage {
 						Map<String, String> remplaceValue = new HashMap<String, String>();
 						//maj
 						String textMaj = ProcessManager.getUpdate(true);
-						if (textMaj != "ProcessManager est à jour !") {
+						if (textMaj != "ProcessManager is update !") {
 							PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
 							Map<String, String> mapMaj = new HashMap<String, String>();
 							mapMaj.put("text", decodingUTF8(textMaj));
@@ -140,12 +140,14 @@ public class info implements ClassPage {
 						//filtre
 						@SuppressWarnings("unchecked")
 						Vector<ProcessPlus> listProcess = (Vector<ProcessPlus>) processManager.getListProcess().clone();
-						sortListNameContent(listProcess, data.get("search"));
+						sortListSearch(listProcess, data.get("search"));
 						sortListProcess(listProcess, data.get("sort"));
 						//---------------implement folder sort---------------------------------------
 						//calc page
 						int processByPage = 4;
-						maxpage = (listProcess.size()+1)/processByPage;
+						maxpage = (listProcess.size()%processByPage != 0) ?
+								(listProcess.size()/processByPage)+1 :
+								(listProcess.size()/processByPage);
 						if (page < 1) {
 							page = maxpage;
 						} else if (page > maxpage) {

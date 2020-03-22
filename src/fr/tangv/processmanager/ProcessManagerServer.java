@@ -30,7 +30,7 @@ public class ProcessManagerServer {
 	public static volatile Logger logger;
 	
 	private static String getLogTime() {
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 		return format.format(new Date());
 	}
 	
