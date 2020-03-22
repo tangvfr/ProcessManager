@@ -80,17 +80,22 @@ public class ManagerProcess {
 	public boolean saveProcces(String name) throws IOException {
 		for (ProcessPlus process : listProcess) {
 			if (process.getName().equals(name)) {
-				File file  = new File("./process/"+process.getName());
-				if (!file.exists()) file.createNewFile();
-				DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
-				out.writeUTF(process.getName());
-				out.writeUTF(process.getCmd());
-				out.writeUTF(process.getFolder());
-				out.writeUTF(process.getEncoding());
-				out.writeUTF(""+process.isActiveOnStart());
-				out.writeUTF(process.getCmdStop());
-				out.close();
-				return true;
+				try {
+					File file  = new File("./process/"+process.getName());
+					if (!file.exists()) file.createNewFile();
+					DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
+					out.writeUTF(process.getName());
+					out.writeUTF(process.getCmd());
+					out.writeUTF(process.getFolder());
+					out.writeUTF(process.getEncoding());
+					out.writeUTF(""+process.isActiveOnStart());
+					out.writeUTF(process.getCmdStop());
+					out.close();
+					return true;
+				} catch(Exception e) {
+					ProcessManagerServer.logger.warning(e.getMessage());
+					return false;
+				}
 			}
 		}
 		return false;
