@@ -35,13 +35,13 @@
                 <input type="hidden" name="token" value="<targ=token></targ>">
                 <input type="hidden" name="page" id="page" value="<targ=page></targ>">
                 <input type="submit" name="button" value="none" id="searchbtn">
-                <input type="search" name="search" placeholder="Rechercher" value="<targ=search></targ>" id="search">
+                <input type="search" name="search" placeholder="Search" value="<targ=search></targ>" id="search">
                 <select name="sort" id="sort">
-                    <option value="name" <targ=sortname></targ>>Trier par nom</option>
-                    <option value="foldername" <targ=sortfoldername></targ>>Trier par nom de dosier</option>
-                    <option value="folder" <targ=sortfolder></targ>>Trier par dosier</option>
-                    <option value="started" <targ=sortstarted></targ>>Trier par démaré</option>
-                    <option value="launch" <targ=sortlaunch></targ>>Trier par démarent</option>
+                    <option value="name" <targ=sortname></targ>>Sort by name</option>
+                    <option value="foldername" <targ=sortfoldername></targ>>Sort by folder</option>
+                    <!--<option value="folder" <targ=sortfolder></targ>>Sort as folder</option>-->
+                    <option value="started" <targ=sortstarted></targ>>Sort by started</option>
+                    <option value="launch" <targ=sortlaunch></targ>>Sort by launch</option>
                 </select>
                 <input type="submit" name="button" value="next" id="next">
                 <span id="page" class="noselect"><targ=page></targ>/<targ=maxpage></targ></span>
@@ -89,7 +89,7 @@
         </section>
         <nav id="menu">
             <div class="menuheadnumber">
-                <span>Process trouvé <targ=processfind></targ> sur un total de <targ=processnumber></targ> process</span>
+                <span>Process find <targ=processfind></targ> on total to <targ=processnumber></targ> process</span>
             </div>
             <targ=processmenu>
                 <div ondblclick="goPage(<barg=page></barg>);">

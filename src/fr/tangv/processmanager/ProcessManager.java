@@ -15,7 +15,7 @@ import fr.tangv.web.main.Web;
 
 public class ProcessManager {
 
-	public static final String version = "1.6.2";
+	public static final String version = "1.6.3";
 	public static volatile String cmdEnd = "";
 	public static volatile long timeStopNoForce = 0L;
 	public static volatile long timeStart;
@@ -36,18 +36,18 @@ public class ProcessManager {
 				try {
 					String lastVersion = new String(buf, "UTF8");
 					if (!version.equals(lastVersion)) {
-						return "ProcessManager n'est pas à jour, la dernière version est "+lastVersion+(web ? " ! <a href=\"https://tangv.fr/ProcessManager/\">Download</a>" : " ! Download: https://tangv.fr/ProcessManager/");
+						return "Process Manager is not update, the last version is "+lastVersion+(web ? " ! <a href=\"https://github.com/tangvfr/ProcessManager/releases\">Download</a>" : " ! Download: https://github.com/tangvfr/ProcessManager/releases");
 					} else {
-						return "ProcessManager est à jour !";
+						return "ProcessManager is update !";
 					}
 				} catch (Exception e) {
-					return "Error Read Version";
+					return "Error read version";
 				}
 			} catch (IOException e) {
-				return "Error Internet";
+				return "Error internet";
 			}
 		} catch (MalformedURLException e) {
-			return "Error Url";
+			return "Error url";
 		}
 	}
 	
