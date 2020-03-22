@@ -75,6 +75,8 @@ header {
 #update {
     position: fixed;
     display: block;
+    width: max-content;
+    height: min-content;
     font-size: 16px;
     top: 40px;
     left: 100px;
@@ -83,6 +85,7 @@ header {
     border-top: none;
     padding: 2px;
     padding-top: 0px;
+    z-index: 100;
 }
 
 #search,#sort {
