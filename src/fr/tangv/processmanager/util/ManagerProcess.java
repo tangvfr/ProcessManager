@@ -38,6 +38,7 @@ public class ManagerProcess {
 				return true;
 			} else {
 				listProcess.remove(process);
+				throw new IOException("Add: not save process \""+process.getName()+"\"");
 			}
 		}
 		return false;
@@ -53,6 +54,7 @@ public class ManagerProcess {
 					return true;
 				} else {
 					process.setName(name);
+					throw new IOException("Rename: not save process \""+process.getName()+"\"");
 				}
 			}
 		}
