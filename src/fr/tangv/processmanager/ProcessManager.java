@@ -30,7 +30,10 @@ public class ProcessManager {
 		try {
 			URLConnection urlCo = new URL("https://api.github.com/repos/tangvfr/ProcessManager/tags").openConnection();
 			InputStream in = urlCo.getInputStream();
-			byte[] buf = new byte[urlCo.getContentLength()];
+			int size = urlCo.getContentLength();
+			if (size <= 0)
+				return "Error read stream is close";
+			byte[] buf = new byte[size];
 			in.read(buf);
 			in.close();
 			try {
@@ -48,7 +51,7 @@ public class ProcessManager {
 			} catch (Exception e) {
 				return "Error read version";
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return "Error internet or with the link";
 		}
 	}
