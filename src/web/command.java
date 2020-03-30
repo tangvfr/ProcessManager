@@ -167,11 +167,11 @@ public class command implements ClassPage {
 									break;
 									
 								case "readconsole":
-									CommandReadConsole commandReadConsole = new CommandReadConsole(data.get("name"), Integer.parseInt(data.get("lines")));
+									CommandReadConsole commandReadConsole = new CommandReadConsole(data.get("name"));
 									return new Page(commandReadConsole.console.getBytes("UTF8"), PageType.OTHER, CodeHTTP.CODE_200_OK);
 									
 								case "readerror":
-									CommandReadError commandReadError = new CommandReadError(data.get("name"), Integer.parseInt(data.get("lines")));
+									CommandReadError commandReadError = new CommandReadError(data.get("name"));
 									return new Page(commandReadError.error.getBytes("UTF8"), PageType.OTHER, CodeHTTP.CODE_200_OK);
 									
 								case "sendconsole":

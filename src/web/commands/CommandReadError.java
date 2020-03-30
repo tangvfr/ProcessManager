@@ -7,7 +7,7 @@ public class CommandReadError {
 	
 	public String error;
 	
-	public CommandReadError(String name, int lines) throws Exception {
+	public CommandReadError(String name) throws Exception {
 		if (!name.isEmpty()) {
 			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
