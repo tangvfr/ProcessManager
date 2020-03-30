@@ -91,19 +91,19 @@ public class ProcessPlus {
 			process.send(msg);
 	}
 	
-	private String limitLines(String input, int maxLines) {
-		if (!input.isEmpty())
-			this.consoleInput += input+"\r\n";
+	private String limitLines(String lastInput, String newInput, int maxLines) {
+		if (!newInput.isEmpty())
+			lastInput += newInput+"\r\n";
 		//-----------------------------------------------
-		String[] consoleLine = consoleInput.split("\n");
+		String[] consoleLine = lastInput.split("\n");
 		if (consoleLine.length > maxLines) {
 			String newConsole = "";
 			for (int i = consoleLine.length-maxLines; i < consoleLine.length; i++) {
 				newConsole += consoleLine[i]+"\n";
 			}
-			this.consoleInput = newConsole;
+			lastInput = newConsole;
 		}
-		return input;
+		return lastInput;
 	}
 	
 	public String getConsole() throws IOException {
@@ -116,9 +116,9 @@ public class ProcessPlus {
 	
 	public void update() throws IOException {
 		if (process.hasNewInput())
-			this.consoleInput = limitLines(process.getInput(), 50);
+			this.consoleInput = limitLines(this.consoleInput, process.getInput(), 50);
 		if (process.hasNewError())
-			this.consoleError = limitLines(process.getError(), 50);
+			this.consoleError = limitLines(this.consoleError, process.getError(), 50);
 	}
 	
 }
