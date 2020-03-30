@@ -108,8 +108,9 @@ public class ProcessManager {
 			if (args.length >= 2 && args[1].equalsIgnoreCase("-web")) {
 				try {
 					int port = args.length >= 3 ? Integer.parseInt(args[2]) : 80;
-					new Web(port, "web", ProcessManagerServer.LOGGER);
-					ProcessManagerServer.LOGGER.info("Open WebServer with port \""+port+"\" !");
+					int backlog = args.length >= 4 ? Integer.parseInt(args[3]) : 10;
+					new Web(port, "web", ProcessManagerServer.LOGGER, backlog);
+					ProcessManagerServer.LOGGER.info("Open WebServer with port \""+port+"\" with "+backlog+" backlog!");
 				} catch (Exception e) {
 					ProcessManagerServer.LOGGER.warning("Error WebServer port is invalid !");
 				}
