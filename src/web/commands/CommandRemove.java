@@ -7,7 +7,7 @@ public class CommandRemove {
 
 	public CommandRemove(String name) throws Exception {
 		if (!name.isEmpty()) {
-			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
 				pm.removeProcess(name);
 			} else {

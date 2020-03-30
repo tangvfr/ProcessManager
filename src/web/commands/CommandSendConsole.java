@@ -7,7 +7,7 @@ public class CommandSendConsole {
 
 	public CommandSendConsole(String name, String command) throws Exception {
 		if (!name.isEmpty()) {
-			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
 				pm.getProcess(name).send(command);
 			} else {

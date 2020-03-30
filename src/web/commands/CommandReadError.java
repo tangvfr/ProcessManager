@@ -9,9 +9,9 @@ public class CommandReadError {
 	
 	public CommandReadError(String name, int lines) throws Exception {
 		if (!name.isEmpty()) {
-			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
-				this.error = pm.getProcess(name).readError(lines);
+				this.error = pm.getProcess(name).getError();
 			} else {
 				throw new Exception("CommandRemove: process "+name+" not exist");
 			}

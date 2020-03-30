@@ -8,7 +8,7 @@ public class CommandStopCmd {
 	
 	public CommandStopCmd(String name, String newStopCmd) throws Exception {
 		if (!name.isEmpty()) {
-			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
 				ProcessPlus process = pm.getProcess(name);
 				process.setCmdStop(newStopCmd);

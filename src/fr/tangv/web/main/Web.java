@@ -34,15 +34,15 @@ public class Web {
 	}
 	
 	public Web(int port, String pathResource) throws IOException {
-		this(port, pathResource, null);
+		this(port, pathResource, null, 10);
 	}
 	
-	public Web(int port, String pathResource, Logger logger) throws IOException {
+	public Web(int port, String pathResource, Logger logger, int backlog) throws IOException {
 		this.port = port;
 		this.pathResource = pathResource;
 		this.web = this;
 		this.logger = logger;
-		serv = new ServerSocket(port);
+		serv = new ServerSocket(port, backlog);
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {

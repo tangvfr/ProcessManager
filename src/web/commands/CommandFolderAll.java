@@ -8,13 +8,13 @@ import fr.tangv.processmanager.util.ProcessPlus;
 public class CommandFolderAll {
 
 	public CommandFolderAll(String newFolder) throws Exception {
-		ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+		ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 		for (ProcessPlus process : pm.getListProcess()) {
 			try {
 				process.setFolder(newFolder);
 				pm.saveProcces(process.getName());
 			} catch (Exception e) {
-				ProcessManagerServer.logger.warning(e.getMessage());
+				ProcessManagerServer.LOGGER.warning(e.getMessage());
 			}
 		}
 	}

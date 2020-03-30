@@ -104,7 +104,7 @@ public class info implements ClassPage {
 					if (token != null) {
 						Map<String, String> remplaceValue = new HashMap<String, String>();
 						//maj
-						String textMaj = ProcessManager.getUpdate(true);
+						String textMaj = ProcessManager.UPDATE;
 						if (textMaj != "ProcessManager is update !") {
 							PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
 							Map<String, String> mapMaj = new HashMap<String, String>();
@@ -115,7 +115,7 @@ public class info implements ClassPage {
 						PageResoucre baliseProcessBox = new PageResoucre(pageResoucre.getContent("processbox"), "barg", false);
 						PageResoucre baliseProcessMenu = new PageResoucre(pageResoucre.getContent("processmenu"), "barg", false);
 						//general
-						remplaceValue.put("version", decodingUTF8(ProcessManager.version));
+						remplaceValue.put("version", decodingUTF8(ProcessManager.VERSION));
 						remplaceValue.put("token", token.toString());
 						remplaceValue.put("username", token.getUser());
 						remplaceValue.put("search", data.get("search"));
@@ -135,7 +135,7 @@ public class info implements ClassPage {
 						//list process
 						String textProcessBox = "";
 						String textProcessMenu = "";
-						ManagerProcess processManager = ProcessManager.processManagerServer.getProcessManager();
+						ManagerProcess processManager = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 						remplaceValue.put("processnumber", ""+processManager.getListProcess().size());
 						//filtre
 						@SuppressWarnings("unchecked")

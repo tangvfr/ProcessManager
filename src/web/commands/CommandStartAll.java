@@ -8,20 +8,20 @@ import fr.tangv.processmanager.util.ProcessPlus;
 public class CommandStartAll {
 
 	public CommandStartAll() throws Exception {
-		ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
-		if (!ProcessManager.processManagerServer.isStopNoForce()) {
+		ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
+		if (!ProcessManager.PROCESS_MANAGER_SERVER.isStopNoForce()) {
 			for (ProcessPlus process : pm.getListProcess()) {
 				try {
 					process.reload();			
 				} catch (Exception e) {
-					ProcessManagerServer.logger.warning(e.getMessage());
+					ProcessManagerServer.LOGGER.warning(e.getMessage());
 				}
 			}
 			for (ProcessPlus process : pm.getListProcess()) {
 				try {
 					process.getProcess().start();
 				} catch (Exception e) {
-					ProcessManagerServer.logger.warning(e.getMessage());
+					ProcessManagerServer.LOGGER.warning(e.getMessage());
 				}
 			}
 		} else {

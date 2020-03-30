@@ -22,7 +22,7 @@ public class SendHTTP {
 		OutputStream out = socket.getOutputStream();
 		String head = "HTTP/1.1 "+codeHTTP+"\r\n"+
 				"Date: "+new Date()+"\r\n"+
-				"Server: ProcessManager_"+ProcessManager.version+"\r\n"+
+				"Server: ProcessManager_"+ProcessManager.VERSION+"\r\n"+
 				"Content-Length: "+data.length+"\r\n"+
 				"Content-Type: "+type+"\r\n";
 		if (header != null)

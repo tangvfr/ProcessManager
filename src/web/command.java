@@ -111,19 +111,19 @@ public class command implements ClassPage {
 									break;
 									
 								case "stopforcenoscript":
-									ProcessManager.processManagerServer.stop();
+									ProcessManager.PROCESS_MANAGER_SERVER.stop();
 									break;
 										
 								case "stopforcewithscript":
-									ProcessManager.processManagerServer.stopScript();
+									ProcessManager.PROCESS_MANAGER_SERVER.stopScript();
 									break;
 									
 								case "stopnoforcenoscript":
-									ProcessManager.processManagerServer.stopNoForce(false);
+									ProcessManager.PROCESS_MANAGER_SERVER.stopNoForce(false);
 									break;
 									
 								case "stopnoforcewithscript":
-									ProcessManager.processManagerServer.stopNoForce(true);
+									ProcessManager.PROCESS_MANAGER_SERVER.stopNoForce(true);
 									break;
 									
 								case "removeall":

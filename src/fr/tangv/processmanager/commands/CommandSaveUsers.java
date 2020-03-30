@@ -20,7 +20,7 @@ public class CommandSaveUsers implements Command {
 			sender.send("Server save users !");
 			return true;
 		} catch (IOException e) {
-			ProcessManagerServer.logger.warning(e.getMessage());
+			ProcessManagerServer.LOGGER.warning(e.getMessage());
 			return false;
 		}
 	}

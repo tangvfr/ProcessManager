@@ -27,7 +27,7 @@ import fr.tangv.processmanager.util.ProcessPlus;
 
 public class ProcessManagerServer {
 	
-	public static volatile Logger logger;
+	public static volatile Logger LOGGER;
 	
 	private static String getLogTime() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
@@ -87,7 +87,7 @@ public class ProcessManagerServer {
 				if (!userAndMdp.containsKey(user))
 					userAndMdp.put(user, mdp);
 				else
-					ProcessManagerServer.logger.warning("Error the user \""+user+"\" already exist !");
+					ProcessManagerServer.LOGGER.warning("Error the user \""+user+"\" already exist !");
 				if (sc.hasNextLine()) sc.nextLine();
 			}
 		}
@@ -100,7 +100,7 @@ public class ProcessManagerServer {
 		try {
 			System.setProperty("java.util.logging.ConsoleHandler.formatter", "java.util.logging.SimpleFormatter");
 			System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %5$s %n");
-			logger = Logger.getGlobal();
+			LOGGER = Logger.getGlobal();
 			File logs = new File("./logs");
 			if (!logs.exists()) logs.mkdirs();
 			String nameFile = "";
@@ -111,20 +111,20 @@ public class ProcessManagerServer {
 			} while(new File(nameFile).exists());
 			FileHandler fileHandler = new FileHandler(nameFile);
 			fileHandler.setFormatter(new SimpleFormatter());
-			logger.addHandler(fileHandler);
+			LOGGER.addHandler(fileHandler);
 			System.setErr(System.out);
 		} catch (SecurityException | IOException e1) {
-			ProcessManagerServer.logger.warning(e1.getMessage());
+			ProcessManagerServer.LOGGER.warning(e1.getMessage());
 		}
 		//---------------------------------------
-		ProcessManagerServer.logger.info("\r\n" +
+		ProcessManagerServer.LOGGER.info("\r\n" +
 				"    ____                                 __  ___                                 \r\n" + 
 				"   / __ \\_________  ________  __________/  |/  /___ _____  ____ _____ ____  _____\r\n" + 
 				"  / /_/ / ___/ __ \\/ ___/ _ \\/ ___/ ___/ /|_/ / __ `/ __ \\/ __ `/ __ `/ _ \\/ ___/\r\n" + 
 				" / ____/ /  / /_/ / /__/  __(__  |__  ) /  / / /_/ / / / / /_/ / /_/ /  __/ /    \r\n" + 
 				"/_/   /_/   \\____/\\___/\\___/____/____/_/  /_/\\__,_/_/ /_/\\__,_/\\__, /\\___/_/     \r\n" + 
 				"                                                              /____/             \r\n" + 
-				"Version: "+ProcessManager.version+"\r\n"+ProcessManager.getUpdate(false)+"\r\n");
+				"Version: "+ProcessManager.VERSION+"\r\n"+ProcessManager.UPDATE+"\r\n");
 		//----------------------------------------
 		this.userAndMdp = new HashMap<String, String>();
 		this.userAndMdp.put("admin", "password");
@@ -132,7 +132,7 @@ public class ProcessManagerServer {
 		try {
 			ProcessManager.loadData();
 			loadUsers();
-			ProcessManagerServer.logger.info("Load Users, Number Users: "+userAndMdp.size());
+			ProcessManagerServer.LOGGER.info("Load Users, Number Users: "+userAndMdp.size());
 			processManager = new ManagerProcess();
 			//----------------------------------------------
 			this.cmdManager = new CommandManager(System.in);
@@ -147,37 +147,38 @@ public class ProcessManagerServer {
 			cmdManager.registreCommand("checkupdate", new CommandCheckUpdate());
 			cmdManager.start();
 			//----------------------------------------------
-			ProcessManager.timeStart = System.currentTimeMillis();
-			ProcessManager.dateRestart = ProcessManager.dateRestart(-ProcessManager.timeStopNoForce).getTime();
+			ProcessManager.TIME_START = System.currentTimeMillis();
+			ProcessManager.DATE_RESTART = ProcessManager.dateRestart(-ProcessManager.TIME_STOP_NO_FORCE).getTime();
 			Thread thread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					while (true) {
+						processManager.updateAllProcess();
 						long time = System.currentTimeMillis();
-						ProcessManager.timeIsStart = time-ProcessManager.timeStart;
-						if (ProcessManager.timeStopNoForce != 0) {
-							if (ProcessManager.timeStopNoForce > 0) {
-								ProcessManager.timeRestart = ProcessManager.timeStopNoForce-ProcessManager.timeIsStart;
-								if (ProcessManager.timeRestart <= 0) {
-									ProcessManager.timeRestart = 0;
+						ProcessManager.TIME_IS_START = time-ProcessManager.TIME_START;
+						if (ProcessManager.TIME_STOP_NO_FORCE != 0) {
+							if (ProcessManager.TIME_STOP_NO_FORCE > 0) {
+								ProcessManager.TIME_RESTART = ProcessManager.TIME_STOP_NO_FORCE-ProcessManager.TIME_IS_START;
+								if (ProcessManager.TIME_RESTART <= 0) {
+									ProcessManager.TIME_RESTART = 0;
 									stopNoForce(true);
 									break;
 								}
 							} else {
-								ProcessManager.timeRestart = ProcessManager.dateRestart-time;
-								if (ProcessManager.timeRestart <= 0) { 
-									ProcessManager.timeRestart = 0;
+								ProcessManager.TIME_RESTART = ProcessManager.DATE_RESTART-time;
+								if (ProcessManager.TIME_RESTART <= 0) { 
+									ProcessManager.TIME_RESTART = 0;
 									stopNoForce(true);
 									break;
 								}
 							}
 						} else {
-							ProcessManager.timeRestart = 0;
+							ProcessManager.TIME_RESTART = 0;
 						}
 						try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e) {
-							ProcessManagerServer.logger.warning(e.getMessage());
+							ProcessManagerServer.LOGGER.warning(e.getMessage());
 						}
 					}
 				}
@@ -185,7 +186,7 @@ public class ProcessManagerServer {
 			thread.start();
 			//----------------------------------------------
 		} catch (IOException e) {
-			ProcessManagerServer.logger.warning(e.getMessage());
+			ProcessManagerServer.LOGGER.warning(e.getMessage());
 		}
 	}
 	
@@ -204,7 +205,7 @@ public class ProcessManagerServer {
 				try {
 					process.send(process.getCmdStop());
 				} catch (IOException e) {
-					ProcessManagerServer.logger.warning(e.getMessage());
+					ProcessManagerServer.LOGGER.warning(e.getMessage());
 				}
 			} else {
 				process.getProcess().stop();
@@ -214,7 +215,7 @@ public class ProcessManagerServer {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				ProcessManagerServer.logger.warning(e.getMessage());
+				ProcessManagerServer.LOGGER.warning(e.getMessage());
 			}
 			if (allProcessIsOff())
 				break;
@@ -229,7 +230,7 @@ public class ProcessManagerServer {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
-				String cmd = ProcessManager.cmdEnd;
+				String cmd = ProcessManager.CMD_END;
 				if (cmd != null && !cmd.isEmpty() && !cmd.equals(" ")) {
 					try {
 			            String os = System.getProperty("os.name").toLowerCase();
