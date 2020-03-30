@@ -8,13 +8,13 @@ import fr.tangv.processmanager.util.ProcessPlus;
 public class CommandStopWCAll {
 
 	public CommandStopWCAll() {
-		ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+		ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 		for (ProcessPlus process : pm.getListProcess()) {
 			if (!process.getCmdStop().isEmpty()) {
 				try {
 					process.getProcess().send(process.getCmdStop());
 				} catch (Exception e) {
-					ProcessManagerServer.logger.warning(e.getMessage());
+					ProcessManagerServer.LOGGER.warning(e.getMessage());
 				}
 			} else {
 				process.getProcess().stop();

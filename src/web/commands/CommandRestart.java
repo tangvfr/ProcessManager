@@ -8,9 +8,9 @@ public class CommandRestart {
 
 	public CommandRestart(String name) throws Exception {
 		if (!name.isEmpty()) {
-			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
-				if (!ProcessManager.processManagerServer.isStopNoForce()) {
+				if (!ProcessManager.PROCESS_MANAGER_SERVER.isStopNoForce()) {
 					ProcessPlus process = pm.getProcess(name);
 					process.getProcess().stop();
 					process.reload();

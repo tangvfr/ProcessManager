@@ -8,7 +8,7 @@ public class CommandAdd {
 	public CommandAdd(String name, String cmd, String folder, String launch, String cmdStop) throws Exception {
 		if (!name.isEmpty()) {
 			ProcessPlus process = new ProcessPlus(name, cmd, folder, "UTF8", Boolean.parseBoolean(launch), cmdStop);
-			ProcessManager.processManagerServer.getProcessManager().addProcess(process);
+			ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager().addProcess(process);
 		} else {
 			throw new Exception("CommandAdd: name is empty");
 		}

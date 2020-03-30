@@ -8,12 +8,12 @@ import fr.tangv.processmanager.util.ProcessPlus;
 public class CommandRemoveAll {
 
 	public CommandRemoveAll() {
-		ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+		ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 		for (ProcessPlus process : pm.getListProcess()) {
 			try {
 				pm.removeProcess(process.getName());
 			} catch (Exception e) {
-				ProcessManagerServer.logger.warning(e.getMessage());
+				ProcessManagerServer.LOGGER.warning(e.getMessage());
 			}
 		}
 	}

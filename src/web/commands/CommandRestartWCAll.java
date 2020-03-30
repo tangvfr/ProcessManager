@@ -8,17 +8,17 @@ import fr.tangv.processmanager.util.ProcessPlus;
 public class CommandRestartWCAll {
 
 	public CommandRestartWCAll() throws Exception {
-		if (!ProcessManager.processManagerServer.isStopNoForce()) {
+		if (!ProcessManager.PROCESS_MANAGER_SERVER.isStopNoForce()) {
 				Thread thread = new Thread(new Runnable() {
 					@Override
 					public void run() {
-							ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+							ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 							for (ProcessPlus process : pm.getListProcess()) {
 								if (!process.getCmdStop().isEmpty()) {
 									try {
 										process.getProcess().send(process.getCmdStop());
 									} catch (Exception e) {
-										ProcessManagerServer.logger.warning(e.getMessage());
+										ProcessManagerServer.LOGGER.warning(e.getMessage());
 									}
 								} else {
 									process.getProcess().stop();
@@ -30,7 +30,7 @@ public class CommandRestartWCAll {
 								try {
 									Thread.sleep(100);
 								} catch (Exception e) {
-									ProcessManagerServer.logger.warning(e.getMessage());
+									ProcessManagerServer.LOGGER.warning(e.getMessage());
 								}
 								for (ProcessPlus process : pm.getListProcess()) {
 									if (process.getProcess().isStart()) {
@@ -43,14 +43,14 @@ public class CommandRestartWCAll {
 								try {
 									process.reload();	
 								} catch (Exception e) {
-									ProcessManagerServer.logger.warning(e.getMessage());
+									ProcessManagerServer.LOGGER.warning(e.getMessage());
 								}
 							}
 							for (ProcessPlus process : pm.getListProcess()) {
 								try {
 									process.getProcess().start();
 								} catch (Exception e) {
-									ProcessManagerServer.logger.warning(e.getMessage());
+									ProcessManagerServer.LOGGER.warning(e.getMessage());
 								}
 							}
 					}

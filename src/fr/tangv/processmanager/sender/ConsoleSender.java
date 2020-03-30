@@ -6,7 +6,7 @@ public class ConsoleSender implements Sender {
 
 	@Override
 	public void send(String string) {
-		ProcessManagerServer.logger.info(string);
+		ProcessManagerServer.LOGGER.info(string);
 	}
 
 	@Override

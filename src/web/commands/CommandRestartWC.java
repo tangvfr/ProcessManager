@@ -9,9 +9,9 @@ public class CommandRestartWC {
 
 	public CommandRestartWC(String name) throws Exception {
 		if (!name.isEmpty()) {
-			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
-				if (!ProcessManager.processManagerServer.isStopNoForce()) {
+				if (!ProcessManager.PROCESS_MANAGER_SERVER.isStopNoForce()) {
 					ProcessPlus process = pm.getProcess(name);
 					Thread thread = new Thread(new Runnable() {
 						@Override
@@ -27,7 +27,7 @@ public class CommandRestartWC {
 								process.reload();
 								process.getProcess().start();
 							} catch (Exception e) {
-								ProcessManagerServer.logger.warning(e.getMessage());
+								ProcessManagerServer.LOGGER.warning(e.getMessage());
 							}
 						}
 					});

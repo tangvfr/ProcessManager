@@ -8,13 +8,13 @@ import fr.tangv.processmanager.util.ProcessPlus;
 public class CommandLaunchAll {
 
 	public CommandLaunchAll(String launch) throws Exception {
-		ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+		ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 		for (ProcessPlus process : pm.getListProcess()) {
 			try {
 				process.setActiveOnStart(Boolean.parseBoolean(launch));
 				pm.saveProcces(process.getName());
 			} catch (Exception e) {
-				ProcessManagerServer.logger.warning(e.getMessage());
+				ProcessManagerServer.LOGGER.warning(e.getMessage());
 			}
 		}
 	}

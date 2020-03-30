@@ -20,35 +20,35 @@ import fr.tangv.web.util.PageType;
 
 public class auth implements ClassPage {
 
-	private static volatile Vector<Token> tokens;
-	private static volatile ConcurrentHashMap<String, Client> clients;
+	private static volatile Vector<Token> TOKENS;
+	private static volatile ConcurrentHashMap<String, Client> CLIENTS;
 	
 	static {
-		tokens = new Vector<Token>();
-		clients = new ConcurrentHashMap<String, Client>();
+		TOKENS = new Vector<Token>();
+		CLIENTS = new ConcurrentHashMap<String, Client>();
 	}
 	
 	@NotNull
 	public Client getClient(String ip) {
-		if (clients.containsKey(ip)) {
-			return clients.get(ip);
+		if (CLIENTS.containsKey(ip)) {
+			return CLIENTS.get(ip);
 		} else {
 			Client client = new Client(ip);
-			clients.put(ip, client);
+			CLIENTS.put(ip, client);
 			return client;
 		}
 	}
 	
 	public static void removeToken(Token token) {
-		tokens.remove(token);
+		TOKENS.remove(token);
 	}
 	
 	private static void clear() {
 		long timeCo = 5*60*1000;
 		long dateMax = System.currentTimeMillis()-timeCo;
-		for (int i = 0; i < tokens.size(); i++) {//---a optimisé
-			if (tokens.get(i).getDate() < dateMax) {
-				tokens.remove(tokens.get(i));
+		for (int i = 0; i < TOKENS.size(); i++) {//---a optimisé
+			if (TOKENS.get(i).getDate() < dateMax) {
+				TOKENS.remove(TOKENS.get(i));
 				i--;
 			}
 		}
@@ -57,7 +57,7 @@ public class auth implements ClassPage {
 	@Nullable
 	public static Token tokenValid(String token) {
 		clear();
-		for (Token tok : tokens) {
+		for (Token tok : TOKENS) {
 			if (tok.getUUID().toString().equals(token)) {
 				tok.updateDate();
 				return tok;
@@ -69,7 +69,7 @@ public class auth implements ClassPage {
 	public static Token newToken(String user) {
 		clear();
 		Token token = new Token(user);
-		tokens.add(token);
+		TOKENS.add(token);
 		return token;
 	}
 	
@@ -84,7 +84,7 @@ public class auth implements ClassPage {
 			if (data != null && data.containsKey("user") && data.containsKey("pass")) {
 				String user = data.get("user");
 				String pass = data.get("pass");
-				Map<String, String> auth = ProcessManager.processManagerServer.getUserAndMdp();
+				Map<String, String> auth = ProcessManager.PROCESS_MANAGER_SERVER.getUserAndMdp();
 				Client client = getClient(receiveHTTP.getIp());
 				if (client.itCan()) {
 					if (auth.containsKey(user) && auth.get(user).equals(pass)) {

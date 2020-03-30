@@ -7,7 +7,7 @@ public class CommandCheckUpdate implements Command {
 
 	@Override
 	public boolean command(Sender sender, String cmd, String arg) {
-		sender.send(ProcessManager.getUpdate(false));
+		sender.send(ProcessManager.UPDATE);
 		return true;
 	}
 

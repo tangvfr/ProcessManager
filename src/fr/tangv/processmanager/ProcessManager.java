@@ -15,17 +15,18 @@ import fr.tangv.web.main.Web;
 
 public class ProcessManager {
 
-	public static final String version = "1.6.3";
-	public static volatile String cmdEnd = "";
-	public static volatile long timeStopNoForce = 0L;
-	public static volatile long timeStart;
-	public static volatile long timeIsStart;
-	public static volatile long timeRestart;
-	public static final long valueh24H = (24*3600000);
-	public static volatile long dateRestart;
-	public static ProcessManagerServer processManagerServer;
+	public static final String VERSION = "1.6.4";
+	public static volatile String CMD_END = "";
+	public static volatile long TIME_STOP_NO_FORCE = 0L;
+	public static volatile long TIME_START;
+	public static volatile long TIME_IS_START;
+	public static volatile long TIME_RESTART;
+	public static final long VALUE_24H = (24*3600000);
+	public static volatile long DATE_RESTART;
+	public static ProcessManagerServer PROCESS_MANAGER_SERVER;
+	public static String UPDATE;
 	
-	public static String getUpdate(boolean web) {
+	private static String getUpdate() {
 		try {
 			URLConnection urlCo = new URL("https://api.github.com/repos/tangvfr/ProcessManager/tags").openConnection();
 			InputStream in = urlCo.getInputStream();
@@ -36,9 +37,9 @@ public class ProcessManager {
 				String pageJson = new String(buf, "UTF8");
 				int debutVersion = pageJson.indexOf("\"name\": \"")+11;
 				String lastVersion = pageJson.substring(debutVersion, pageJson.indexOf("\","));
-				int resultComp = version.compareToIgnoreCase(lastVersion);
+				int resultComp = VERSION.compareToIgnoreCase(lastVersion);
 				if (resultComp == -1) {
-					return "ProcessManager is not update, the last version is "+lastVersion+(web ? " ! <a href=\"https://github.com/tangvfr/ProcessManager/releases\">Download</a>" : " ! Download: https://github.com/tangvfr/ProcessManager/releases");
+					return "ProcessManager is not update, the last version is "+lastVersion+" ! <a href=\"https://github.com/tangvfr/ProcessManager/releases\">Download</a>";
 				} else if (resultComp == 1) {
 					return "ProcessManager is in improve !";
 				} else {
@@ -48,7 +49,7 @@ public class ProcessManager {
 				return "Error read version";
 			}
 		} catch (IOException e) {
-			return "Error internet";
+			return "Error internet or with the link";
 		}
 	}
 	
@@ -71,8 +72,8 @@ public class ProcessManager {
 	}
 	
 	public static String formatTime(long time) {
-		int days = (int) (time/valueh24H);
-		int dayI = (int) ((time%valueh24H)/1000);
+		int days = (int) (time/VALUE_24H);
+		int dayI = (int) ((time%VALUE_24H)/1000);
 		int heures = dayI/3600;
 		int minutesI = dayI%3600;
 		int minutes = minutesI/60;
@@ -85,8 +86,8 @@ public class ProcessManager {
 		if (!file.exists())
 			file.createNewFile();
 		DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
-		out.writeUTF(cmdEnd);
-		out.writeLong(timeStopNoForce);
+		out.writeUTF(CMD_END);
+		out.writeLong(TIME_STOP_NO_FORCE);
 		out.close();
 	}
 	
@@ -95,21 +96,22 @@ public class ProcessManager {
 		if (!file.exists())
 			saveData();
 		DataInputStream in = new DataInputStream(new FileInputStream(file));
-		cmdEnd = in.readUTF();
-		timeStopNoForce = in.readLong();
+		CMD_END = in.readUTF();
+		TIME_STOP_NO_FORCE = in.readLong();
 		in.close();
 	}
 	
 	public static void main(String[] args) {
 		if (args.length >= 1 && args[0].equalsIgnoreCase("-server")) {
-			processManagerServer = new ProcessManagerServer();
+			UPDATE = getUpdate();
+			PROCESS_MANAGER_SERVER = new ProcessManagerServer();
 			if (args.length >= 2 && args[1].equalsIgnoreCase("-web")) {
 				try {
 					int port = args.length >= 3 ? Integer.parseInt(args[2]) : 80;
-					new Web(port, "web", ProcessManagerServer.logger);
-					ProcessManagerServer.logger.info("Open WebServer with port \""+port+"\" !");
+					new Web(port, "web", ProcessManagerServer.LOGGER);
+					ProcessManagerServer.LOGGER.info("Open WebServer with port \""+port+"\" !");
 				} catch (Exception e) {
-					ProcessManagerServer.logger.warning("Error WebServer port is invalid !");
+					ProcessManagerServer.LOGGER.warning("Error WebServer port is invalid !");
 				}
 			}
 		}

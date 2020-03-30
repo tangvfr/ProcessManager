@@ -9,7 +9,7 @@ public class CommandReadConsole {
 	
 	public CommandReadConsole(String name, int lines) throws Exception {
 		if (!name.isEmpty()) {
-			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
 				console = pm.getProcess(name).readInput(lines);
 			} else {

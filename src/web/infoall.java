@@ -36,7 +36,7 @@ public class infoall implements ClassPage {
 					if (token != null) {
 						Map<String, String> remplaceValue = new HashMap<String, String>();
 						//maj
-						String textMaj = ProcessManager.getUpdate(true);
+						String textMaj = ProcessManager.UPDATE;
 						if (textMaj != "ProcessManager is update !") {
 							PageResoucre baliseMaj = new PageResoucre(pageResoucre.getContent("update"), "barg", false);
 							Map<String, String> mapMaj = new HashMap<String, String>();
@@ -44,22 +44,22 @@ public class infoall implements ClassPage {
 							remplaceValue.put("update", baliseMaj.remplaceText(mapMaj));
 						}
 						//process
-						remplaceValue.put("version", decodingUTF8(ProcessManager.version));
+						remplaceValue.put("version", decodingUTF8(ProcessManager.VERSION));
 						remplaceValue.put("token", token.toString());
 						remplaceValue.put("username", token.getUser());
 						remplaceValue.put("link", data.get("link"));
 						//data
-						remplaceValue.put("cmdend", ProcessManager.cmdEnd);
-						remplaceValue.put("timestopnoforce", ProcessManager.timeStopNoForce+"");
-			            remplaceValue.put("timestart", ProcessManager.timeStart+"");
-			            remplaceValue.put("timeisstart", ProcessManager.timeIsStart+"");
-			            remplaceValue.put("timerestart", ProcessManager.timeRestart+"");
-			            remplaceValue.put("isstop", ProcessManager.processManagerServer.isStopNoForce()+"");
+						remplaceValue.put("cmdend", ProcessManager.CMD_END);
+						remplaceValue.put("timestopnoforce", ProcessManager.TIME_STOP_NO_FORCE+"");
+			            remplaceValue.put("timestart", ProcessManager.TIME_START+"");
+			            remplaceValue.put("timeisstart", ProcessManager.TIME_IS_START+"");
+			            remplaceValue.put("timerestart", ProcessManager.TIME_RESTART+"");
+			            remplaceValue.put("isstop", ProcessManager.PROCESS_MANAGER_SERVER.isStopNoForce()+"");
 			            //process number
-			            int processnumber = ProcessManager.processManagerServer.getProcessManager().getListProcess().size();
+			            int processnumber = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager().getListProcess().size();
 			            int processnumberon = 0;
 			            int processnumberdem = 0;
-			            for (ProcessPlus process : ProcessManager.processManagerServer.getProcessManager().getListProcess()) {
+			            for (ProcessPlus process : ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager().getListProcess()) {
 			            	if (process.getProcess().isStart())
 			            		processnumberon++;
 			            	if (process.isActiveOnStart())

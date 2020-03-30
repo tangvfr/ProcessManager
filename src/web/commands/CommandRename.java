@@ -7,7 +7,7 @@ public class CommandRename {
 
 	public CommandRename(String name, String newname) throws Exception {
 		if (!name.isEmpty() && !newname.isEmpty()) {
-			ManagerProcess pm = ProcessManager.processManagerServer.getProcessManager();
+			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (!pm.hasProcess(newname)) {
 				pm.renameProcess(name, newname);
 			} else {

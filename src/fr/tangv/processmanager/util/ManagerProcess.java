@@ -95,7 +95,7 @@ public class ManagerProcess {
 					out.close();
 					return true;
 				} catch(Exception e) {
-					ProcessManagerServer.logger.warning(e.getMessage());
+					ProcessManagerServer.LOGGER.warning(e.getMessage());
 					return false;
 				}
 			}
@@ -166,7 +166,7 @@ public class ManagerProcess {
 				try {
 					process.getProcess().start();
 				} catch (Exception e) {
-					ProcessManagerServer.logger.warning(e.getLocalizedMessage());
+					ProcessManagerServer.LOGGER.warning(e.getLocalizedMessage());
 				}
 			}
 		}
