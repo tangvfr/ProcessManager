@@ -46,7 +46,7 @@ public class HandleSocket {
 						web.getLogger().info(receiveHTTP.getIp()+" > "+receiveHTTP.getMethodeRequet()+" > "+receiveHTTP.getPathRequet());
 					else
 						System.out.println(receiveHTTP.getIp()+" > "+receiveHTTP.getMethodeRequet()+" > "+receiveHTTP.getPathRequet());
-					if (receiveHTTP.getMethodeRequet() != null) {
+					if (receiveHTTP.getMethodeRequet() != null && receiveHTTP.isValid()) {
 						String pathStick = receiveHTTP.getPathRequet().getPath();
 						String extension = receiveHTTP.getPathRequet().getExtension();
 						if (pathStick.isEmpty() || pathStick.equals("/")) {

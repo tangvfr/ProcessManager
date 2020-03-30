@@ -21,6 +21,7 @@ public class ReceiveHTTP {
 	private byte[] data;
 	private boolean hasData;
 	private String ip;
+	private boolean valid;
 	
 	public ReceiveHTTP(Socket socket) throws IOException {
 		ip = socket.getInetAddress().getHostAddress();
@@ -46,13 +47,18 @@ public class ReceiveHTTP {
 				headRequet.put(text[0], "");
 			}
 		}
-		int lengthData = 0;
+		long lengthData = 0;
 		String keyParam = "Content-Length";
 		if (headRequet.containsKey(keyParam)) {
-			lengthData = Integer.parseInt(headRequet.get(keyParam));
+			lengthData = Long.parseLong(headRequet.get(keyParam));
 		}
-		data = new ByteArray(read, lengthData).bytes();
-		hasData = data.length > 0;
+		if (lengthData <= 1048576L) { //limite entry to 1mio
+			valid = true;
+			data = new ByteArray(read, (int) lengthData).bytes();
+			hasData = data.length > 0;
+		} else {
+			valid = false;
+		}
 	}
 	
 	public String getMethodeRequet() {
@@ -89,6 +95,10 @@ public class ReceiveHTTP {
 	
 	public String getIp() {
 		return ip;
+	}
+	
+	public boolean isValid() {
+		return valid;
 	}
 	
 }
