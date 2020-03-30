@@ -53,7 +53,7 @@ public class Process {
 	
 	public void stop() {
 		if (isStart()) {
-			process.destroy();
+			process.destroyForcibly();
 		}
 	}
 	
@@ -69,6 +69,10 @@ public class Process {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean hasNewInput() throws IOException {
+		return process != null && process.getInputStream().available() > 0;
 	}
 	
 	public String getInput() throws IOException {
@@ -90,6 +94,10 @@ public class Process {
 		} else {
 			return "";
 		}
+	}
+	
+	public boolean hasNewError() throws IOException {
+		return process != null && process.getErrorStream().available() > 0;
 	}
 	
 	public String getError() throws IOException {

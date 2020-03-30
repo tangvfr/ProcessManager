@@ -91,36 +91,34 @@ public class ProcessPlus {
 			process.send(msg);
 	}
 	
-	public String readInput(int maxLine) throws IOException {
-		String input = process.getInput();
+	private String limitLines(String input, int maxLines) {
 		if (!input.isEmpty())
 			this.consoleInput += input+"\r\n";
 		//-----------------------------------------------
 		String[] consoleLine = consoleInput.split("\n");
-		if (consoleLine.length > maxLine) {
+		if (consoleLine.length > maxLines) {
 			String newConsole = "";
-			for (int i = consoleLine.length-maxLine; i < consoleLine.length; i++) {
+			for (int i = consoleLine.length-maxLines; i < consoleLine.length; i++) {
 				newConsole += consoleLine[i]+"\n";
 			}
 			this.consoleInput = newConsole;
 		}
+		return input;
+	}
+	
+	public String getConsole() throws IOException {
 		return this.consoleInput;
 	}
 	
-	public String readError(int maxLine) throws IOException {
-		String error = process.getError();
-		if (!error.isEmpty())
-			this.consoleError += error+"\r\n";
-		//-----------------------------------------------
-		String[] consoleLine = consoleError.split("\n");
-		if (consoleLine.length > maxLine) {
-			String newConsole = "";
-			for (int i = consoleLine.length-maxLine; i < consoleLine.length; i++) {
-				newConsole += consoleLine[i]+"\n";
-			}
-			this.consoleError = newConsole;
-		}
+	public String getError() throws IOException {
 		return this.consoleError;
+	}
+	
+	public void update() throws IOException {
+		if (process.hasNewInput())
+			this.consoleInput = limitLines(process.getInput(), 50);
+		if (process.hasNewError())
+			this.consoleError = limitLines(process.getError(), 50);
 	}
 	
 }

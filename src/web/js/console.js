@@ -11,7 +11,6 @@ function sendCommand() {
 
 var timeConsole;
 function readConsole() {
-    let lines = "&lines="+document.getElementById("lines").innerText;
     let xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/command.tweb");
     xhttp.onreadystatechange = function() {
@@ -22,12 +21,11 @@ function readConsole() {
         timeConsole = setTimeout(readConsole, 1000);
     };
     let cmd = "&namecmd=readconsole";
-    xhttp.send(args+lines+cmd);
+    xhttp.send(args+cmd);
 }
 
 var timeError;
 function readError() {
-    let lines = "&lines="+document.getElementById("lines").innerText;
     let xhttp1 = new XMLHttpRequest();
     xhttp1.open("POST", "/command.tweb");
     xhttp1.onreadystatechange = function() {
@@ -38,5 +36,5 @@ function readError() {
         timeError = setTimeout(readError, 1000);
     };
     let cmd = "&namecmd=readerror";
-    xhttp1.send(args+lines+cmd);
+    xhttp1.send(args+cmd);
 }

@@ -153,6 +153,7 @@ public class ProcessManagerServer {
 				@Override
 				public void run() {
 					while (true) {
+						processManager.updateAllProcess();
 						long time = System.currentTimeMillis();
 						ProcessManager.TIME_IS_START = time-ProcessManager.TIME_START;
 						if (ProcessManager.TIME_STOP_NO_FORCE != 0) {

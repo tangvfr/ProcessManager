@@ -166,8 +166,18 @@ public class ManagerProcess {
 				try {
 					process.getProcess().start();
 				} catch (Exception e) {
-					ProcessManagerServer.LOGGER.warning(e.getLocalizedMessage());
+					ProcessManagerServer.LOGGER.warning(e.getMessage());
 				}
+			}
+		}
+	}
+	
+	public void updateAllProcess() {
+		for (ProcessPlus process : listProcess) {
+			try {
+				process.update();
+			} catch (Exception e) {
+				ProcessManagerServer.LOGGER.warning(e.getMessage());
 			}
 		}
 	}

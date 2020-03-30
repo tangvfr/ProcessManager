@@ -11,7 +11,7 @@ public class CommandReadError {
 		if (!name.isEmpty()) {
 			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
-				this.error = pm.getProcess(name).readError(lines);
+				this.error = pm.getProcess(name).getError();
 			} else {
 				throw new Exception("CommandRemove: process "+name+" not exist");
 			}

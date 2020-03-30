@@ -11,7 +11,7 @@ public class CommandReadConsole {
 		if (!name.isEmpty()) {
 			ManagerProcess pm = ProcessManager.PROCESS_MANAGER_SERVER.getProcessManager();
 			if (pm.hasProcess(name)) {
-				console = pm.getProcess(name).readInput(lines);
+				console = pm.getProcess(name).getConsole();
 			} else {
 				throw new Exception("CommandRemove: process "+name+" not exist");
 			}
